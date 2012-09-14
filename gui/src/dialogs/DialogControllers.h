@@ -61,7 +61,7 @@ namespace mars {
       void hide(void) {pDialog->hide();}
       bool isHidden(void) {return pDialog->isHidden();}
       void close(void) {pDialog->close();}
-
+  
     private:
       virtual void topLevelItemChanged(QtProperty* current);
       virtual void valueChanged(QtProperty *property, const QVariant &value);
@@ -74,7 +74,7 @@ namespace mars {
       std::vector<ControllerHandler*> newDialogs;
       std::vector<QtProperty*> allControllers_p;
       std::vector<QtProperty*> newControllers_p;
-      std::vector<interfaces::core_objects_exchange> allControllers;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > allControllers;
       interfaces::ControlCenter* control;
       main_gui::GuiInterface *mainGui;
 

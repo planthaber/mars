@@ -66,7 +66,8 @@ namespace mars {
      * core_objects_exchange struct for every controller. The vector is cleared
      * in the beginning of this function.
      */
-    void ControllerManager::getListController(vector<core_objects_exchange> *controllerList) const {
+  
+    void ControllerManager::getListController(vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > *controllerList) const {
       core_objects_exchange obj;
       map<unsigned long, Controller*>::const_iterator iter;
       controllerList->clear();

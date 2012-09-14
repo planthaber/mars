@@ -121,61 +121,61 @@ set(QT_MOC_HEADER
 )
 
 set(QT_OWN_MOC
-    ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qtbuttonpropertybrowser.moc
-    ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qteditorfactory.moc
-    ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qtgroupboxpropertybrowser.moc
-    ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qtpropertybrowser.moc
-    ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qtpropertymanager.moc
-    ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qttreepropertybrowser.moc
-    ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qtvariantproperty.moc
-    ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qteditorfactory.moc1
-    ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qttreepropertybrowser.moc1
-    ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qtpropertymanager.moc1
+    ${CMAKE_CURRENT_BINARY_DIR}/qtbuttonpropertybrowser.moc
+    ${CMAKE_CURRENT_BINARY_DIR}/qteditorfactory.moc
+    ${CMAKE_CURRENT_BINARY_DIR}/qtgroupboxpropertybrowser.moc
+    ${CMAKE_CURRENT_BINARY_DIR}/qtpropertybrowser.moc
+    ${CMAKE_CURRENT_BINARY_DIR}/qtpropertymanager.moc
+    ${CMAKE_CURRENT_BINARY_DIR}/qttreepropertybrowser.moc
+    ${CMAKE_CURRENT_BINARY_DIR}/qtvariantproperty.moc
+    ${CMAKE_CURRENT_BINARY_DIR}/qteditorfactory.moc1
+    ${CMAKE_CURRENT_BINARY_DIR}/qttreepropertybrowser.moc1
+    ${CMAKE_CURRENT_BINARY_DIR}/qtpropertymanager.moc1
 )
 
 QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/include/main_gui/qtpropertybrowser/qtbuttonpropertybrowser.h
-     ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qtbuttonpropertybrowser.moc
+     ${CMAKE_CURRENT_BINARY_DIR}/qtbuttonpropertybrowser.moc
 )
 
 QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/include/main_gui/qtpropertybrowser/qteditorfactory.h
-     ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qteditorfactory.moc
+     ${CMAKE_CURRENT_BINARY_DIR}/qteditorfactory.moc
 )
 
 QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/include/main_gui/qtpropertybrowser/qtgroupboxpropertybrowser.h
-     ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qtgroupboxpropertybrowser.moc
+     ${CMAKE_CURRENT_BINARY_DIR}/qtgroupboxpropertybrowser.moc
 )
 
 QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/include/main_gui/qtpropertybrowser/qtpropertybrowser.h
-     ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qtpropertybrowser.moc
+     ${CMAKE_CURRENT_BINARY_DIR}/qtpropertybrowser.moc
 )
 
 QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/include/main_gui/qtpropertybrowser/qtpropertymanager.h
-     ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qtpropertymanager.moc
+     ${CMAKE_CURRENT_BINARY_DIR}/qtpropertymanager.moc
 )
 
 QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/include/main_gui/qtpropertybrowser/qttreepropertybrowser.h
-     ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qttreepropertybrowser.moc
+     ${CMAKE_CURRENT_BINARY_DIR}/qttreepropertybrowser.moc
 )
 
 QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/include/main_gui/qtpropertybrowser/qtvariantproperty.h
-     ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qtvariantproperty.moc
+     ${CMAKE_CURRENT_BINARY_DIR}/qtvariantproperty.moc
 )
 
 QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/src/qtpropertybrowser/qteditorfactory.cpp
-     ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qteditorfactory.moc1
+     ${CMAKE_CURRENT_BINARY_DIR}/qteditorfactory.moc1
 )
 
 QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/src/qtpropertybrowser/qttreepropertybrowser.cpp
-     ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qttreepropertybrowser.moc1
+     ${CMAKE_CURRENT_BINARY_DIR}/qttreepropertybrowser.moc1
 )
 
 QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/src/qtpropertybrowser/qtpropertymanager.cpp
-     ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qtpropertymanager.moc1
+     ${CMAKE_CURRENT_BINARY_DIR}/qtpropertymanager.moc1
 )
 
 qt4_wrap_cpp( QT_MOC_HEADER_SRC ${QT_MOC_HEADER} )
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser)
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/)
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${QT_MOC_HEADER_SRC} ${QT_OWN_MOC})
 

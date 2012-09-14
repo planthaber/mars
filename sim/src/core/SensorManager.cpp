@@ -123,7 +123,7 @@ namespace mars {
      * core_objects_exchange struct for every sensor. The vector is cleared
      * in the beginning of this function.
      */
-    void SensorManager::getListSensors(vector<core_objects_exchange> *sensorList) const {
+    void SensorManager::getListSensors(vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > *sensorList) const {
       core_objects_exchange obj;
       map<unsigned long, BaseSensor*>::const_iterator iter;
       sensorList->clear();

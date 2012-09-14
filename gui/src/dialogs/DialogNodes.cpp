@@ -199,7 +199,7 @@ namespace mars {
 
     void DialogNodes::on_add_node() {
       filled = false;
-      static int terrain_ind = 0;
+      //static int terrain_ind = 0;
       // bool terrain_node = false;
       for (unsigned int i = 0; i < newNodes_p.size(); i++)
         if (pDialog->currentItem() == newNodes_p[i]) {

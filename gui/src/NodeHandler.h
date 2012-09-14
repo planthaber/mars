@@ -60,6 +60,7 @@ namespace mars {
     class NodeHandler : public QObject {
       Q_OBJECT
       public:
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
       NodeHandler(QtVariantProperty* property, unsigned long ind,
                   main_gui::PropertyDialog *pd, interfaces::ControlCenter *c, 
@@ -136,8 +137,8 @@ namespace mars {
       // holds the type of the node
       int primitive_type;
 
-      interfaces::ControlCenter *control;
-      std::vector<interfaces::core_objects_exchange> allNodes;
+      mars::interfaces::ControlCenter *control;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > allNodes;
 
       // the structures representing the node
       interfaces::NodeData node;

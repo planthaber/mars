@@ -138,7 +138,7 @@ namespace mars {
      * core_objects_exchange struct for every motor and its index. The vector is cleared
      * in the beginning of this function.
      */
-    void MotorManager::getListMotors(vector<core_objects_exchange> *motorList)const{
+    void MotorManager::getListMotors(vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > *motorList)const{
       core_objects_exchange obj;
       map<unsigned long, SimMotor*>::const_iterator iter;
       motorList->clear();
@@ -255,6 +255,15 @@ namespace mars {
       if (iter != simMotors.end())
         iter->second->setValue(value);
     }
+
+sReal MotorManager::getMotorValue(unsigned long id) {
+  MutexLocker locker(&iMutex);
+  map<unsigned long, SimMotor*>::iterator iter = simMotors.find(id);
+  if (iter != simMotors.end())
+    return iter->second->getActualPosition();
+
+  return 0.0;
+}
 
 
     void MotorManager::setMotorValueDesiredVelocity(unsigned long id, sReal velocity) {

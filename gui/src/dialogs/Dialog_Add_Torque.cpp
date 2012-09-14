@@ -99,7 +99,7 @@ namespace mars {
      * returns the pointer to the nodeList vector, so that the
      * vector can be filled by the MyMainWidnow
      */
-    std::vector<interfaces::core_objects_exchange>* Dialog_Add_Torque::getNodeListPtr(void) {
+    std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> >* Dialog_Add_Torque::getNodeListPtr(void) {
       return &myNodes;
     }
 

@@ -9,5 +9,5 @@ Version: @PROJECT_VERSION@
 Libs: -L${libdir} -l@PROJECT_NAME@
 Requires: mars_utils
 
-Cflags: -I${includedir} @MARS_CORE_EIGEN_DEFINITIONS@
+Cflags: -I${includedir}
 

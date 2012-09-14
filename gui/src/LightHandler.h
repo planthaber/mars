@@ -55,7 +55,7 @@ namespace mars {
       unsigned int lightIndex();
 
     private:
-      int myLightIndex;
+      unsigned int myLightIndex;
       std::string propName;
       bool filled;
       interfaces::ControlCenter *control;

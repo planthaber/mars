@@ -69,11 +69,11 @@ namespace mars {
       virtual interfaces::NodeId addTerrain(interfaces::terrainStruct *terrainS);
       virtual std::vector<interfaces::NodeId> addNode(std::vector<interfaces::NodeData> v_NodeData);
       virtual interfaces::NodeId addPrimitive(interfaces::NodeData *snode);
+      virtual void getListNodes(std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > *nodeList) const;
       virtual int getNodeCount() const;
       virtual interfaces::NodeId getNextNodeID() const;
       virtual void editNode(interfaces::NodeData *nodeS, int changes);
       virtual void changeGroup(interfaces::NodeId id, int group);
-      virtual void getListNodes(std::vector<interfaces::core_objects_exchange> *nodeList) const;
       virtual void getNodeExchange(interfaces::NodeId id,
                                    interfaces::core_objects_exchange *obj) const;
       virtual const interfaces::NodeData getFullNode(interfaces::NodeId id) const;
@@ -159,7 +159,8 @@ namespace mars {
       NodeMap simNodes;
       NodeMap simNodesDyn;
       NodeMap nodesToUpdate;
-      std::map<interfaces::NodeId, interfaces::NodeData> simNodesReload;
+
+      std::map<interfaces::NodeId, interfaces::NodeData, std::less<int>, Eigen::aligned_allocator<std::map<interfaces::NodeId, interfaces::NodeData> > > simNodesReload;
 
       mutable utils::Mutex iMutex;
 

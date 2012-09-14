@@ -117,8 +117,8 @@ namespace mars {
       (void)id;
       (void)data;
       if(state == 3) {
-        std::vector<interfaces::core_objects_exchange> objectList;
-        std::vector<interfaces::core_objects_exchange>::iterator iter;
+        std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > objectList;
+        std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> >::iterator iter;
         interfaces::NodeData theNode;
         utils::Quaternion q;
         utils::Vector pos;

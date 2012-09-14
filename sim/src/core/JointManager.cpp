@@ -146,7 +146,7 @@ namespace mars {
       }
     }
 
-    void JointManager::getListJoints(std::vector<core_objects_exchange>* jointList) {
+    void JointManager::getListJoints(vector<core_objects_exchange, Eigen::aligned_allocator<core_objects_exchange> >* jointList) {
       core_objects_exchange obj;
       std::map<unsigned long, SimJoint*>::iterator iter;
       MutexLocker locker(&iMutex);
@@ -258,6 +258,7 @@ namespace mars {
     }
 
     void JointManager::clearAllJoints(bool clear_all) {
+      core_objects_exchange obj;
       map<unsigned long, SimJoint*>::iterator iter;
       MutexLocker locker(&iMutex);
       if(clear_all) simJointsReload.clear();

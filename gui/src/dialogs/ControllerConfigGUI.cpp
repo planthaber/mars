@@ -141,10 +141,11 @@ namespace mars {
         state->setValue("Select a controller first!");
     }
 
+
     void ControllerConfigGUI::timerEvent(QTimerEvent* event) {
       (void) event;
-      std::vector<interfaces::core_objects_exchange> objectList;
-      std::vector<interfaces::core_objects_exchange>::iterator iter;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > objectList;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> >::iterator iter;
       std::vector<ControllerElem*>::iterator jter;
       std::vector<ControllerElem*> addList;
       std::vector<ControllerElem*> deleteList;

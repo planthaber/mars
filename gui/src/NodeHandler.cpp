@@ -626,7 +626,7 @@ namespace mars {
       node.groupID = group_id->value().toInt();
       node.movable = movable->value().toBool();
       node.noPhysical = !(physics->value().toBool());
-      for (unsigned int i = 0; i < physics_props.size(); i++)  
+      for (unsigned int i = 0; i < (unsigned int)physics_props.size(); i++)  
         if (node.noPhysical)
           physics->removeSubProperty(physics_props[i]);
         else

@@ -66,7 +66,7 @@ namespace mars {
       std::vector<MotorHandler*> newDialogs;
       std::vector<QtProperty*> allMotors_p;
       std::vector<QtProperty*> newMotors_p;
-      std::vector<interfaces::core_objects_exchange> allMotors;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > allMotors;
       interfaces::ControlCenter* control;
       main_gui::GuiInterface *mainGui;
 

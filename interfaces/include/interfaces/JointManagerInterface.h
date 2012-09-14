@@ -78,7 +78,7 @@ namespace mars {
        * \brief Fills a list of core_object_exchange objects with joint 
        *        informations.
        */
-      virtual void getListJoints(std::vector<core_objects_exchange> *jointList) = 0;
+  virtual void getListJoints(std::vector<core_objects_exchange, Eigen::aligned_allocator<core_objects_exchange> > *jointList) = 0;
 
       /**
        * \brief Fills one core_object_exchange object with joint information

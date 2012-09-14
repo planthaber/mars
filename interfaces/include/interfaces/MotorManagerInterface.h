@@ -107,7 +107,7 @@ namespace mars {
        * core_objects_exchange struct for every motor and its index. The vector is cleared
        * in the beginning of this function.
        */
-      virtual void getListMotors(std::vector<core_objects_exchange> *motorList) const = 0;
+  virtual void getListMotors(std::vector<core_objects_exchange, Eigen::aligned_allocator<core_objects_exchange> > *motorList) const = 0;
   
       /**
        * \brief Gives all information of a certain motor.
@@ -178,6 +178,17 @@ namespace mars {
        * \param value The new value.
        */
       virtual void setMotorValue(unsigned long id, sReal value) = 0;
+
+  /**
+   * \brief returns the value of the motor with the given id
+   *
+   * returns the angle of the joint which is attached to this motor
+   *
+   * \param id The id of the motor whose value to return
+   *
+   * \param value The new value.
+   */
+  virtual sReal getMotorValue(unsigned long id) = 0;
 
       /**
        * \brief Sets the desired speed of a motor.

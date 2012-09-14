@@ -111,7 +111,7 @@ namespace mars {
        * core_objects_exchange struct for every motor and its index. The vector is cleared
        * in the beginning of this function.
        */
-      virtual void getListMotors(std::vector<interfaces::core_objects_exchange> *motorList) const;
+      virtual void getListMotors(std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > *motorList) const;
  
 
       /**
@@ -171,7 +171,12 @@ namespace mars {
        */
       virtual void setMotorValue(unsigned long id, interfaces::sReal value);
 
-      /**
+       /**
+        * see interface for documentation
+        */    
+       virtual double getMotorValue(unsigned long id);
+
+       /**
        * \brief Sets the desired speed of a motor.
        * \param id The id of the motor whose value is to be changed.
        * \param value The new value in rad/s.

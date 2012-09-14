@@ -52,7 +52,7 @@ namespace mars {
       ~Dialog_Add_Torque();
 
       /** \brief return the address of the NodeList vector  */
-      std::vector<interfaces::core_objects_exchange>* getNodeListPtr(void);	
+    std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> >* getNodeListPtr(void);	
 
       main_gui::PropertyDialog* pDialog;
       void show(void) {pDialog->show();}
@@ -69,7 +69,7 @@ namespace mars {
       void closeDialog();
 
     private:
-      std::vector<interfaces::core_objects_exchange> myNodes;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > myNodes;
       interfaces::ControlCenter* control;
       main_gui::GuiInterface *mainGui;
 
@@ -78,8 +78,8 @@ namespace mars {
       QtVariantProperty* vector_z;
       QtVariantProperty* magnitude;
       QtVariantProperty* node;
-
     };
+
 
   } // end of namespace gui
 } // end of namespace mars

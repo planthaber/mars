@@ -235,8 +235,8 @@ namespace mars {
      * this method prepares the internal datastructs and fills them with values
      */
     unsigned int Save::prepare() {
-      std::vector<interfaces::core_objects_exchange> objList;
-      std::vector<interfaces::core_objects_exchange>::iterator it;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > objList;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> >::iterator it;
 
       //obtaining the number of elements and storing them in a vector
       control->nodes->getListNodes(&objList);

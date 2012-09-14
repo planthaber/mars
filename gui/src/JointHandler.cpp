@@ -484,8 +484,8 @@ namespace mars {
       utils::Vector third;
       utils::Vector axis1;
       utils::Vector axis2;
-      bool bFirst = false;
-      bool bSecond = false;
+      //bool bFirst = false;
+      //bool bSecond = false;
   
       // first -> second -> third
       // body1 -> anchor -> body2
@@ -495,11 +495,11 @@ namespace mars {
         for (unsigned int i=0; i<allNodes.size();i++){
           if (myJoint.nodeIndex1 == allNodes[i].index){
             first = allNodes[i].pos;
-            bFirst = true;
+            //bFirst = true;
           }
           if (myJoint.nodeIndex2 == allNodes[i].index){
             third = allNodes[i].pos;
-            bSecond =true;
+            //bSecond =true;
           }
         }
       else { // PreviewMode

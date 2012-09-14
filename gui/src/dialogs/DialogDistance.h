@@ -49,6 +49,7 @@ namespace mars {
       Q_OBJECT
     
       public:
+      EIGEN_MAKE_ALIGNED_OPERATOR_NEW
       /**\brief creates the dialog */
       DialogDistance(interfaces::ControlCenter *c);
       ~DialogDistance();
@@ -56,8 +57,8 @@ namespace mars {
       main_gui::PropertyDialog *pDialog;  
   
     private:
-      std::vector<interfaces::core_objects_exchange> simNodes;
-      std::vector<interfaces::core_objects_exchange> simJoints;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > simNodes;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > simJoints;
 
       std::vector<unsigned long> selectedNodes;
       std::vector<unsigned long> selectedJoints;

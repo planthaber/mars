@@ -60,6 +60,7 @@ namespace mars {
     class CameraConfig : public data_broker::ReceiverInterface {
 
     public:
+      EIGEN_MAKE_ALIGNED_OPERATOR_NEW
       CameraConfig(interfaces::ControlCenter *c);
       ~CameraConfig();
   

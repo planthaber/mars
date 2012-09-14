@@ -45,12 +45,12 @@ namespace mars {
 
     // and the save->save method
     struct saveStruct_t{
-      std::vector<interfaces::LightData> v_lightList;
-      std::vector<interfaces::JointData> v_jointList;
-      std::vector<interfaces::MotorData> v_motorList;
+      std::vector<interfaces::LightData, Eigen::aligned_allocator<interfaces::LightData> > v_lightList;
+      std::vector<interfaces::JointData, Eigen::aligned_allocator<interfaces::JointData> > v_jointList;
+      std::vector<interfaces::MotorData, Eigen::aligned_allocator<interfaces::MotorData> > v_motorList;
       std::vector<const interfaces::BaseSensor*> v_sensorList;
-      std::vector<interfaces::ControllerData> v_controllerList;
-      std::vector<interfaces::NodeData> v_nodeList;
+      std::vector<interfaces::ControllerData, Eigen::aligned_allocator<interfaces::ControllerData> > v_controllerList;
+      std::vector<interfaces::NodeData, Eigen::aligned_allocator<interfaces::NodeData> > v_nodeList;
     };
 
   } // end of namespace scene_loader

@@ -72,7 +72,7 @@ namespace mars {
        * core_objects_exchange struct for every controller. The vector is cleared
        * in the beginning of this function.
        */
-      virtual void getListController(std::vector<core_objects_exchange> *controllerList) const = 0;
+  virtual void getListController(std::vector<core_objects_exchange, Eigen::aligned_allocator<core_objects_exchange> > *controllerList) const = 0;
 
       /**
        *\brief Returns the number of controllers that are currently present in the simulation.

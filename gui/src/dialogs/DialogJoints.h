@@ -73,7 +73,7 @@ namespace mars {
       std::vector<JointHandler*> newDialogs; // handler classes in preview mode
       std::vector<QtProperty*> allJoints_p; // top level properties in edit mode
       std::vector<QtProperty*> newJoints_p; // top level properties in preview mode
-      std::vector<interfaces::core_objects_exchange> allJoints; // all simulation joints
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > allJoints; // all simulation joints
   
       interfaces::ControlCenter* control;
       main_gui::GuiInterface *mainGui;

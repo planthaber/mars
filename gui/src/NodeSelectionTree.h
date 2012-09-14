@@ -62,7 +62,7 @@ namespace mars {
       bool filled, select_allowed;
       QtVariantProperty *node_view_mode, *node_selection_mode, *root ;
   
-      std::vector<interfaces::core_objects_exchange> simNodes;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > simNodes;
       std::vector<unsigned long> present;
 
       QTreeWidget *treeWidget;

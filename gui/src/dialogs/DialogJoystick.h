@@ -62,7 +62,7 @@ namespace mars {
     private:
       void closeEvent(QCloseEvent *event);
 
-      std::vector<interfaces::core_objects_exchange> simNodes;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > simNodes;
       NodeSelectionTree *nodeList;
       JoystickWidget *joy;
       interfaces::ControlCenter* control;

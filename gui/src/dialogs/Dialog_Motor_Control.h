@@ -53,7 +53,7 @@ namespace mars {
       main_gui::PropertyDialog *pDialog;  
 
     private:
-      std::vector<interfaces::core_objects_exchange> myMotors;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > myMotors;
       std::vector<QtVariantProperty*> motorWidgets;
       std::vector<QSlider*> sliders;
     

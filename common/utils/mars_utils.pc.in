@@ -9,4 +9,4 @@ Version: @PROJECT_VERSION@
 Libs: -L${libdir} -l@PROJECT_NAME@
 Requires: eigen3
 
-Cflags: -I${includedir} -I@EIGEN_INCLUDE_DIRS@ @MARS_CORE_EIGEN_DEFINITIONS@
+Cflags: -I${includedir} -I@EIGEN_INCLUDE_DIRS@

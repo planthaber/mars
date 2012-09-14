@@ -28,18 +28,20 @@ ENDMACRO(CMAKE_USE_FULL_RPATH)
 CMAKE_USE_FULL_RPATH("${CMAKE_INSTALL_PREFIX}/lib")
 
 
-pkg_check_modules(PKGCONFIG REQUIRED
-			    lib_manager
-			    data_broker
-			    main_gui
-			    cfg_manager
-			    mars_interfaces
+if(NOT LOCAL_BUILD)
+    pkg_check_modules(LIB_MANAGER REQUIRED lib_manager)
+    pkg_check_modules(MAIN_GUI REQUIRED main_gui)
+    pkg_check_modules(CFG_MANAGER REQUIRED cfg_manager)
+    pkg_check_modules(INTERFACES REQUIRED mars_interfaces)
+endif()
+
+pkg_check_modules(OPENCV REQUIRED
 			    opencv
 )
 
-include_directories(${PKGCONFIG_INCLUDE_DIRS})
-link_directories(${PKGCONFIG_LIBRARY_DIRS})
-add_definitions(${PKGCONFIG_CFLAGS_OTHER})  #not the ones starting with -I
+include_directories(${OPENCV_INCLUDE_DIRS})
+link_directories(${OPENCV_LIBRARY_DIRS})
+add_definitions(${OPENCV_CFLAGS_OTHER})  #not the ones starting with -I
 
 find_package(OpenSceneGraph REQUIRED osgManipulator osgViewer osgFX osgShadow osgParticle osgTerrain osgDB osgGA osgText osgUtil)
 include_directories(${OPENSCENEGRAPH_INCLUDE_DIRS})
@@ -231,19 +233,27 @@ IF(APPLE)
                         ${QT_LIBRARIES}
                         ${QT_QTXML_LIBRARY}
                         ${QT_QTOPENGL_LIBRARIES} 
-                        ${PKGCONFIG_LIBRARIES}
+                        ${OPENCV_LIBRARIES}
                         ${WIN_LIBS}
                         ${OPENSCENEGRAPH_LIBRARIES}
-                       -L/opt/local/lib opencv_core opencv_highgui
+                        ${LIB_MANAGER_LIBRARIES}
+                        ${MAIN_GUI_LIBRARIES}
+                        ${CFG_MANAGER_LIBRARIES}                        
+                        ${INTERFACES_LIBRARIES}                         
+                        -L/opt/local/lib opencv_core opencv_highgui
   )
 ELSE(APPLE)
   TARGET_LINK_LIBRARIES(${PROJECT_NAME}
                         ${QT_LIBRARIES}
                         ${QT_QTXML_LIBRARY}
                         ${QT_QTOPENGL_LIBRARIES} 
-                        ${PKGCONFIG_LIBRARIES}
+                        ${OPENCV_LIBRARIES}
                         ${WIN_LIBS}
                         ${OPENSCENEGRAPH_LIBRARIES}
+                        ${LIB_MANAGER_LIBRARIES}
+                        ${MAIN_GUI_LIBRARIES}
+                        ${CFG_MANAGER_LIBRARIES}                        
+                        ${INTERFACES_LIBRARIES}                         
   )
 ENDIF(APPLE)
 

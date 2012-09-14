@@ -472,7 +472,7 @@ namespace mars {
      * \brief Fills a list of core_object_exchange objects with node
      * iformations.
      */
-    void NodeManager::getListNodes(vector<core_objects_exchange>* nodeList) const {
+     void NodeManager::getListNodes(vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> >* nodeList) const {
       core_objects_exchange obj;
       NodeMap::const_iterator iter;
       MutexLocker locker(&iMutex);

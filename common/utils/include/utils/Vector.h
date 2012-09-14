@@ -35,6 +35,9 @@
 #define M_PI 3.1415926535897932384626433832795
 #endif
 
+#ifdef EIGEN_DONT_ALIGN
+#error "Mars base is cleaned up for EIGEN Align problems, if you get any additional errors in future, DON'T use EIGEN_DONT_ALIGN, adapt your code regarding to http://eigen.tuxfamily.org/dox-devel/TopicUnalignedArrayAssert.html and http://eigen.tuxfamily.org/dox/TopicStlContainers.html and http://eigen.tuxfamily.org/dox/TopicStructHavingEigenMembers.html. Please do not set the global flag"
+#endif
 
 namespace mars {
   namespace utils {

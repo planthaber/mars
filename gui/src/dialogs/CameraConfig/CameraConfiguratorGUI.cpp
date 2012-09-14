@@ -322,10 +322,11 @@ namespace mars {
       }
     }
 
+
     void CameraConfiguratorGUI::timerEvent(QTimerEvent* event) {
       (void) event;
-      std::vector<interfaces::core_objects_exchange> objectList;
-      std::vector<interfaces::core_objects_exchange>::iterator iter;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > objectList;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> >::iterator iter;
       std::vector<NodeElem*>::iterator jter;
       std::vector<NodeElem*> addList;
       std::vector<NodeElem*> deleteList;

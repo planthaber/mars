@@ -74,12 +74,12 @@ namespace mars {
   
  
     private:  
-      std::vector<interfaces::core_objects_exchange> mySensors;
-      std::vector<interfaces::core_objects_exchange> myMotors;
-      std::vector<interfaces::core_objects_exchange> myNodes;
-      std::vector<interfaces::core_objects_exchange> chosenSensors;
-      std::vector<interfaces::core_objects_exchange> chosenMotors;
-      std::vector<interfaces::core_objects_exchange> chosenNodes;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > mySensors;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > myMotors;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > myNodes;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > chosenSensors;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > chosenMotors;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > chosenNodes;
       interfaces::ControlCenter* control;
   
       interfaces::ControllerData myController;
@@ -89,7 +89,7 @@ namespace mars {
  
       QtVariantProperty *topLevelController;
 
-      std::vector<interfaces::core_objects_exchange> allControllers;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > allControllers;
       std::string controllerName;
       std::string actualName;
       int myControllerIndex;

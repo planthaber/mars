@@ -930,7 +930,7 @@ namespace mars {
       }
     }
 
-    void GraphicsManager::getLights(vector<mars::interfaces::LightData> *lightList) const {
+    void GraphicsManager::getLights(vector<LightData, Eigen::aligned_allocator<LightData> > *lightList) const {
       lightList->clear();
       for (unsigned int i=0; i<myLights.size(); i++) {
         //return only the used lights

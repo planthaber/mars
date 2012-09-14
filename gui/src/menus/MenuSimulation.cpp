@@ -42,7 +42,7 @@ namespace mars {
       dc = NULL; // controllers
 
       daf = NULL; // dialog add force
-      dat - NULL; // dialog apply torque
+      dat = NULL; // dialog apply torque
       dim = NULL; // dialog import mesh 
 
       dd = NULL; // distance

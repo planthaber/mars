@@ -39,6 +39,7 @@
 #include <osgViewer/Viewer>
 #include <osgViewer/ViewerEventHandlers>
 #include <osg/CullFace>
+#include<Eigen/StdVector>
 
 #include <osgShadow/ShadowedScene>
 #include <osgShadow/LightSpacePerspectiveShadowMap>
@@ -73,6 +74,13 @@
 namespace mars {
   namespace graphics {
 
+    //mapping and control structs
+    struct drawMapper {
+      EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+      mars::interfaces::drawStruct ds;
+      std::vector<osg::Node*> nodes;
+    };
+
     class GraphicsWidget;
     class GraphicsViewer;
     class DrawObject;
@@ -80,18 +88,11 @@ namespace mars {
     class OSGHudElementStruct;
     class HUDElement;
 
-
-
-    //mapping and control structs
-    struct drawMapper {
-      interfaces::drawStruct ds;
-      std::vector<osg::Node*> nodes;
-    };
-
     /**
      * internal struct to manage lights
      */
     struct lightmanager {
+      EIGEN_MAKE_ALIGNED_OPERATOR_NEW
       osg::ref_ptr<osg::LightSource> lightSource;
       osg::ref_ptr<osg::Light> light;
       mars::interfaces::LightData lStruct;
@@ -107,6 +108,7 @@ namespace mars {
                             public cfg_manager::CFGClient {
 
     public:
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
       GraphicsManager(lib_manager::LibManager *theManager, void *QTWidget = 0);
       ~GraphicsManager();
       virtual void initializeOSG(void *data);
@@ -132,7 +134,7 @@ namespace mars {
       virtual void removeLight(unsigned int index);
       virtual void updateLight(unsigned int index);
       virtual void getLights(std::vector<mars::interfaces::LightData*> *lightList);
-      virtual void getLights(std::vector<mars::interfaces::LightData> *lightList) const;
+      virtual void getLights(std::vector<mars::interfaces::LightData, Eigen::aligned_allocator<mars::interfaces::LightData> > *lightList) const;
       virtual int getLightCount(void) const;
 
       virtual unsigned long addDrawObject(const mars::interfaces::NodeData &snode,
@@ -288,7 +290,7 @@ namespace mars {
       GraphicsViewer *viewer;
 
       // includes osg::lights, osg::lightsource, lightstruct and flag to check if full
-      std::vector<lightmanager> myLights;
+  std::vector<lightmanager,Eigen::aligned_allocator<lightmanager> > myLights;
 
       //static objects
       osg::ref_ptr<osg::Group> scene;

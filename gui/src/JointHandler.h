@@ -46,6 +46,7 @@ namespace mars {
     class JointHandler : public QObject {
       Q_OBJECT
       public:
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
       JointHandler(QtVariantProperty* property, unsigned long ind,
                    main_gui::PropertyDialog *pd, interfaces::ControlCenter *c, 
@@ -71,9 +72,9 @@ namespace mars {
 
     private:  
       bool state_on;
-      interfaces::ControlCenter *control;
-      std::vector<interfaces::core_objects_exchange> allJoints;
-      std::vector<interfaces::core_objects_exchange> allNodes;
+      mars::interfaces::ControlCenter *control;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > allJoints;
+      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > allNodes;
       std::string imagePath;
       interfaces::JointData myJoint;
       bool userEdited, filled;
