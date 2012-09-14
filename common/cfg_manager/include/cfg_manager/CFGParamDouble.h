@@ -56,7 +56,7 @@ namespace mars {
     public:
       CFGParamDouble(const cfgParamId &_id, const std::string &_group,
                      const std::string &_name);
-      ~CFGParamDouble();
+      virtual ~CFGParamDouble();
 
       virtual bool setProperty(const CFGProperty &_property);
 

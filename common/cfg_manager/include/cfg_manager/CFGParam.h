@@ -54,7 +54,7 @@ namespace mars {
     public:
       CFGParam(const cfgParamId &_id, const std::string &_group,
                const std::string &_name, const cfgParamType &_type);
-      ~CFGParam();
+      virtual ~CFGParam();
 
       const cfgParamType& getParamType() const;
       const cfgParamId& getId() const;
