@@ -53,8 +53,8 @@
 #include "JointTorqueSensor.h"
 #include "ScanningSonar.h"
 
-#include <mars/interfaces/sim/SimulatorInterface.h>
-#include <mars/utils/MutexLocker.h>
+#include <interfaces/SimulatorInterface.h>
+#include <utils/MutexLocker.h>
 
 #include <cstdio>
 #include <stdexcept>

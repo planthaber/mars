@@ -27,8 +27,8 @@
 
 #include "WorldPhysics.h"
 
-#include <mars/interfaces/sim/JointInterface.h>
-#include <mars/interfaces/sim/NodeInterface.h>
+#include <interfaces/JointInterface.h>
+#include <interfaces/NodeInterface.h>
 
 namespace mars {
   namespace sim {

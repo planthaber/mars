@@ -31,8 +31,8 @@
 #warning "CaptureGUI.h"
 #endif
 
-#include "mars/main_gui/BaseWidget.h"
-#include "mars/main_gui/PropertyDialog.h"
+#include "main_gui/BaseWidget.h"
+#include "main_gui/PropertyDialog.h"
 #include "CaptureConfig.h"
 
 namespace mars {

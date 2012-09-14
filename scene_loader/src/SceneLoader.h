@@ -29,9 +29,9 @@
   #warning "SceneLoader.h"
 #endif
 
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/sim/LoadCenter.h>
-#include <mars/interfaces/sim/LoadSceneInterface.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/LoadCenter.h>
+#include <interfaces/LoadSceneInterface.h>
 #include "SaveLoadStructs.h"
 
 namespace mars {

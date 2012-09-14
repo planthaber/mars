@@ -38,7 +38,7 @@
 ****************************************************************************/
 
 
-#include "qttreepropertybrowser.h"
+#include "main_gui/qtpropertybrowser/qttreepropertybrowser.h"
 #include <QtCore/QSet>
 #include <QtGui/QIcon>
 #include <QtGui/QTreeWidget>

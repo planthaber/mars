@@ -29,10 +29,10 @@
 #include "GraphicsCamera.h"
 #include "PostDrawCallback.h"
 
-#include <mars/interfaces/MARSDefs.h>
-#include <mars/utils/Vector.h>
-#include <mars/interfaces/graphics/GraphicsEventInterface.h>
-#include <mars/interfaces/graphics/GraphicsGuiInterface.h>
+#include <interfaces/MARSDefs.h>
+#include <utils/Vector.h>
+#include <interfaces/GraphicsEventInterface.h>
+#include <interfaces/GraphicsGuiInterface.h>
 
 #include <osgViewer/Viewer>
 #include <osgWidget/WindowManager>

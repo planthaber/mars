@@ -18,7 +18,7 @@
  *
  */
 
-#include "Mutex.h"
+#include <utils/Mutex.h>
 
 #include <errno.h>
 

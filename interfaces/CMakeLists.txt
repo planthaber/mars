@@ -18,41 +18,42 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
 
-pkg_check_modules(MARS_UTILS REQUIRED "mars_utils")
-include_directories(${MARS_UTILS_INCLUDE_DIRS})
-link_directories(${MARS_UTILS_LIBRARY_DIRS})
+if(NOT LOCAL_BUILD)
+pkg_check_modules(UTILS REQUIRED "mars_utils")
+include_directories(${UTILS_INCLUDE_DIRS})
+link_directories(${UTILS_LIBRARY_DIRS})
 
 pkg_check_modules(DATA_BROKER REQUIRED "data_broker")
 include_directories(${DATA_BROKER_INCLUDE_DIRS})
 link_directories(${DATA_BROKER_LIBRARY_DIRS})
+endif()
 
-include_directories(src)
+include_directories(include)
 
 
 set(HEADERS
-    src/cameraStruct.h
-    src/contact_params.h
-    src/ControllerData.h
-    src/core_objects_exchange.h
-    src/GraphicData.h
-    src/JointData.h
-    src/LightData.h
-    src/MARSDefs.h
-    src/MaterialData.h
-    src/MotorData.h
-    src/nodeState.h
-    src/NodeData.h
-    src/sensor_bases.h
-    src/sim_common.h
-    src/snmesh.h
-    src/terrainStruct.h
-    src/utils.h
-
-    src/exceptions/SceneParseException.h
+    include/interfaces/cameraStruct.h
+    include/interfaces/contact_params.h
+    include/interfaces/ControllerData.h
+    include/interfaces/core_objects_exchange.h
+    include/interfaces/GraphicData.h
+    include/interfaces/JointData.h
+    include/interfaces/LightData.h
+    include/interfaces/MARSDefs.h
+    include/interfaces/MaterialData.h
+    include/interfaces/MotorData.h
+    include/interfaces/nodeState.h
+    include/interfaces/NodeData.h
+    include/interfaces/sensor_bases.h
+    include/interfaces/sim_common.h
+    include/interfaces/snmesh.h
+    include/interfaces/terrainStruct.h
+    include/interfaces/utils.h
+    include/interfaces/SceneParseException.h
 )
 
 set(SOURCES 
-    src/sim/ControlCenter.cpp
+    src/interfaces/ControlCenter.cpp
     src/MaterialData.cpp
     src/NodeData.cpp
     src/JointData.cpp
@@ -67,7 +68,7 @@ add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
 target_link_libraries(
         ${PROJECT_NAME}
-        ${MARS_UTILS_LIBRARIES}
+        ${UTILS_LIBRARIES}
         ${DATA_BROKER_LIBRARIES}
 )
 
@@ -90,12 +91,12 @@ install(TARGETS ${PROJECT_NAME} ${_INSTALL_DESTINATIONS})
 # Install headers into mars include directory
 install(FILES ${HEADERS} DESTINATION include/mars/interfaces)
 
-FILE(GLOB files "src/graphics/*.h")
-install(FILES ${files} DESTINATION include/mars/interfaces/graphics)
-FILE(GLOB files "src/sim/*.h")
-install(FILES ${files} DESTINATION include/mars/interfaces/sim)
-FILE(GLOB files "src/gui/*.h")
-install(FILES ${files} DESTINATION include/mars/interfaces/gui)
+#FILE(GLOB files "src/graphics/*.h")
+#install(FILES ${files} DESTINATION include/mars/interfaces/graphics)
+#FILE(GLOB files "src/sim/*.h")
+#install(FILES ${files} DESTINATION include/mars/interfaces/sim)
+#FILE(GLOB files "src/gui/*.h")
+#install(FILES ${files} DESTINATION include/mars/interfaces/gui)
 
 # Prepare and install necessary files to support finding of the library 
 # using pkg-config

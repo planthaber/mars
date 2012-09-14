@@ -35,10 +35,10 @@
 #include <QMutex>
 
 #include "CameraConfiguratorGUI.h"
-#include <mars/interfaces/graphics/GraphicsUpdateInterface.h>
+#include <interfaces/GraphicsUpdateInterface.h>
 
 
-#include <mars/main_gui/MenuInterface.h>
+#include <interfaces/MenuInterface.h>
 
 namespace mars {
 

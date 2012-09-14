@@ -21,8 +21,8 @@
 
 #include "NodeSelectionTree.h"
 
-#include <mars/interfaces/sim/NodeManagerInterface.h>
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
+#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/GraphicsManagerInterface.h>
 
 using namespace std;
 

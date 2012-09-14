@@ -18,8 +18,8 @@
  *
  */
 
-#include "ControllerData.h"
-#include "sim/LoadSceneInterface.h"
+#include "interfaces/ControllerData.h"
+#include "interfaces/LoadSceneInterface.h"
 
 #define GET_VALUE(str, val, type)                    \
   if((it = config->find(str)) != config->end())      \

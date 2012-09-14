@@ -20,9 +20,9 @@
 
 #include "ControllerConfigGUI.h"
 
-#include <mars/main_gui/GuiInterface.h>
+#include <interfaces/GuiInterface.h>
 
-#include <mars/interfaces/sim/ControllerManagerInterface.h>
+#include <interfaces/ControllerManagerInterface.h>
 
 namespace mars {
   namespace gui {

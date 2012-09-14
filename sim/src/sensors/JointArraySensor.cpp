@@ -28,10 +28,9 @@
 
 #include "JointArraySensor.h"
 
-#include <mars/interfaces/sim/JointManagerInterface.h>
-#include <mars/interfaces/sim/SimulatorInterface.h>
-
-#include <mars/data_broker/DataBrokerInterface.h>
+#include <interfaces/JointManagerInterface.h>
+#include <interfaces/SimulatorInterface.h>
+#include <interfaces/DataBrokerInterface.h>
 
 #include <cstdlib>
 #include <cstdio>

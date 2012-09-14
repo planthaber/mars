@@ -28,7 +28,7 @@
 #include <string>
 #include <vector>
 
-#include <mars/interfaces/sim/ControlCenter.h>
+#include <interfaces/ControlCenter.h>
 
 #include "zipit.h"
 #include "SaveLoadStructs.h"

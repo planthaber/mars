@@ -28,7 +28,7 @@
  *  
  */
 
-#include <mars/utils/MutexLocker.h>
+#include <utils/MutexLocker.h>
 
 #include "JointPhysics.h"
 #include "NodePhysics.h"
@@ -927,7 +927,11 @@ namespace mars {
         // no correct type is spezified, so no physically node will be created
         break;
       }
-      motor_torque = feedback.lambda;
+
+
+      //motor_torque = feedback.lambda;
+#warning !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!             REANABLE LAMBDA AFTER ODE FIX
+
       axis1_torque.x() = axis1_torque.y() = axis1_torque.z() = 0;
       axis2_torque.x() = axis2_torque.y() = axis2_torque.z() = 0;
       joint_load.x() = joint_load.y() = joint_load.z() = 0;

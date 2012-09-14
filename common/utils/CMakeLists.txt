@@ -33,20 +33,22 @@ set(SOURCES
     src/misc.cpp
 )
 set(HEADERS
-    src/Color.h
-    src/ConfigData.h
-    src/FIFOMap.h
-    src/Mutex.h
-    src/MutexLocker.h
-    src/Quaternion.h
-    src/ReadWriteLock.h
-    src/ReadWriteLocker.h
-    src/Thread.h
-    src/Vector.h
-    src/WaitCondition.h
-    src/mathUtils.h
-    src/misc.h
+    include/utils/Color.h
+    include/utils/ConfigData.h
+    include/utils/FIFOMap.h
+    include/utils/Mutex.h
+    include/utils/MutexLocker.h
+    include/utils/Quaternion.h
+    include/utils/ReadWriteLock.h
+    include/utils/ReadWriteLocker.h
+    include/utils/Thread.h
+    include/utils/Vector.h
+    include/utils/WaitCondition.h
+    include/utils/mathUtils.h
+    include/utils/misc.h
 )
+
+INCLUDE_DIRECTORIES(include/)
 
 cmake_minimum_required(VERSION 2.6)
 

@@ -34,8 +34,8 @@
 #include <QMutex>
 
 #include "CameraConfig.h"
-#include "mars/main_gui/BaseWidget.h"
-#include "mars/main_gui/PropertyDialog.h"
+#include "main_gui/BaseWidget.h"
+#include "main_gui/PropertyDialog.h"
 
 namespace mars {
   namespace gui {

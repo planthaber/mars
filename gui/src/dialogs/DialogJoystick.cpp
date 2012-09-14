@@ -22,7 +22,7 @@
 #include "DialogJoystick.h"
 #include <iostream>
 
-#include <mars/interfaces/sim/NodeManagerInterface.h>
+#include <interfaces/NodeManagerInterface.h>
 
 namespace mars {
   namespace gui {

@@ -26,7 +26,7 @@
  * Version 0.1
  */
 
-#include "CFGProperty.h"
+#include "cfg_manager/CFGProperty.h"
 
 #include <iostream>
 

@@ -25,13 +25,13 @@
   #warning "SimNode.h"
 #endif
 
-#include <mars/utils/Mutex.h>
-#include <mars/utils/Vector.h>
-#include <mars/data_broker/ProducerInterface.h>
-#include <mars/data_broker/DataPackageMapping.h>
-#include <mars/interfaces/sensor_bases.h>
-#include <mars/interfaces/nodeState.h>
-#include <mars/interfaces/sim/NodeInterface.h>
+#include <utils/Mutex.h>
+#include <utils/Vector.h>
+#include <interfaces/ProducerInterface.h>
+#include <data_broker/DataPackageMapping.h>
+#include <interfaces/sensor_bases.h>
+#include <interfaces/nodeState.h>
+#include <interfaces/NodeInterface.h>
 
 namespace mars {
 

@@ -19,10 +19,10 @@
  */
 
 #include "ControllerHandler.h"
-#include <mars/interfaces/sim/ControllerManagerInterface.h>
-#include <mars/interfaces/sim/SensorManagerInterface.h>
-#include <mars/interfaces/sim/MotorManagerInterface.h>
-#include <mars/interfaces/sim/NodeManagerInterface.h>
+#include <interfaces/ControllerManagerInterface.h>
+#include <interfaces/SensorManagerInterface.h>
+#include <interfaces/MotorManagerInterface.h>
+#include <interfaces/NodeManagerInterface.h>
 
 namespace mars {
   namespace gui {
@@ -134,7 +134,7 @@ namespace mars {
             }
         for (unsigned int i = 0; i < mySensors.size(); i++) {
           found = false;
-          for (unsigned int j = 0; j < chosen.size() && !found; j++)
+          for (int j = 0; j < chosen.size() && !found; j++)
             if (mySensors[i].name == chosen[j].toStdString()) 
               found = true;
           if (found == false)
@@ -153,7 +153,7 @@ namespace mars {
             }
         for (unsigned int i = 0; i != myMotors.size(); i++) {
           found = false;
-          for (unsigned int j = 0; j < chosen.size() && !found; j++)
+          for (int j = 0; j < chosen.size() && !found; j++)
             if (myMotors[i].name == chosen[j].toStdString()) 
               found = true;
           if (found == false)
@@ -172,7 +172,7 @@ namespace mars {
             }
         for (unsigned int i = 0; i < myNodes.size(); i++) {
           found = false;
-          for (unsigned int j = 0; j < chosen.size() && !found; j++)
+          for (int j = 0; j < chosen.size() && !found; j++)
             if (myNodes[i].name == chosen[j].toStdString()) 
               found = true;
           if (found == false)
@@ -190,7 +190,7 @@ namespace mars {
       nodes->setValue(list);
       QStringList items = list.split(";");
       chosenNodes.clear();
-      for (unsigned int i = 0; i < items.size(); i++)
+      for ( int i = 0; i < items.size(); i++)
         for (unsigned int j = 0; j < myNodes.size(); j++)
           if (items[i] == QString::fromStdString(myNodes[j].name)) {
             chosenNodes.push_back(myNodes[j]);
@@ -203,7 +203,7 @@ namespace mars {
       sensors->setValue(list);
       QStringList items = list.split(";");
       chosenSensors.clear();
-      for (unsigned int i = 0; i < items.size(); i++)
+      for (int i = 0; i < items.size(); i++)
         for (unsigned int j = 0; j < mySensors.size(); j++)
           if (items[i] == QString::fromStdString(mySensors[j].name)) {
             chosenSensors.push_back(mySensors[j]);
@@ -216,7 +216,7 @@ namespace mars {
       motors->setValue(list);
       QStringList items = list.split(";");
       chosenMotors.clear();
-      for (unsigned int i = 0; i < items.size(); i++)
+      for (int i = 0; i < items.size(); i++)
         for (unsigned int j = 0; j < myMotors.size(); j++)
           if (items[i] == QString::fromStdString(myMotors[j].name)) {
             chosenMotors.push_back(myMotors[j]);

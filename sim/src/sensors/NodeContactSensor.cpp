@@ -26,8 +26,8 @@
  */
 
 #include "NodeContactSensor.h"
-#include <mars/interfaces/sim/NodeManagerInterface.h>
-#include <mars/data_broker/DataBrokerInterface.h>
+#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/DataBrokerInterface.h>
 
 #include <cstdio>
 #include <cstdlib>

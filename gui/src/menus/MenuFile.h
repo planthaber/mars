@@ -33,7 +33,7 @@
 
 #include "MainGUIDefs.h"
 
-#include <mars/main_gui/MenuInterface.h>
+#include <interfaces/MenuInterface.h>
 
 #include <string>
 

@@ -21,11 +21,11 @@
 
 #include "DialogMotors.h"
 
-#include <mars/main_gui/GuiInterface.h>
+#include <interfaces/GuiInterface.h>
 
-#include <mars/interfaces/sim/MotorManagerInterface.h>
-#include <mars/interfaces/sim/NodeManagerInterface.h>
-#include <mars/interfaces/sim/JointManagerInterface.h>
+#include <interfaces/MotorManagerInterface.h>
+#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/JointManagerInterface.h>
 
 namespace mars {
   namespace gui {

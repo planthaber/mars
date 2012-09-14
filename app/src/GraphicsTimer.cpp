@@ -19,7 +19,7 @@
  */
 
 #include "GraphicsTimer.h"
-#include <mars/utils/misc.h>
+#include <utils/misc.h>
 
 namespace mars {
   namespace app {

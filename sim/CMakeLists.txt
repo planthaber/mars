@@ -34,17 +34,19 @@ add_custom_target(doc ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
 endif(DOXYGEN_FOUND)
 
 #Get linker and compiler flags from pkg-config
-pkg_check_modules(PKGCONFIG REQUIRED
-			    ode
-			    lib_manager
-			    data_broker
-			    cfg_manager
-			    mars_interfaces
-)
+pkg_check_modules(ODE REQUIRED ode)
 
-include_directories(${PKGCONFIG_INCLUDE_DIRS})
-link_directories(${PKGCONFIG_LIBRARY_DIRS})
-add_definitions(${PKGCONFIG_CFLAGS_OTHER})  #flags excluding the ones with -I
+
+if(NOT LOCAL_BUILD)
+    pkg_check_modules(LIB_MANAGER REQUIRED lib_manager)
+    pkg_check_modules(DATA_BROKER REQUIRED data_broker)
+    pkg_check_modules(CFG_MANAGER REQUIRED cfg_manager)
+    pkg_check_modules(INTERFACES REQUIRED mars_interfaces)
+endif()
+
+include_directories(${ODE_INCLUDE_DIRS})
+link_directories(${ODE_LIBRARY_DIRS})
+add_definitions(${ODE_CFLAGS_OTHER})  #flags excluding the ones with -I
 
 add_definitions(-DODE11=1 -DdDOUBLE)
 add_definitions(-DFORWARD_DECL_ONLY=1)
@@ -166,8 +168,13 @@ set(_INSTALL_DESTINATIONS
 )
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME}
-            ${PKGCONFIG_LIBRARIES}
+            ${ODE_LIBRARIES}
             ${WIN_LIBS}
+            ${LIB_MANAGE_LIBRARIES}
+            ${DATA_BROKER_LIBRARIES}           
+            ${CFG_MANAGER_LIBRARIES}            
+            ${INTERFACES_LIBRARIES}
+            rt
 )
 
 

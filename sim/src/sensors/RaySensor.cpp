@@ -28,12 +28,12 @@
 
 #include "RaySensor.h"
 
-#include <mars/interfaces/sim/NodeManagerInterface.h>
-#include <mars/interfaces/sim/SimulatorInterface.h>
-#include <mars/interfaces/sim/LoadSceneInterface.h>
+#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/SimulatorInterface.h>
+#include <interfaces/LoadSceneInterface.h>
 
-#include <mars/data_broker/DataBrokerInterface.h>
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
+#include <interfaces/DataBrokerInterface.h>
+#include <interfaces/GraphicsManagerInterface.h>
 
 #include <cmath>
 #include <cstdio>

@@ -20,10 +20,10 @@
 
 #include "DialogNodes.h"
 
-#include <mars/main_gui/GuiInterface.h>
+#include <interfaces/GuiInterface.h>
 
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
-#include <mars/interfaces/sim/NodeManagerInterface.h>
+#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/NodeManagerInterface.h>
 
 namespace mars {
   namespace gui {

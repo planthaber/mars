@@ -26,7 +26,7 @@
  * Version 0.1
  */
 
-#include "CFGParamDouble.h"
+#include "cfg_manager/CFGParamDouble.h"
 
 #include <iostream>
 

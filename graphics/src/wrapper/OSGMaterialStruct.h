@@ -30,7 +30,7 @@
 
 #include <osg/Material>
 
-#include <mars/interfaces/MaterialData.h>
+#include <interfaces/MaterialData.h>
 
 namespace mars {
   namespace graphics {

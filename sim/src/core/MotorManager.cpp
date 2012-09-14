@@ -38,9 +38,9 @@
 
 #include <stdexcept>
 
-#include <mars/interfaces/sim/SimulatorInterface.h>
-#include <mars/interfaces/sim/JointManagerInterface.h>
-#include <mars/utils/MutexLocker.h>
+#include <interfaces/SimulatorInterface.h>
+#include <interfaces/JointManagerInterface.h>
+#include <utils/MutexLocker.h>
 
 namespace mars {
   namespace sim {

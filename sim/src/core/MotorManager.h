@@ -38,9 +38,9 @@
   #warning "MotorManager.h"
 #endif
 
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/sim/MotorManagerInterface.h>
-#include <mars/utils/Mutex.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/MotorManagerInterface.h>
+#include <utils/Mutex.h>
 
 namespace mars {
   namespace sim {

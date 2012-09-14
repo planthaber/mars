@@ -19,10 +19,10 @@
  */
 
 #include "Widget_Node_State.h"
-#include <mars/utils/mathUtils.h>
-#include <mars/data_broker/DataBrokerInterface.h>
+#include <utils/mathUtils.h>
+#include <interfaces/DataBrokerInterface.h>
 
-#include <mars/interfaces/sim/NodeManagerInterface.h>
+#include <interfaces/NodeManagerInterface.h>
 
 using namespace std;
 

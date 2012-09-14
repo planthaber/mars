@@ -27,9 +27,9 @@
 
 #include "SimJoint.h"
 
-#include <mars/data_broker/ProducerInterface.h>
-#include <mars/data_broker/DataPackage.h>
-#include <mars/interfaces/MotorData.h>
+#include <interfaces/ProducerInterface.h>
+#include <data_broker/DataPackage.h>
+#include <interfaces/MotorData.h>
 
 #include <iostream>
 

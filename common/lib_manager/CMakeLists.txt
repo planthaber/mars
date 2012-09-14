@@ -19,9 +19,10 @@ set(SOURCES
 	src/LibManager.cpp
 )
 set(HEADERS
-	src/LibInterface.h
-	src/LibManager.h
+	include/lib_manager/LibManager.h
 )
+
+INCLUDE_DIRECTORIES(include/)
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
@@ -47,6 +48,7 @@ set(_INSTALL_DESTINATIONS
 install(TARGETS ${PROJECT_NAME} ${_INSTALL_DESTINATIONS})
 
 # Install headers into mars include directory
+install(FILES include/interfaces/LibInterface.h DESTINATION include/mars/interfaces)
 install(FILES ${HEADERS} DESTINATION include/mars/${PROJECT_NAME})
 
 # Prepare and install necessary files to support finding of the library 

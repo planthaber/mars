@@ -35,8 +35,8 @@
 #include <QMutex>
 
 #include "CaptureGUI.h"
-#include <mars/main_gui/MenuInterface.h>
-#include <mars/interfaces/graphics/GraphicsUpdateInterface.h>
+#include <interfaces/MenuInterface.h>
+#include <interfaces/GraphicsUpdateInterface.h>
 
 namespace mars {
 

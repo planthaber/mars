@@ -20,8 +20,8 @@
 
 #include "zipit.h"
 
-#include <mars/utils/misc.h>
-#include <mars/interfaces/sim/ControlCenter.h>
+#include <utils/misc.h>
+#include <interfaces/ControlCenter.h>
 
 #include <cstdlib>
 #include <cassert>
@@ -298,6 +298,8 @@ namespace mars {
       case ZIPIT_UNABLE_TO_WRITE_IN_FILE:
         LOG_ERROR("unable to write in file");
         break;
+      default:
+	LOG_ERROR("Unknown Error");
       }
     }
 

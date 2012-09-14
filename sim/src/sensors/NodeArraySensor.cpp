@@ -28,10 +28,9 @@
 
 #include "NodeArraySensor.h"
 
-#include <mars/interfaces/sim/SimulatorInterface.h>
-#include <mars/interfaces/sim/NodeManagerInterface.h>
-
-#include <mars/data_broker/DataBrokerInterface.h>
+#include <interfaces/SimulatorInterface.h>
+#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/DataBrokerInterface.h>
 
 #include <cstdlib>
 #include <cstdio>

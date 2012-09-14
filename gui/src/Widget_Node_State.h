@@ -25,13 +25,13 @@
 #warning "Widget_Node_State.h"
 #endif
 
-#include <mars/main_gui/PropertyDialog.h>
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/utils/Vector.h>
-#include <mars/utils/Quaternion.h>
-#include <mars/interfaces/MARSDefs.h>
-#include <mars/data_broker/ReceiverInterface.h>
-#include <mars/data_broker/DataPackageMapping.h>
+#include <main_gui/PropertyDialog.h>
+#include <interfaces/ControlCenter.h>
+#include <utils/Vector.h>
+#include <utils/Quaternion.h>
+#include <interfaces/MARSDefs.h>
+#include <interfaces/ReceiverInterface.h>
+#include <data_broker/DataPackageMapping.h>
 
 namespace mars {
   namespace gui {

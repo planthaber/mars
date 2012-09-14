@@ -18,10 +18,10 @@
  *
  */
 
-#include "MaterialData.h"
+#include "interfaces/MaterialData.h"
 //#include "utils.h"
 
-#include <mars/utils/misc.h>
+#include <utils/misc.h>
 
 namespace mars {
   namespace interfaces {

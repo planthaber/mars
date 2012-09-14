@@ -22,7 +22,7 @@
 #include "GraphicsWidget.h"
 #include "HUD.h"
 
-#include <mars/utils/Color.h>
+#include <utils/Color.h>
 
 #include <iostream>
 #include <string>

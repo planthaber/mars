@@ -19,18 +19,23 @@ endif()
 
 find_package(Qt4 REQUIRED)
 include(${QT_USE_FILE})
-include_directories( ${QT_INCLUDE_DIR} ${QT_QTXML_INCLUDE_DIR})
+include_directories( ${QT_INCLUDE_DIR} ${QT_QTXML_INCLUDE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/include)
 link_directories(${QT_LIBRARY_DIR})
 add_definitions("-D_REENTRANT -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED")
 remove_definitions(-DQT_DLL)
 
-pkg_check_modules(LIB_MANAGER "lib_manager")
-include_directories(${LIB_MANAGER_INCLUDE_DIRS})
-link_directories(${LIB_MANAGER_LIBRARY_DIRS})
+
+if(NOT LIB_MANAGER_INCLUDE_DIRS)
+    pkg_check_modules(LIB_MANAGER "lib_manager")
+    include_directories(${LIB_MANAGER_INCLUDE_DIRS})
+    link_directories(${LIB_MANAGER_LIBRARY_DIRS})
+endif()
 
 # we only need the header
+if(NOT CFG_MANAGER_INCLUDE_DIRS)
 pkg_check_modules(CFG_MANAGER "cfg_manager")
 include_directories(${CFG_MANAGER_INCLUDE_DIRS})
+endif()
 
 include_directories(
     src
@@ -65,48 +70,54 @@ set(SOURCES
 )
 
 set(HEADERS
-    src/BaseWidget.h
-    src/MainGUI.h
-    src/MyQDockWidget.h
-    src/MyQMainWindow.h
-    src/MyQMdiArea.h
-    src/PropertyCallback.h
-    src/PropertyDialog.h
+    include/main_gui/BaseWidget.h
+    include/main_gui/MainGUI.h
+    include/main_gui/MyQDockWidget.h
+    include/main_gui/MyQMainWindow.h
+    include/main_gui/MyQMdiArea.h
+    include/main_gui/PropertyCallback.h
+    include/main_gui/PropertyDialog.h
 
-    src/interfaces/GuiInterface.h
-    src/interfaces/MenuInterface.h
 
-    src/qtpropertybrowser/qtbuttonpropertybrowser.h
-    src/qtpropertybrowser/qteditorfactory.h
-    src/qtpropertybrowser/qtgroupboxpropertybrowser.h
-    src/qtpropertybrowser/qtpropertybrowser.h
-    src/qtpropertybrowser/qtpropertybrowserutils.h
-    src/qtpropertybrowser/qtpropertymanager.h
-    src/qtpropertybrowser/qttreepropertybrowser.h
-    src/qtpropertybrowser/qtvariantproperty.h
+)
 
-    src/qtpropertybrowser/extension/fileedit.h
-    src/qtpropertybrowser/extension/fileeditfactory.h
-    src/qtpropertybrowser/extension/filepathmanager.h
-    src/qtpropertybrowser/extension/variantfactory.h
-    src/qtpropertybrowser/extension/variantmanager.h
+set(INTERFACE_HEADER
+    include/interfaces/GuiInterface.h
+    include/interfaces/MenuInterface.h
+)
+
+set(PROP_HEADERS
+    include/main_gui/qtpropertybrowser/qtbuttonpropertybrowser.h
+    include/main_gui/qtpropertybrowser/qteditorfactory.h
+    include/main_gui/qtpropertybrowser/qtgroupboxpropertybrowser.h
+    include/main_gui/qtpropertybrowser/qtpropertybrowser.h
+    include/main_gui/qtpropertybrowser/qtpropertybrowserutils.h
+    include/main_gui/qtpropertybrowser/qtpropertymanager.h
+    include/main_gui/qtpropertybrowser/qttreepropertybrowser.h
+    include/main_gui/qtpropertybrowser/qtvariantproperty.h
+
+    include/main_gui/qtpropertybrowser/extension/fileedit.h
+    include/main_gui/qtpropertybrowser/extension/fileeditfactory.h
+    include/main_gui/qtpropertybrowser/extension/filepathmanager.h
+    include/main_gui/qtpropertybrowser/extension/variantfactory.h
+    include/main_gui/qtpropertybrowser/extension/variantmanager.h
 )
 
 set(QT_MOC_HEADER
-    src/BaseWidget.h
-    src/MainGUI.h
-    src/MyQDockWidget.h
-    src/MyQMainWindow.h
-    src/MyQMdiArea.h
-    src/PropertyDialog.h
+    include/main_gui/BaseWidget.h
+    include/main_gui/MainGUI.h
+    include/main_gui/MyQDockWidget.h
+    include/main_gui/MyQMainWindow.h
+    include/main_gui/MyQMdiArea.h
+    include/main_gui/PropertyDialog.h
 
-    src/qtpropertybrowser/qtpropertybrowserutils.h
+    include/main_gui/qtpropertybrowser/qtpropertybrowserutils.h
 
-    src/qtpropertybrowser/extension/fileedit.h
-    src/qtpropertybrowser/extension/fileeditfactory.h
-    src/qtpropertybrowser/extension/filepathmanager.h
-    src/qtpropertybrowser/extension/variantfactory.h
-    src/qtpropertybrowser/extension/variantmanager.h
+    include/main_gui/qtpropertybrowser/extension/fileedit.h
+    include/main_gui/qtpropertybrowser/extension/fileeditfactory.h
+    include/main_gui/qtpropertybrowser/extension/filepathmanager.h
+    include/main_gui/qtpropertybrowser/extension/variantfactory.h
+    include/main_gui/qtpropertybrowser/extension/variantmanager.h
 )
 
 set(QT_OWN_MOC
@@ -122,31 +133,31 @@ set(QT_OWN_MOC
     ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qtpropertymanager.moc1
 )
 
-QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/src/qtpropertybrowser/qtbuttonpropertybrowser.h
+QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/include/main_gui/qtpropertybrowser/qtbuttonpropertybrowser.h
      ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qtbuttonpropertybrowser.moc
 )
 
-QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/src/qtpropertybrowser/qteditorfactory.h
+QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/include/main_gui/qtpropertybrowser/qteditorfactory.h
      ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qteditorfactory.moc
 )
 
-QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/src/qtpropertybrowser/qtgroupboxpropertybrowser.h
+QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/include/main_gui/qtpropertybrowser/qtgroupboxpropertybrowser.h
      ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qtgroupboxpropertybrowser.moc
 )
 
-QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/src/qtpropertybrowser/qtpropertybrowser.h
+QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/include/main_gui/qtpropertybrowser/qtpropertybrowser.h
      ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qtpropertybrowser.moc
 )
 
-QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/src/qtpropertybrowser/qtpropertymanager.h
+QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/include/main_gui/qtpropertybrowser/qtpropertymanager.h
      ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qtpropertymanager.moc
 )
 
-QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/src/qtpropertybrowser/qttreepropertybrowser.h
+QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/include/main_gui/qtpropertybrowser/qttreepropertybrowser.h
      ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qttreepropertybrowser.moc
 )
 
-QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/src/qtpropertybrowser/qtvariantproperty.h
+QT4_GENERATE_MOC (${CMAKE_CURRENT_SOURCE_DIR}/include/main_gui/qtpropertybrowser/qtvariantproperty.h
      ${CMAKE_CURRENT_BINARY_DIR}/src/qtpropertybrowser/qtvariantproperty.moc
 )
 
@@ -191,7 +202,9 @@ set(_INSTALL_DESTINATIONS
 install(TARGETS ${PROJECT_NAME} ${_INSTALL_DESTINATIONS})
 
 # Install headers into mars include directory
+install(FILES ${INTERFACE_HEADER} DESTINATION include/mars/interfaces)
 install(FILES ${HEADERS} DESTINATION include/mars/${PROJECT_NAME})
+install(FILES ${PROP_HEADERS} DESTINATION include/mars/${PROJECT_NAME}/qtpropertybrowser)
 
 # Prepare and install necessary files to support finding of the library 
 # using pkg-config

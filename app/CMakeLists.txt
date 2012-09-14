@@ -19,11 +19,12 @@ if(CMAKE_COMPILER_IS_GNUCXX)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 endif()
 
-pkg_check_modules(PKGCONFIG
-	lib_manager
-	main_gui
-	mars_interfaces
-)
+if(NOT LOCAL_BUILD)
+    pkg_check_modules(LIB_MANAGER REQUIRED lib_manager)
+    pkg_check_modules(MAIN_GUI REQUIRED main_gui)
+    pkg_check_modules(INTERFACES REQUIRED mars_interfaces)
+endif()
+
 include_directories(${PKGCONFIG_INCLUDE_DIRS})
 link_directories(${PKGCONFIG_LIBRARY_DIRS})
 add_definitions(${PKGCONFIG_CLFAGS_OTHER})  #flags excluding the ones with -I
@@ -76,6 +77,9 @@ target_link_libraries(mars
             ${QT_QTXML_LIBRARY}
             ${WIN_LIBS}
             ${PKGCONFIG_LIBRARIES}
+            ${LIB_MANAGER_LIBRARIES}
+            ${MAIN_GUI_LIBRARIES}
+            ${INTERFACES_LIBRARIES}
 )
 
 target_link_libraries(${PROJECT_NAME} mars)
@@ -108,5 +112,5 @@ install(FILES ${CMAKE_BINARY_DIR}/core_libs.txt ${CMAKE_BINARY_DIR}/other_libs.t
 
 configure_file(mars_app.pc.in ${CMAKE_BINARY_DIR}/mars_app.pc @ONLY)
 install(FILES ${CMAKE_BINARY_DIR}/mars_app.pc DESTINATION lib/pkgconfig/)
-install(FILES ${CMAKE_SOURCE_DIR}/src/GraphicsTimer.h DESTINATION include/mars/app/)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/GraphicsTimer.h DESTINATION include/mars/app/)
 

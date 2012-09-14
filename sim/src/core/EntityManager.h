@@ -37,10 +37,10 @@
 #define ENTITY_MANAGER_H
 
 #include <map>
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/graphics/GraphicsEventClient.h>
-#include <mars/interfaces/sim/EntityManagerInterface.h>
-#include <mars/utils/Mutex.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/GraphicsEventClient.h>
+#include <interfaces/EntityManagerInterface.h>
+#include <utils/Mutex.h>
 
 namespace mars {
   namespace sim {

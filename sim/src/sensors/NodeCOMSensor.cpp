@@ -27,7 +27,7 @@
  */
 
 #include "NodeCOMSensor.h"
-#include <mars/interfaces/sim/NodeManagerInterface.h>
+#include <interfaces/NodeManagerInterface.h>
 
 #include <cstdio>
 #include <cstdlib>

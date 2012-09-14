@@ -26,7 +26,7 @@
  * Version 0.1
  */
 
-#include "CFGParamString.h"
+#include "cfg_manager/CFGParamString.h"
 
 #include <iostream>
 

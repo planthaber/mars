@@ -34,10 +34,10 @@
 #include <osg/MatrixTransform>
 #include <osgViewer/GraphicsWindow>
 
-#include <mars/interfaces/MARSDefs.h>
-#include <mars/utils/Vector.h>
-#include <mars/utils/Quaternion.h>
-#include <mars/utils/Color.h>
+#include <interfaces/MARSDefs.h>
+#include <utils/Vector.h>
+#include <utils/Quaternion.h>
+#include <utils/Color.h>
 
 #include "2d_objects/HUDElement.h"
 

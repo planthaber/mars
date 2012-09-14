@@ -20,10 +20,10 @@
 
 #include "Dialog_Graphics_Options.h"
 
-#include <mars/main_gui/GuiInterface.h>
+#include <interfaces/GuiInterface.h>
 
-#include <mars/interfaces/graphics/GraphicsCameraInterface.h>
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
+#include <interfaces/GraphicsCameraInterface.h>
+#include <interfaces/GraphicsManagerInterface.h>
 
 using namespace std;
 

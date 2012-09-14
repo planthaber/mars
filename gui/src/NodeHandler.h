@@ -32,11 +32,11 @@
 #warning "NodeHandler.h"
 #endif
 
-#include <mars/main_gui/PropertyDialog.h>
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/terrainStruct.h>
-#include <mars/interfaces/core_objects_exchange.h>
-#include <mars/interfaces/NodeData.h>
+#include <main_gui/PropertyDialog.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/terrainStruct.h>
+#include <interfaces/core_objects_exchange.h>
+#include <interfaces/NodeData.h>
 
 #include "Dialog_Create_Material.h"
 #include "Dialog_Edit_Material.h"
@@ -153,7 +153,7 @@ namespace mars {
   
       std::string nodeName;
       std::string actualName;
-      int myNodeIndex;
+      unsigned int myNodeIndex;
   
       main_gui::PropertyDialog *pDialog;
   

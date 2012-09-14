@@ -18,7 +18,7 @@
  *
  */
 
-#include "ReadWriteLock.h"
+#include "utils/ReadWriteLock.h"
 
 #include <pthread.h>
 

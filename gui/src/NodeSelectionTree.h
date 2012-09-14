@@ -32,11 +32,11 @@
 #endif
 
 //#include <QtGui>
-#include <mars/main_gui/BaseWidget.h>
-#include <mars/main_gui/PropertyDialog.h>
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/graphics/GraphicsEventClient.h>
-#include <mars/interfaces/core_objects_exchange.h>
+#include <main_gui/BaseWidget.h>
+#include <main_gui/PropertyDialog.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/GraphicsEventClient.h>
+#include <interfaces/core_objects_exchange.h>
 
 namespace mars {
   namespace gui {

@@ -27,8 +27,8 @@
  */
 
 #include "MotorCurrentSensor.h"
-#include <mars/interfaces/sim/MotorManagerInterface.h>
-#include <mars/data_broker/DataBrokerInterface.h>
+#include <interfaces/MotorManagerInterface.h>
+#include <interfaces/DataBrokerInterface.h>
 
 #include <cstdio>
 #include <cstdlib>

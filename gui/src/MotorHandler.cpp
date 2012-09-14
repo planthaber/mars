@@ -20,8 +20,8 @@
 
 #include "MotorHandler.h"
 
-#include <mars/interfaces/sim/JointManagerInterface.h>
-#include <mars/interfaces/sim/MotorManagerInterface.h>
+#include <interfaces/JointManagerInterface.h>
+#include <interfaces/MotorManagerInterface.h>
 
 namespace mars {
   namespace gui {

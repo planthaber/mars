@@ -51,11 +51,11 @@
 #endif
 #include <stdio.h>
 
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/utils/Thread.h>
-#include <mars/interfaces/sensor_bases.h>
-#include <mars/interfaces/ControllerData.h>
-#include <mars/interfaces/sim/ControllerInterface.h>
+#include <interfaces/ControlCenter.h>
+#include <utils/Thread.h>
+#include <interfaces/sensor_bases.h>
+#include <interfaces/ControllerData.h>
+#include <interfaces/ControllerInterface.h>
 
 namespace mars {
   namespace sim {

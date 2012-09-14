@@ -47,19 +47,19 @@
 
 #include "Save.h"
 
-#include <mars/interfaces/sim/NodeManagerInterface.h>
-#include <mars/interfaces/sim/JointManagerInterface.h>
-#include <mars/interfaces/sim/MotorManagerInterface.h>
-#include <mars/interfaces/sim/SensorManagerInterface.h>
-#include <mars/interfaces/sim/ControllerManagerInterface.h>
-#include <mars/interfaces/graphics/GraphicsCameraInterface.h>
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
-#include <mars/interfaces/sensor_bases.h>
-#include <mars/interfaces/utils.h>
+#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/JointManagerInterface.h>
+#include <interfaces/MotorManagerInterface.h>
+#include <interfaces/SensorManagerInterface.h>
+#include <interfaces/ControllerManagerInterface.h>
+#include <interfaces/GraphicsCameraInterface.h>
+#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/sensor_bases.h>
+#include <interfaces/utils.h>
 
 #include <QFile>
 
-#include <mars/utils/misc.h>
+#include <utils/misc.h>
 
 namespace mars {
   namespace scene_loader {

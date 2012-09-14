@@ -32,8 +32,8 @@
 
 
 #include "MainGUIDefs.h"
-#include <mars/main_gui/MenuInterface.h>
-#include <mars/interfaces/sim/ControlCenter.h>
+#include <interfaces/MenuInterface.h>
+#include <interfaces/ControlCenter.h>
 
 #include "DialogNodes.h"
 #include "DialogJoints.h"

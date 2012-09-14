@@ -23,7 +23,7 @@
  * \author Malte Römmermann
  */
 
-#include "BaseWidget.h"
+#include "main_gui/BaseWidget.h"
 
 namespace mars {
   namespace main_gui {

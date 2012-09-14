@@ -21,9 +21,9 @@
 **
 ****************************************************************************/
 
-#include "variantfactory.h"
-#include "variantmanager.h"
-#include "fileedit.h"
+#include "main_gui/qtpropertybrowser/extension/variantfactory.h"
+#include "main_gui/qtpropertybrowser/extension/variantmanager.h"
+#include "main_gui/qtpropertybrowser/extension/fileedit.h"
 
 VariantFactory::~VariantFactory()
 {

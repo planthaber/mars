@@ -18,8 +18,8 @@
  *
  */
 
-#include "MutexLocker.h"
-#include "Mutex.h"
+#include "utils/MutexLocker.h"
+#include "utils/Mutex.h"
 
 
 namespace mars {

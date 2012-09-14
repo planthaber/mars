@@ -18,8 +18,8 @@
  *
  */
 
-#include "WaitCondition.h"
-#include "Mutex.h"
+#include "utils/WaitCondition.h"
+#include "utils/Mutex.h"
 
 #include <pthread.h>
 #include <errno.h>

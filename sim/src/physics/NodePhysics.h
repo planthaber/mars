@@ -34,7 +34,7 @@
 
 #include "WorldPhysics.h"
 
-#include <mars/interfaces/sim/NodeInterface.h>
+#include <interfaces/NodeInterface.h>
 
 #ifndef ODE11
   #define dTriIndex int

@@ -32,17 +32,17 @@
   #warning "Simulator.h"
 #endif
 
-#include <mars/data_broker/DataPackage.h>
-#include <mars/data_broker/ReceiverInterface.h>
-#include <mars/cfg_manager/CFGManagerInterface.h>
-#include <mars/utils/Thread.h>
-#include <mars/utils/Mutex.h>
-#include <mars/utils/ReadWriteLock.h>
-#include <mars/interfaces/sim/SimulatorInterface.h>
-#include <mars/interfaces/sim/PhysicsInterface.h>
-#include <mars/interfaces/sim/PluginInterface.h>
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/graphics/GraphicsUpdateInterface.h>
+#include <data_broker/DataPackage.h>
+#include <interfaces/ReceiverInterface.h>
+#include <interfaces/CFGManagerInterface.h>
+#include <utils/Thread.h>
+#include <utils/Mutex.h>
+#include <utils/ReadWriteLock.h>
+#include <interfaces/SimulatorInterface.h>
+#include <interfaces/PhysicsInterface.h>
+#include <interfaces/PluginInterface.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/GraphicsUpdateInterface.h>
 
 #include <iostream>
 

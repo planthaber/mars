@@ -28,10 +28,10 @@
 
 
 
-#include <mars/main_gui/PropertyDialog.h>
-#include <mars/interfaces/contact_params.h>
-#include <mars/interfaces/sim_common.h>
-#include <mars/utils/Vector.h>
+#include <main_gui/PropertyDialog.h>
+#include <interfaces/contact_params.h>
+#include <interfaces/sim_common.h>
+#include <utils/Vector.h>
 
 namespace mars {
   namespace gui {

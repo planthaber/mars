@@ -38,10 +38,10 @@
   #warning "SensorManager.h"
 #endif
 
-#include <mars/interfaces/sim/SensorManagerInterface.h>
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/utils/Mutex.h>
-#include <mars/utils/ConfigData.h>
+#include <interfaces/SensorManagerInterface.h>
+#include <interfaces/ControlCenter.h>
+#include <utils/Mutex.h>
+#include <utils/ConfigData.h>
 
 namespace mars {
   namespace sim {

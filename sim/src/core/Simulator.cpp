@@ -30,13 +30,13 @@
 #include "EntityManager.h"
 #include "Controller.h"
 
-#include <mars/utils/misc.h>
-#include <mars/interfaces/SceneParseException.h>
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
-#include <mars/interfaces/sim/LoadCenter.h>
-#include <mars/interfaces/sim/LoadSceneInterface.h>
-#include <mars/data_broker/DataBrokerInterface.h>
-#include <mars/lib_manager/LibInterface.h>
+#include <utils/misc.h>
+#include <interfaces/SceneParseException.h>
+#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/LoadCenter.h>
+#include <interfaces/LoadSceneInterface.h>
+#include <interfaces/DataBrokerInterface.h>
+#include <interfaces/LibInterface.h>
 
 #include <signal.h>
 #include <getopt.h>

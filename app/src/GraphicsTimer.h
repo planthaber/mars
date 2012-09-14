@@ -24,8 +24,8 @@
 #include <QObject>
 #include <QTimer>
 
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
-#include <mars/interfaces/sim/SimulatorInterface.h>
+#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/SimulatorInterface.h>
 
 namespace mars {
   namespace app {

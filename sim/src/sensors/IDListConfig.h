@@ -34,12 +34,12 @@
 #warning "IDListConfig.h"
 #endif
 
-#include <mars/interfaces/MARSDefs.h>
-#include <mars/interfaces/sim/SimulatorInterface.h>
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/sim/LoadCenter.h>
-#include <mars/interfaces/sim/LoadSceneInterface.h>
-#include <mars/interfaces/sim/SensorInterface.h>
+#include <interfaces/MARSDefs.h>
+#include <interfaces/SimulatorInterface.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/LoadCenter.h>
+#include <interfaces/LoadSceneInterface.h>
+#include <interfaces/SensorInterface.h>
 
 namespace mars {
   namespace sim {

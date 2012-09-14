@@ -19,9 +19,9 @@
  */
 
 #include "Dialog_Rescale_Environment.h"
-#include <mars/main_gui/GuiInterface.h>
-#include <mars/interfaces/sim/SimulatorInterface.h>
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
+#include <interfaces/GuiInterface.h>
+#include <interfaces/SimulatorInterface.h>
+#include <interfaces/GraphicsManagerInterface.h>
 
 using namespace std;
 

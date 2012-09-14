@@ -21,7 +21,7 @@
 **
 ****************************************************************************/
 
-#include "filepathmanager.h"
+#include "main_gui/qtpropertybrowser/extension/filepathmanager.h"
 
 QString FilePathManager::value(const QtProperty *property) const
 {

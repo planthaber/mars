@@ -29,9 +29,9 @@
 #warning "LightHandler.h"
 #endif
 
-#include <mars/main_gui/PropertyDialog.h>
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/LightData.h>
+#include <main_gui/PropertyDialog.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/LightData.h>
 
 namespace mars {
   namespace gui {

@@ -25,13 +25,13 @@
 #warning "Dialog_Import_Mesh.h"
 #endif
 
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/NodeData.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/NodeData.h>
 #include "Dialog_Create_Material.h"
 #include "Widget_Node_Options_ODE.h"
 #include <vector>
 
-#include <mars/main_gui/BaseWidget.h>
+#include <main_gui/BaseWidget.h>
 
 namespace mars {
 

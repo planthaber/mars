@@ -25,7 +25,7 @@
  *
  */
 
-#include "LibManager.h"
+#include <lib_manager/LibManager.h>
 
 #ifndef WIN32
   #include <dlfcn.h>

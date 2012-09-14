@@ -26,10 +26,10 @@
 #warning "JointHandler.h"
 #endif
 
-#include <mars/main_gui/PropertyDialog.h>
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/core_objects_exchange.h>
-#include <mars/interfaces/JointData.h>
+#include <main_gui/PropertyDialog.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/core_objects_exchange.h>
+#include <interfaces/JointData.h>
 
 namespace mars {
   namespace gui {

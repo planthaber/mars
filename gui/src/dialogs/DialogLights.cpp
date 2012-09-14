@@ -19,9 +19,9 @@
  */
 
 #include "DialogLights.h"
-#include <mars/main_gui/GuiInterface.h>
+#include <interfaces/GuiInterface.h>
 
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
+#include <interfaces/GraphicsManagerInterface.h>
 
 using namespace std;
 

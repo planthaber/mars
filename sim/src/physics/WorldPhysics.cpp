@@ -40,10 +40,10 @@
 #include "NodePhysics.h"
 
 
-#include <mars/utils/MutexLocker.h>
-#include <mars/interfaces/graphics/draw_structs.h>
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
-#include <mars/interfaces/sim/SimulatorInterface.h>
+#include <utils/MutexLocker.h>
+#include <interfaces/draw_structs.h>
+#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/SimulatorInterface.h>
 
 namespace mars {
   namespace sim {

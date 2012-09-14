@@ -35,7 +35,7 @@
 #include "MainGUIDefs.h"
 #include "BlenderExportGUI.h"
 #include "ControllerConfigGUI.h"
-#include <mars/main_gui/MenuInterface.h>
+#include <interfaces/MenuInterface.h>
 
 #include <sstream>
 

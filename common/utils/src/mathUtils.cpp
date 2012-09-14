@@ -18,8 +18,8 @@
  *
  */
 
-#include "mathUtils.h"
-#include "misc.h"
+#include "utils/mathUtils.h"
+#include "utils/misc.h"
 
 #include <stdexcept>
 

@@ -21,7 +21,7 @@
 #include "CameraConfiguratorGUI.h"
 #include <iostream>
 
-#include <mars/interfaces/sim/NodeManagerInterface.h>
+#include <interfaces/NodeManagerInterface.h>
 
 using namespace std;
 

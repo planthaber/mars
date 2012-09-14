@@ -28,9 +28,9 @@
 #include "Load.h"
 #include "Save.h"
 
-#include <mars/lib_manager/LibManager.h>
-#include <mars/lib_manager/LibInterface.h>
-#include <mars/interfaces/sim/SimulatorInterface.h>
+#include <lib_manager/LibManager.h>
+#include <interfaces/LibInterface.h>
+#include <interfaces/SimulatorInterface.h>
 
 namespace mars {
   namespace scene_loader {

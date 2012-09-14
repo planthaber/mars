@@ -20,9 +20,9 @@
 
 #include "DialogJoints.h"
 
-#include <mars/main_gui/GuiInterface.h>
-#include <mars/interfaces/sim/JointManagerInterface.h>
-#include <mars/interfaces/sim/NodeManagerInterface.h>
+#include <interfaces/GuiInterface.h>
+#include <interfaces/JointManagerInterface.h>
+#include <interfaces/NodeManagerInterface.h>
 
 using namespace std;
 
@@ -33,8 +33,10 @@ namespace mars {
                                main_gui::GuiInterface *gui,
                                string imagePath_) :
       main_gui::BaseWidget(0, c->cfg, "DialogJoints"),
-      pDialog(new main_gui::PropertyDialog(NULL)), mainGui(gui),
-      imagePath(imagePath_) {
+      imagePath(imagePath_),
+      pDialog(new main_gui::PropertyDialog(NULL)), 
+      mainGui(gui)
+      {
   
       control = c;
       filled = false;  

@@ -26,7 +26,7 @@
  * Version 0.1
  */
 
-#include "CFGParam.h"
+#include "cfg_manager/CFGParam.h"
 
 namespace mars {
   namespace cfg_manager {

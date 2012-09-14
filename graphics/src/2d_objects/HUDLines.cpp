@@ -63,11 +63,11 @@ namespace mars {
   : parent(group),
     scaleTransform(new osg::MatrixTransform),
     cull_mask(0xffffffff),
-    pl(0), pt(0), pr(0), pb(0),
-    visible(true),
-    point_size(1.0),
     render_order(10),
-    init(true)
+    visible(true),
+    init(true),
+    pl(0), pt(0), pr(0), pb(0),
+    point_size(1.0)
     {
       scaleTransform->setMatrix(osg::Matrix::scale(1.0, 1.0, 1.0));
       if(parent.get() != NULL) parent->addChild(scaleTransform);
@@ -76,11 +76,11 @@ namespace mars {
   : parent(NULL),
     scaleTransform(new osg::MatrixTransform),
     cull_mask(0xffffffff),
-    pl(0), pt(0), pr(0), pb(0),
-    visible(true),
-    point_size(1.0),
     render_order(10),
-    init(true)
+    visible(true),
+    init(true),
+    pl(0), pt(0), pr(0), pb(0),
+    point_size(1.0)
     {
       scaleTransform->setMatrix(osg::Matrix::scale(1.0, 1.0, 1.0));
     }
@@ -134,7 +134,7 @@ namespace mars {
 
         osg::Vec3Array* ver = new osg::Vec3Array((*_vertices).size()/3);
         ver->setDataVariance(osg::Object::DYNAMIC);
-        for(int i=0; i<_vertices->size()/3; ++i)
+        for(unsigned int i=0; i<_vertices->size()/3; ++i)
           (*ver)[i].set((*_vertices)[i*3],
                         (*_vertices)[(i*3)+1],
                         (*_vertices)[(i*3)+2]-1.0);
@@ -200,7 +200,7 @@ namespace mars {
     
           geom->addPrimitiveSet(new osg::DrawArrays(GL_QUADS,0,4));
     
-          osg::StateSet* stateset = geom->getOrCreateStateSet();
+          //osg::StateSet* stateset = geom->getOrCreateStateSet();
           //stateset->setMode(GL_LIGHTING,osg::StateAttribute::OFF);
           //stateset->setMode(GL_BLEND,osg::StateAttribute::ON);
           //stateset->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);

@@ -25,10 +25,10 @@
  **/
 
 #include "CaptureWindow.h"
-#include <mars/main_gui/GuiInterface.h>
+#include <interfaces/GuiInterface.h>
 #include<cstdio>
 
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
+#include <interfaces/GraphicsManagerInterface.h>
 
 namespace mars {
   namespace gui {

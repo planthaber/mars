@@ -28,14 +28,14 @@
 
 #include "GraphicsTimer.h"
 
-#include <mars/lib_manager/LibManager.h>
-#include <mars/lib_manager/LibInterface.h>
-#include <mars/main_gui/MainGUI.h>
-#include <mars/interfaces/sim/SimulatorInterface.h>
-#include <mars/interfaces/gui/MarsGuiInterface.h>
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/utils/Thread.h>
-#include <mars/cfg_manager/CFGManagerInterface.h>
+#include <lib_manager/LibManager.h>
+#include <interfaces/LibInterface.h>
+#include <main_gui/MainGUI.h>
+#include <interfaces/SimulatorInterface.h>
+#include <interfaces/MarsGuiInterface.h>
+#include <interfaces/ControlCenter.h>
+#include <utils/Thread.h>
+#include <interfaces/CFGManagerInterface.h>
 
 #include <QDir>
 

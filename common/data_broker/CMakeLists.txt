@@ -28,9 +28,9 @@ if(CMAKE_COMPILER_IS_GNUCXX)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 endif()
 
-pkg_check_modules(PKGCONFIG REQUIRED
-                  lib_manager
-)
+#pkg_check_modules(PKGCONFIG REQUIRED
+#                  lib_manager
+#)
 
 include_directories(${PKGCONFIG_INCLUDE_DIRS})
 link_directories(${PKGCONFIG_LIBRARY_DIRS})
@@ -42,7 +42,7 @@ if(NOT ${CMAKE_C_SIZEOF_DATA_PTR} EQUAL 8)
 endif()
 
 include_directories(
-  src
+ include/
 )
 
 
@@ -55,17 +55,18 @@ set(SOURCES
 )
 
 set(HEADERS
-    src/DataBrokerInterface.h
-    src/ProducerInterface.h
-    src/ReceiverInterface.h
-    src/DataBroker.h
-    src/DataPackage.h
-    src/DataPackageMapping.h
-    src/DataItem.h
-    src/DataInfo.h
+    include/data_broker/DataBroker.h
+    include/data_broker/DataPackage.h
+    include/data_broker/DataPackageMapping.h
+    include/data_broker/DataItem.h
+    include/data_broker/DataInfo.h
 )
 
-
+set(INTERFACE_HEADERS
+    include/interfaces/DataBrokerInterface.h
+    include/interfaces/ProducerInterface.h
+    include/interfaces/ReceiverInterface.h
+)
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
@@ -93,6 +94,7 @@ install(TARGETS ${PROJECT_NAME} ${_INSTALL_DESTINATIONS})
 
 # Install headers into mars include directory
 install(FILES ${HEADERS} DESTINATION include/mars/${PROJECT_NAME})
+install(FILES ${INTERFACE_HEADERS} DESTINATION include/mars/interfaces)
 
 # Prepare and install necessary files to support finding of the library 
 # using pkg-config

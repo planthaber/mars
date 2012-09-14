@@ -40,9 +40,9 @@
 
 #include "Controller.h"
 
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/sim/ControllerManagerInterface.h>
-#include <mars/utils/Mutex.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/ControllerManagerInterface.h>
+#include <utils/Mutex.h>
 
 namespace mars {
   namespace sim {

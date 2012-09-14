@@ -18,13 +18,13 @@
  *
  */
 
-#include "NodeData.h"
-#include "terrainStruct.h"
+#include "interfaces/NodeData.h"
+#include "interfaces/terrainStruct.h"
 #define FORWARD_DECL_ONLY
-#include "sim/ControlCenter.h"
-#include "sim/LoadSceneInterface.h"
-#include <mars/utils/mathUtils.h>
-#include <mars/utils/misc.h>
+#include "interfaces/ControlCenter.h"
+#include "interfaces/LoadSceneInterface.h"
+#include <utils/mathUtils.h>
+#include <utils/misc.h>
 
 #include <iostream>
 #include <cstdio>

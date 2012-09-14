@@ -23,7 +23,7 @@
 #include <math.h>
 #include <iostream>
 
-#include <mars/interfaces/sim/MotorManagerInterface.h>
+#include <interfaces/MotorManagerInterface.h>
 
 using namespace std;
 

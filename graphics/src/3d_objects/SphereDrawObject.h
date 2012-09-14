@@ -30,8 +30,8 @@
 
 #include "DrawObject.h"
 
-#include <mars/interfaces/MARSDefs.h>
-#include <mars/utils/Vector.h>
+#include <interfaces/MARSDefs.h>
+#include <utils/Vector.h>
 
 namespace mars {
   namespace graphics {

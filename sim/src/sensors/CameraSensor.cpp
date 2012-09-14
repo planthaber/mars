@@ -20,13 +20,13 @@
 
 #include "CameraSensor.h"
 
-#include <mars/data_broker/DataBrokerInterface.h>
-#include <mars/utils/mathUtils.h>
-#include <mars/interfaces/sim/LoadSceneInterface.h>
-#include <mars/interfaces/sim/NodeManagerInterface.h>
-#include <mars/interfaces/sim/SimulatorInterface.h>
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
+#include <interfaces/DataBrokerInterface.h>
+#include <utils/mathUtils.h>
+#include <interfaces/LoadSceneInterface.h>
+#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/SimulatorInterface.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/GraphicsManagerInterface.h>
 
 #include <stdint.h>
 #include <cstring>

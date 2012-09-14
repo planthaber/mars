@@ -18,9 +18,9 @@
  *
  */
 
-#include "GraphicData.h"
+#include "interfaces/GraphicData.h"
 
-#include <mars/utils/mathUtils.h>
+#include <utils/mathUtils.h>
 
 #define GET_VALUE(str, val, type)                    \
   if((it = config->find(str)) != config->end())      \

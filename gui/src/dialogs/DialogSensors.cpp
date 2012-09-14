@@ -21,9 +21,9 @@
 
 #include "DialogSensors.h"
 
-#include <mars/main_gui/GuiInterface.h>
+#include <interfaces/GuiInterface.h>
 
-#include <mars/interfaces/sim/SensorManagerInterface.h>
+#include <interfaces/SensorManagerInterface.h>
 
 namespace mars {
   namespace gui {

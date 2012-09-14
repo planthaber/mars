@@ -38,8 +38,8 @@
 ****************************************************************************/
 
 
-#include "qteditorfactory.h"
-#include "qtpropertybrowserutils.h"
+#include "main_gui/qtpropertybrowser/qteditorfactory.h"
+#include "main_gui/qtpropertybrowser/qtpropertybrowserutils.h"
 #include <QtGui/QSpinBox>
 #include <QtGui/QScrollBar>
 #include <QtGui/QComboBox>

@@ -26,7 +26,7 @@
  * Version 0.1
  */
 
-#include "CFGParamBool.h"
+#include "cfg_manager/CFGParamBool.h"
 
 #include <iostream>
 

@@ -25,14 +25,14 @@
 #warning "ScanningSonar.h"
 #endif
 
-#include <mars/data_broker/ReceiverInterface.h>
+#include <interfaces/ReceiverInterface.h>
 
-#include <mars/utils/Vector.h>
-#include <mars/utils/Quaternion.h>
-#include <mars/utils/mathUtils.h>
-#include <mars/interfaces/sim/SensorInterface.h>
-#include <mars/interfaces/graphics/GraphicsWindowInterface.h>
-#include <mars/interfaces/graphics/GraphicsUpdateInterface.h>
+#include <utils/Vector.h>
+#include <utils/Quaternion.h>
+#include <utils/mathUtils.h>
+#include <interfaces/SensorInterface.h>
+#include <interfaces/GraphicsWindowInterface.h>
+#include <interfaces/GraphicsUpdateInterface.h>
 
 namespace mars {
 

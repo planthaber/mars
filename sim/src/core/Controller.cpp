@@ -30,15 +30,15 @@
 
 #include "Controller.h"
 
-#include <mars/interfaces/sim/NodeManagerInterface.h>
-#include <mars/interfaces/sim/SimulatorInterface.h>
-#include <mars/interfaces/sim/JointManagerInterface.h>
-#include <mars/interfaces/sim/MotorManagerInterface.h>
-#include <mars/interfaces/sim/SensorManagerInterface.h>
-#include <mars/utils/misc.h>
-#include <mars/utils/mathUtils.h>
-#include <mars/data_broker/DataBrokerInterface.h>
-#include <mars/cfg_manager/CFGManagerInterface.h>
+#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/SimulatorInterface.h>
+#include <interfaces/JointManagerInterface.h>
+#include <interfaces/MotorManagerInterface.h>
+#include <interfaces/SensorManagerInterface.h>
+#include <utils/misc.h>
+#include <utils/mathUtils.h>
+#include <interfaces/DataBrokerInterface.h>
+#include <interfaces/CFGManagerInterface.h>
 
 #include <cmath>
 #include <cstring>

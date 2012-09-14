@@ -31,18 +31,18 @@
 #include "JointManager.h"
 #include "PhysicsMapper.h"
 
-#include <mars/interfaces/sim/LoadCenter.h>
-#include <mars/interfaces/sim/SimulatorInterface.h>
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
-#include <mars/interfaces/terrainStruct.h>
+#include <interfaces/LoadCenter.h>
+#include <interfaces/SimulatorInterface.h>
+#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/terrainStruct.h>
 
-#include <mars/interfaces/utils.h>
-#include <mars/utils/mathUtils.h>
-#include <mars/data_broker/DataBrokerInterface.h>
+#include <interfaces/utils.h>
+#include <utils/mathUtils.h>
+#include <interfaces/DataBrokerInterface.h>
 
 #include <stdexcept>
 
-#include <mars/utils/MutexLocker.h>
+#include <utils/MutexLocker.h>
 
 namespace mars {
   namespace sim {

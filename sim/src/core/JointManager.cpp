@@ -35,11 +35,11 @@
 
 #include <stdexcept>
 
-#include <mars/interfaces/sim/SimulatorInterface.h>
-#include <mars/interfaces/sim/MotorManagerInterface.h>
-#include <mars/utils/mathUtils.h>
-#include <mars/utils/MutexLocker.h>
-#include <mars/data_broker/DataBrokerInterface.h>
+#include <interfaces/SimulatorInterface.h>
+#include <interfaces/MotorManagerInterface.h>
+#include <utils/mathUtils.h>
+#include <utils/MutexLocker.h>
+#include <interfaces/DataBrokerInterface.h>
 
 namespace mars {
   namespace sim {

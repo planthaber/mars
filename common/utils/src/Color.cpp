@@ -18,7 +18,7 @@
  *
  */
 
-#include "Color.h"
+#include "utils/Color.h"
 
 namespace mars {
   namespace utils {

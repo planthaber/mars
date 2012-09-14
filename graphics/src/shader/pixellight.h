@@ -24,7 +24,7 @@
 
 #include "shader-function.h"
 
-#include <mars/interfaces/LightData.h>
+#include <interfaces/LightData.h>
 
 #include <vector>
 #include <string>

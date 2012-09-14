@@ -21,9 +21,9 @@
 
 #include "Dialog_Add_Torque.h"
 
-#include <mars/main_gui/GuiInterface.h>
+#include <interfaces/GuiInterface.h>
 
-#include <mars/interfaces/sim/NodeManagerInterface.h>
+#include <interfaces/NodeManagerInterface.h>
 
 namespace mars {
   namespace gui {

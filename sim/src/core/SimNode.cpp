@@ -20,13 +20,13 @@
 
 #include "SimNode.h"
 
-#include <mars/data_broker/DataBrokerInterface.h>
-#include <mars/utils/Color.h>
-#include <mars/utils/MutexLocker.h>
-#include <mars/interfaces/terrainStruct.h>
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/sim/SimulatorInterface.h>
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
+#include <interfaces/DataBrokerInterface.h>
+#include <utils/Color.h>
+#include <utils/MutexLocker.h>
+#include <interfaces/terrainStruct.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/SimulatorInterface.h>
+#include <interfaces/GraphicsManagerInterface.h>
 
 #include <iostream>
 #include <cstdlib>

@@ -30,10 +30,10 @@
 #endif
 
 
-#include <mars/main_gui/BaseWidget.h>
-#include <mars/main_gui/PropertyDialog.h>
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/GraphicData.h>
+#include <main_gui/BaseWidget.h>
+#include <main_gui/PropertyDialog.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/GraphicData.h>
 
 namespace mars {
 

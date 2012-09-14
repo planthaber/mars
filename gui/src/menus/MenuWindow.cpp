@@ -26,15 +26,15 @@
  */
 
 #include "config.h"
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/GraphicsManagerInterface.h>
 
 #include "MenuWindow.h"
 
 #include <osgDB/WriteFile>
 #include <vector>
 
-#include <mars/main_gui/GuiInterface.h>
+#include <interfaces/GuiInterface.h>
 
 #include <QKeySequence>
 #include <QWidget>

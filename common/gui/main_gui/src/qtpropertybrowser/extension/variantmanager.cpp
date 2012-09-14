@@ -21,7 +21,7 @@
 **
 ****************************************************************************/
 
-#include "variantmanager.h"
+#include "main_gui/qtpropertybrowser/extension/variantmanager.h"
 
 class FilePathPropertyType
 {

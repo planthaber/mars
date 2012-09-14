@@ -25,19 +25,19 @@
 #include <QtXml>
 #include <QDomNodeList>
 
-#include <mars/data_broker/DataBrokerInterface.h>
+#include <interfaces/DataBrokerInterface.h>
 
-#include <mars/interfaces/sim/SimulatorInterface.h>
-#include <mars/interfaces/sim/NodeManagerInterface.h>
-#include <mars/interfaces/sim/JointManagerInterface.h>
-#include <mars/interfaces/sim/SensorManagerInterface.h>
-#include <mars/interfaces/sim/MotorManagerInterface.h>
-#include <mars/interfaces/sim/ControllerManagerInterface.h>
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
+#include <interfaces/SimulatorInterface.h>
+#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/JointManagerInterface.h>
+#include <interfaces/SensorManagerInterface.h>
+#include <interfaces/MotorManagerInterface.h>
+#include <interfaces/ControllerManagerInterface.h>
+#include <interfaces/GraphicsManagerInterface.h>
 
-#include <mars/interfaces/sim/EntityManagerInterface.h>
-#include <mars/interfaces/sim/LoadSceneInterface.h>
-#include <mars/utils/misc.h>
+#include <interfaces/EntityManagerInterface.h>
+#include <interfaces/LoadSceneInterface.h>
+#include <utils/misc.h>
 
 namespace mars {
   namespace scene_loader {

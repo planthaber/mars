@@ -26,10 +26,10 @@
 
 #include "MenuFile.h"
 
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/sim/SimulatorInterface.h>
-#include <mars/main_gui/GuiInterface.h>
-#include <mars/lib_manager/LibManager.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/SimulatorInterface.h>
+#include <interfaces/GuiInterface.h>
+#include <lib_manager/LibManager.h>
 #include <QtGui>
 
 namespace mars {

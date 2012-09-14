@@ -32,10 +32,10 @@
   #warning "NodeManager.h"
 #endif
 
-#include <mars/utils/Mutex.h>
-#include <mars/interfaces/graphics/GraphicsUpdateInterface.h>
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/sim/NodeManagerInterface.h>
+#include <utils/Mutex.h>
+#include <interfaces/GraphicsUpdateInterface.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/NodeManagerInterface.h>
 
 namespace mars {
   namespace sim {

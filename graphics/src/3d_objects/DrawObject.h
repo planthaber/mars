@@ -32,11 +32,11 @@
   #warning "DrawObject.h"
 #endif
 
-#include <mars/interfaces/MARSDefs.h>
-#include <mars/utils/Vector.h>
-#include <mars/utils/Quaternion.h>
-#include <mars/interfaces/LightData.h>
-#include <mars/interfaces/MaterialData.h>
+#include <interfaces/MARSDefs.h>
+#include <utils/Vector.h>
+#include <utils/Quaternion.h>
+#include <interfaces/LightData.h>
+#include <interfaces/MaterialData.h>
 
 #include <string>
 #include <vector>
@@ -65,7 +65,7 @@ namespace mars {
       static osg::ref_ptr<osg::Material> selectionMaterial;
 
       DrawObject();
-      ~DrawObject();
+      virtual ~DrawObject();
 
       void createObject(unsigned long id,
                         const mars::utils::Vector &_pivot);

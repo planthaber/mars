@@ -26,13 +26,13 @@
  * Version 0.1
  */
 
-#include "CFGManager.h"
+#include "cfg_manager/CFGManager.h"
 
-#include "CFGParam.h"
-#include "CFGParamDouble.h"
-#include "CFGParamInt.h"
-#include "CFGParamBool.h"
-#include "CFGParamString.h"
+#include "cfg_manager/CFGParam.h"
+#include "cfg_manager/CFGParamDouble.h"
+#include "cfg_manager/CFGParamInt.h"
+#include "cfg_manager/CFGParamBool.h"
+#include "cfg_manager/CFGParamString.h"
 
 #include <yaml-cpp/yaml.h>
 
@@ -40,7 +40,7 @@
 #include <fstream>
 #include <sstream>
 
-#include <mars/utils/MutexLocker.h>
+#include <utils/MutexLocker.h>
 
 namespace mars {
   namespace cfg_manager {

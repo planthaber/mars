@@ -20,7 +20,7 @@
 
 #include "SensorHandler.h"
 
-#include <mars/interfaces/sim/SensorManagerInterface.h>
+#include <interfaces/SensorManagerInterface.h>
 
 namespace mars {
   namespace gui {

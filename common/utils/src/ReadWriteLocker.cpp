@@ -18,8 +18,8 @@
  *
  */
 
-#include "ReadWriteLocker.h"
-#include "ReadWriteLock.h"
+#include "utils/ReadWriteLocker.h"
+#include "utils/ReadWriteLock.h"
 
 
 namespace mars {

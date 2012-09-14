@@ -28,9 +28,9 @@
 #include "GridPrimitive.h"
 #include "../wrapper/OSGDrawItem.h"
 
-#include <mars/interfaces/MARSDefs.h>
-#include <mars/utils/Vector.h>
-#include <mars/interfaces/graphics/draw_structs.h>
+#include <interfaces/MARSDefs.h>
+#include <utils/Vector.h>
+#include <interfaces/draw_structs.h>
 
 namespace mars {
   namespace graphics {

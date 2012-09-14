@@ -33,9 +33,9 @@
 #warning "JointArraySensor.h"
 #endif
 
-#include <mars/utils/ConfigData.h>
-#include <mars/interfaces/sim/SensorInterface.h>
-#include <mars/data_broker/ReceiverInterface.h>
+#include <utils/ConfigData.h>
+#include <interfaces/SensorInterface.h>
+#include <interfaces/ReceiverInterface.h>
 
 #include "IDListConfig.h"
 

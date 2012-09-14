@@ -19,10 +19,10 @@
  */
 
 #include "SimMotor.h"
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/sim/SimulatorInterface.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/SimulatorInterface.h>
 
-#include <mars/data_broker/DataBrokerInterface.h>
+#include <interfaces/DataBrokerInterface.h>
 
 #include <cstdio>
 #include <cmath>

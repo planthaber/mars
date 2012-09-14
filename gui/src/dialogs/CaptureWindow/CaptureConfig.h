@@ -31,7 +31,7 @@
 #warning "CaptureConfig.h"
 #endif
 
-#include <mars/interfaces/sim/ControlCenter.h>
+#include <interfaces/ControlCenter.h>
 
 #include <QThread>
 

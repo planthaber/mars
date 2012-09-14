@@ -21,7 +21,7 @@
 **
 ****************************************************************************/
 
-#include "fileedit.h"
+#include "main_gui/qtpropertybrowser/extension/fileedit.h"
 #include <QHBoxLayout>
 #include <QToolButton>
 #include <QFileDialog>

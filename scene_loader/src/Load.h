@@ -27,10 +27,10 @@
 
 #include <map>
 
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/utils/ConfigData.h>
-#include <mars/interfaces/sensor_bases.h>
-#include <mars/interfaces/MaterialData.h>
+#include <interfaces/ControlCenter.h>
+#include <utils/ConfigData.h>
+#include <interfaces/sensor_bases.h>
+#include <interfaces/MaterialData.h>
 
 class QDomElement;
 

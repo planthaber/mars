@@ -35,12 +35,12 @@
 //#define _VERIFY_WORLD_
 //#define _DEBUG_MASS_
 
-#include <mars/utils/Mutex.h>
-#include <mars/utils/Vector.h>
-#include <mars/interfaces/sim_common.h>
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/sim/PhysicsInterface.h>
-#include <mars/interfaces/graphics/draw_structs.h>
+#include <utils/Mutex.h>
+#include <utils/Vector.h>
+#include <interfaces/sim_common.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/PhysicsInterface.h>
+#include <interfaces/draw_structs.h>
 
 #include <vector>
 

@@ -19,7 +19,7 @@
  */
 
 
-#include "PropertyDialog.h"
+#include "main_gui/PropertyDialog.h"
 
 using namespace std;
 

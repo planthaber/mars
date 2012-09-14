@@ -21,8 +21,8 @@
 **
 ****************************************************************************/
 
-#include "fileeditfactory.h"
-#include "fileedit.h"
+#include "main_gui/qtpropertybrowser/extension/fileeditfactory.h"
+#include "main_gui/qtpropertybrowser/extension/fileedit.h"
 
 FileEditFactory::~FileEditFactory()
 {

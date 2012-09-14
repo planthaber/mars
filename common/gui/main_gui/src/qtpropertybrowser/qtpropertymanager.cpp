@@ -38,8 +38,8 @@
 ****************************************************************************/
 
 
-#include "qtpropertymanager.h"
-#include "qtpropertybrowserutils.h"
+#include "main_gui/qtpropertybrowser/qtpropertymanager.h"
+#include "main_gui/qtpropertybrowser/qtpropertybrowserutils.h"
 #include <QtCore/QDateTime>
 #include <QtCore/QLocale>
 #include <QtCore/QMap>

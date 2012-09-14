@@ -39,15 +39,18 @@ include(${QT_USE_FILE})
 INCLUDE_DIRECTORIES( ${QT_INCLUDE_DIR} ${QT_QTXML_INCLUDE_DIR})
 
 #Get linker and compiler flags from pkg-config
-pkg_check_modules(PKGCONFIG REQUIRED
-			    lib_manager
-			    minizip
-			    mars_utils
-			    mars_interfaces)
+pkg_check_modules(LIB_MANAGER lib_manager)
+pkg_check_modules(UTILS mars_utils)
+pkg_check_modules(INTERFACES mars_interfaces)
 
-include_directories(${PKGCONFIG_INCLUDE_DIRS})
-link_directories(${PKGCONFIG_LIBRARY_DIRS})
-add_definitions(${PKGCONFIG_CFLAGS_OTHER})  #flags excluding the ones with -I
+                        
+pkg_check_modules(MINIZIP REQUIRED
+			    minizip
+)
+
+include_directories(${MINIZIP_INCLUDE_DIRS})
+link_directories(${MINIZIP_LIBRARY_DIRS})
+add_definitions(${MINIZIP_CFLAGS_OTHER})  #flags excluding the ones with -I
 
 set(ADD_INCLUDES "-I${QT_INCLUDE_DIR} -I${QT_QTXML_INCLUDE_DIR}")
 
@@ -81,7 +84,8 @@ set(_INSTALL_DESTINATIONS
 TARGET_LINK_LIBRARIES(${PROJECT_NAME}
             ${QT_LIBRARIES}
             ${QT_QTXML_LIBRARY}
-            ${PKGCONFIG_LIBRARIES}
+            ${MINIZIP_LIBRARIES}
+            ${MARS_DEPS}
             ${WIN_LIBS}
             z
 )

@@ -34,8 +34,8 @@
 #include "../3d_objects/TerrainDrawObject.h"
 #include "../3d_objects/LoadDrawObject.h"
 
-#include <mars/interfaces/MaterialData.h>
-#include <mars/utils/Vector.h>
+#include <interfaces/MaterialData.h>
+#include <utils/Vector.h>
 
 #include <stdexcept>
 #include <cstdlib>

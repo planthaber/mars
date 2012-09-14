@@ -19,7 +19,7 @@
  */
 
 
-#include "MyQMdiArea.h"
+#include "main_gui/MyQMdiArea.h"
 
 #include <QPainter>
 #include <QResizeEvent>

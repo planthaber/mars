@@ -19,9 +19,9 @@
  */
 
 #include "Widget_Joint_State.h"
-#include <mars/interfaces/utils.h>
+#include <interfaces/utils.h>
 
-#include <mars/interfaces/sim/JointManagerInterface.h>
+#include <interfaces/JointManagerInterface.h>
 
 namespace mars {
   namespace gui {

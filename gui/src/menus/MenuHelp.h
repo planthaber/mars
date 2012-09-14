@@ -31,11 +31,11 @@
 #endif
 
 #include "MainGUIDefs.h"
-#include <mars/interfaces/sim/ControlCenter.h>
+#include <interfaces/ControlCenter.h>
 #include "AboutDialog.h"
 
-#include <mars/main_gui/MenuInterface.h>
-#include <mars/main_gui/GuiInterface.h>
+#include <interfaces/MenuInterface.h>
+#include <interfaces/GuiInterface.h>
 
 #include <QtGui>
 

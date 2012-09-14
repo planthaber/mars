@@ -26,7 +26,7 @@
  * Version 0.1
  */
 
-#include "CFGParamInt.h"
+#include "cfg_manager/CFGParamInt.h"
 
 #include <iostream>
 

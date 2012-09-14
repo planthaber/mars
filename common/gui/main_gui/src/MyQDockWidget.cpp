@@ -19,8 +19,8 @@
  */
 
 
-#include "MyQDockWidget.h"
-#include "MyQMainWindow.h"
+#include "main_gui/MyQDockWidget.h"
+#include "main_gui/MyQMainWindow.h"
 
 namespace mars {
   namespace main_gui {

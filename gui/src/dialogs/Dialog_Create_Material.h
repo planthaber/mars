@@ -25,8 +25,8 @@
 #warning "Dialog_Create_Material.h"
 #endif
 
-#include <mars/interfaces/MaterialData.h>
-#include <mars/main_gui/PropertyDialog.h>
+#include <interfaces/MaterialData.h>
+#include <main_gui/PropertyDialog.h>
 
 namespace mars {
   namespace gui {

@@ -19,7 +19,7 @@
  */
 
 #include "Dialog_Import_Mesh.h"
-#include <mars/utils/mathUtils.h>
+#include <utils/mathUtils.h>
 #include <iostream>
 
 #include <osg/ComputeBoundsVisitor>
@@ -27,10 +27,10 @@
 #include <osgDB/ReadFile>
 #include <osg/PositionAttitudeTransform>
 
-#include <mars/main_gui/GuiInterface.h>
+#include <interfaces/GuiInterface.h>
 
-#include <mars/interfaces/sim/NodeManagerInterface.h>
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
+#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/GraphicsManagerInterface.h>
 
 namespace mars {
   namespace gui {
@@ -185,7 +185,7 @@ namespace mars {
 
     void Dialog_Import_Mesh::fill()
     {				
-      utils::sRotation rot;
+      //utils::sRotation rot;
       utils::Quaternion quat(1,0,0,0);
       std::vector<std::string> nameString;
       QStringList enumNames;
@@ -211,7 +211,7 @@ namespace mars {
       // don't use Node if conversion failed
       osg::ref_ptr<osg::Group> osgGroupFromRead = NULL;
       if ((osgGroupFromRead = osgReadNode->asGroup()) != 0) {
-        int j =-1;
+        //int j =-1;
     
         fprintf(stderr, "\n");
         // get childrens names
@@ -289,7 +289,7 @@ namespace mars {
 
         dcm->setMaterial(&material);
 
-        rot.alpha=0.0; rot.beta=0.0;rot.gamma=0.0;    
+        //rot.alpha=0.0; rot.beta=0.0;rot.gamma=0.0;    
         //quat = Quaternion(rot);
         quat = utils::Quaternion(1,0,0,0);
         thisNode.rot = quat;
@@ -576,7 +576,7 @@ namespace mars {
       if (initialized == false)
         return;
 
-      bool resize = false;
+      //bool resize = false;
       int current = meshes->value().toInt();
       //set mass/density
       if (mass->value().toDouble() != 0) {
@@ -624,7 +624,7 @@ namespace mars {
       if (vext.x() != allNodes[current].visual_size.x() || 
           vext.y() != allNodes[current].visual_size.y() || 
           vext.z() != allNodes[current].visual_size.z() ){
-        resize=true;
+        //resize=true;
       }
       allNodes[current].ext = ext;
       allNodes[current].visual_size = vext;

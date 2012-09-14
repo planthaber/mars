@@ -36,9 +36,9 @@
  */
 
 #include "NodePhysics.h"
-#include <mars/utils/MutexLocker.h>
-#include <mars/interfaces/sensor_bases.h>
-#include <mars/interfaces/terrainStruct.h>
+#include <utils/MutexLocker.h>
+#include <interfaces/sensor_bases.h>
+#include <interfaces/terrainStruct.h>
 
 namespace mars {
   namespace sim {

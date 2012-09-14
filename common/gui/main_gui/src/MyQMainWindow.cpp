@@ -19,7 +19,7 @@
  */
 
 
-#include "MyQMainWindow.h"
+#include "main_gui/MyQMainWindow.h"
 
 #include <iostream>
 #include <fstream>

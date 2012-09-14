@@ -26,11 +26,11 @@
 
 #include "CameraConfig.h"
 
-#include <mars/utils/mathUtils.h>
+#include <utils/mathUtils.h>
 #include <cstdio>
 
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
-#include <mars/interfaces/sim/NodeManagerInterface.h>
+#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/NodeManagerInterface.h>
 
 using namespace std;
 

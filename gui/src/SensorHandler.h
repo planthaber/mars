@@ -25,10 +25,10 @@
 #warning "SensorHandler.h"
 #endif
 
-#include <mars/main_gui/PropertyDialog.h>
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/core_objects_exchange.h>
-#include <mars/interfaces/sensor_bases.h>
+#include <main_gui/PropertyDialog.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/core_objects_exchange.h>
+#include <interfaces/sensor_bases.h>
 #include "SelectionDialog.h"
 
 namespace mars {

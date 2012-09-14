@@ -31,12 +31,12 @@
 #warning "CameraConfig.h"
 #endif
 
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/data_broker/ReceiverInterface.h>
-#include <mars/data_broker/DataPackageMapping.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/ReceiverInterface.h>
+#include <data_broker/DataPackageMapping.h>
 
-#include <mars/utils/Vector.h>
-#include <mars/utils/Quaternion.h>
+#include <utils/Vector.h>
+#include <utils/Quaternion.h>
 #include <QMutex>
 
 namespace mars {

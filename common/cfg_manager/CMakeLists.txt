@@ -18,17 +18,23 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
 
-pkg_check_modules(PKGCONFIG
-	lib_manager
+pkg_check_modules(YAML
 	yaml-cpp
+        )
+
+if(NOT LOCAL_BUILD)
+pkg_check_modules(DEPS
+	lib_manager
 	mars_utils
 )
-include_directories(${PKGCONFIG_INCLUDE_DIRS})
-link_directories(${PKGCONFIG_LIBRARY_DIRS})
-add_definitions(${PKGCONFIG_CLFAGS_OTHER})  #flags excluding the ones with -I
+ENDIF()
+
+include_directories(${YAML_INCLUDE_DIRS} ${DEPS_INCLUDE_DIRS})
+link_directories(${YAML_LIBRARY_DIRS} ${DEPS_LIBRARY_DIRS})
+add_definitions(${YAML_CLFAGS_OTHER} ${DEPS_CLFAGS_OTHER} )  #flags excluding the ones with -I
 
 include_directories(
-	src
+	include
 )
 
 
@@ -43,20 +49,28 @@ set(SOURCES
 )
 
 set(HEADERS
-	src/CFGClient.h
-	src/CFGDefs.h
-	src/CFGManager.h
-	src/CFGManagerInterface.h
-	src/CFGParam.h
-	src/CFGProperty.h
+	include/cfg_manager/CFGClient.h
+	include/cfg_manager/CFGDefs.h
+	include/cfg_manager/CFGManager.h
+	include/cfg_manager/CFGParam.h
+	include/cfg_manager/CFGProperty.h
+)
+
+set(INTERFACE_HEADERS
+	include/interfaces/CFGManagerInterface.h
 )
 
 
-
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
+if(LOCAL_BUILD)
+    target_link_libraries(${PROJECT_NAME}
+    mars_utils
+    )
+endif()
 
 target_link_libraries(${PROJECT_NAME}
-                      ${PKGCONFIG_LIBRARIES}
+                      ${YAML_LIBRARIES}
+                      ${DEPS_LIBRARIES}
 )
 
 if(WIN32)
@@ -78,6 +92,7 @@ install(TARGETS ${PROJECT_NAME} ${_INSTALL_DESTINATIONS})
 
 # Install headers into mars include directory
 install(FILES ${HEADERS} DESTINATION include/mars/${PROJECT_NAME})
+install(FILES ${INTERFACE_HEADERS} DESTINATION include/mars/interfaces)
 
 # Prepare and install necessary files to support finding of the library 
 # using pkg-config

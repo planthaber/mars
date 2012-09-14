@@ -33,10 +33,10 @@
 
 #include "ControllerManager.h"
 
-#include <mars/interfaces/sim/SimulatorInterface.h>
-#include <mars/interfaces/sim/MotorManagerInterface.h>
-#include <mars/interfaces/sim/SensorManagerInterface.h>
-#include <mars/utils/MutexLocker.h>
+#include <interfaces/SimulatorInterface.h>
+#include <interfaces/MotorManagerInterface.h>
+#include <interfaces/SensorManagerInterface.h>
+#include <utils/MutexLocker.h>
 
 #include <stdexcept>
 

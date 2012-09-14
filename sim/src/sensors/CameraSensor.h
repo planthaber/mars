@@ -25,14 +25,14 @@
 #warning "CameraSensor.h"
 #endif
 
-#include <mars/data_broker/ReceiverInterface.h>
+#include <interfaces/ReceiverInterface.h>
 
-#include <mars/interfaces/sim/SensorInterface.h>
-#include <mars/utils/Vector.h>
-#include <mars/utils/Quaternion.h>
-#include <mars/interfaces/graphics/GraphicsWindowInterface.h>
-#include <mars/interfaces/graphics/GraphicsUpdateInterface.h>
-#include <mars/interfaces/graphics/GraphicsCameraInterface.h>
+#include <interfaces/SensorInterface.h>
+#include <utils/Vector.h>
+#include <utils/Quaternion.h>
+#include <interfaces/GraphicsWindowInterface.h>
+#include <interfaces/GraphicsUpdateInterface.h>
+#include <interfaces/GraphicsCameraInterface.h>
 
 namespace mars {
 

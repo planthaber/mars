@@ -35,8 +35,8 @@
 #include <QCloseEvent>
 #include <QMutex>
 
-#include <mars/cfg_manager/CFGManagerInterface.h>
-#include <mars/main_gui/PropertyDialog.h>
+#include <interfaces/CFGManagerInterface.h>
+#include <main_gui/PropertyDialog.h>
 #include <vector>
 
 

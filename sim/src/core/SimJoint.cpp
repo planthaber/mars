@@ -21,11 +21,11 @@
 #include "SimJoint.h"
 #include "SimNode.h"
 
-#include <mars/data_broker/DataBrokerInterface.h>
+#include <interfaces/DataBrokerInterface.h>
 
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/sim/NodeManagerInterface.h>
-#include <mars/utils/mathUtils.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/NodeManagerInterface.h>
+#include <utils/mathUtils.h>
 
 #include <iostream>
 #include <cstdio>

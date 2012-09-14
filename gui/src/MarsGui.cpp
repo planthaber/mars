@@ -21,14 +21,14 @@
 #include "config.h"
 #include "MarsGui.h"
 
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/sim/SimulatorInterface.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/SimulatorInterface.h>
 
-#include <mars/main_gui/GuiInterface.h>
-#include <mars/main_gui/MainGUI.h>
-#include <mars/main_gui/MyQMainWindow.h>
+#include <interfaces/GuiInterface.h>
+#include <main_gui/MainGUI.h>
+#include <main_gui/MyQMainWindow.h>
 
-#include <mars/lib_manager/LibManager.h>
+#include <lib_manager/LibManager.h>
 
 #include "MarsStyle.h"
 
@@ -83,6 +83,9 @@ namespace mars {
               case Qt::RightDockWidgetArea: a = 2; break;
               case Qt::TopDockWidgetArea: a = 4; break;
               case Qt::BottomDockWidgetArea: a = 8; break;
+	      default:
+		//Nothing
+		break;
               }
 
               if (control->cfg->setPropertyValue("MarsGui", docks[i].title.toStdString() + "/area", 
@@ -145,7 +148,7 @@ namespace mars {
       lib_manager::LibInterface *lib = libManager->getLibrary("mars_sim");
 
       if(lib) {
-        if(sim = dynamic_cast<interfaces::SimulatorInterface*>(lib)) {
+        if((sim = dynamic_cast<interfaces::SimulatorInterface*>(lib))) {
           control = sim->getControlCenter();
         }
       }
@@ -200,7 +203,7 @@ namespace mars {
           string tmp = stateNamesProp.sValue;
       
           while (tmp != "") {
-            int pos = tmp.find("%%");
+            unsigned int pos = tmp.find("%%");
             if (pos == string::npos) break;
             dockNames.push_back(tmp.substr(0, pos));
             tmp.erase(0, pos+2);
@@ -210,7 +213,7 @@ namespace mars {
        
 
           vector<main_gui::dockState> states;
-          for (int i = 0; i < dockNames.size(); i++) {
+          for (unsigned int i = 0; i < dockNames.size(); i++) {
             dockArea = control->cfg->getOrCreateProperty("MarsGui", dockNames[i] + "/area", 1, 
                                                          dynamic_cast<cfg_manager::CFGClient*>(this));
             dockFloat = control->cfg->getOrCreateProperty("MarsGui", dockNames[i] + "/floating", false, 
@@ -239,7 +242,7 @@ namespace mars {
           }
 
           main_gui::MainGUI *mainGui;
-          if(mainGui = dynamic_cast<main_gui::MainGUI*>(gui)) {
+          if((mainGui = dynamic_cast<main_gui::MainGUI*>(gui))) {
             mainGui->mainWindow_p()->setWindowIcon(QIcon(":/images/mars_icon.ico"));
             mainGui->mainWindow_p()->setMinimumSize(0, 0);
 
@@ -292,7 +295,7 @@ namespace mars {
       }
       if(change_view && gui) {
         main_gui::MainGUI *mainGui;
-        if(mainGui = dynamic_cast<main_gui::MainGUI*>(gui)) {
+        if((mainGui = dynamic_cast<main_gui::MainGUI*>(gui))) {
           mainGui->mainWindow_p()->setGeometry(cfgW_left.iValue, cfgW_top.iValue,
                                                cfgW_width.iValue,
                                                cfgW_height.iValue);

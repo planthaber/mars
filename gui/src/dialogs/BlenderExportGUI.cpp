@@ -20,10 +20,10 @@
 
 #include "BlenderExportGUI.h"
 
-#include <mars/main_gui/GuiInterface.h>
+#include <interfaces/GuiInterface.h>
 
-#include <mars/interfaces/sim/NodeManagerInterface.h>
-#include <mars/interfaces/core_objects_exchange.h>
+#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/core_objects_exchange.h>
 
 namespace mars {
   namespace gui {

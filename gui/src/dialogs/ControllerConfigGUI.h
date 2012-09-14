@@ -31,9 +31,9 @@
 #warning "ControllerConfigGUI.h"
 #endif
 
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/main_gui/BaseWidget.h>
-#include <mars/main_gui/PropertyDialog.h>
+#include <interfaces/ControlCenter.h>
+#include <main_gui/BaseWidget.h>
+#include <main_gui/PropertyDialog.h>
 
 namespace mars {
 

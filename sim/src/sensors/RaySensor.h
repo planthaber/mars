@@ -33,11 +33,11 @@
 #warning "RaySensor.h"
 #endif
 
-#include <mars/interfaces/sim/SensorInterface.h>
-#include <mars/data_broker/ReceiverInterface.h>
-#include <mars/utils/Vector.h>
-#include <mars/utils/Quaternion.h>
-#include <mars/interfaces/graphics/draw_structs.h>
+#include <interfaces/SensorInterface.h>
+#include <interfaces/ReceiverInterface.h>
+#include <utils/Vector.h>
+#include <utils/Quaternion.h>
+#include <interfaces/draw_structs.h>
 
 namespace mars {
   namespace sim {

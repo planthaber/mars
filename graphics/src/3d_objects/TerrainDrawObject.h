@@ -32,9 +32,9 @@
 //#include "DrawObject.h"
 #include "LoadDrawObject.h"
 
-#include <mars/interfaces/MARSDefs.h>
-#include <mars/utils/Vector.h>
-#include <mars/interfaces/terrainStruct.h>
+#include <interfaces/MARSDefs.h>
+#include <utils/Vector.h>
+#include <interfaces/terrainStruct.h>
 
 #include <string>
 #include <vector>

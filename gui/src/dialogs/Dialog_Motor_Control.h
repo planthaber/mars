@@ -25,10 +25,10 @@
 #warning "Dialog_Motor_Control.h"
 #endif
 
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/core_objects_exchange.h>
-#include <mars/main_gui/PropertyDialog.h>
-#include <mars/main_gui/BaseWidget.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/core_objects_exchange.h>
+#include <main_gui/PropertyDialog.h>
+#include <main_gui/BaseWidget.h>
 
 namespace mars {
   namespace gui {

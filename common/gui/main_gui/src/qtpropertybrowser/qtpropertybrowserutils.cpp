@@ -38,7 +38,7 @@
 ****************************************************************************/
 
 
-#include "qtpropertybrowserutils.h"
+#include "main_gui/qtpropertybrowser/qtpropertybrowserutils.h"
 #include <QtGui/QApplication>
 #include <QtGui/QPainter>
 #include <QtGui/QHBoxLayout>

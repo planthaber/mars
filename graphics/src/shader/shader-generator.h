@@ -34,7 +34,7 @@
 #include <string>
 #include <map>
 
-#include <mars/interfaces/MARSDefs.h>
+#include <interfaces/MARSDefs.h>
 
 
 namespace mars {

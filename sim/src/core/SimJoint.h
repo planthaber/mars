@@ -25,10 +25,10 @@
 #warning "SimJoint.h"
 #endif
 
-#include <mars/interfaces/sim/JointInterface.h>
+#include <interfaces/JointInterface.h>
 
-#include <mars/data_broker/ProducerInterface.h>
-#include <mars/data_broker/DataPackageMapping.h>
+#include <interfaces/ProducerInterface.h>
+#include <data_broker/DataPackageMapping.h>
 
 namespace mars {
   

@@ -21,16 +21,16 @@
 #ifndef SAVELOADSTRUCTS_H_
 #define SAVELOADSTRUCTS_H_
 
-#include <mars/interfaces/sensor_bases.h>
-#include <mars/interfaces/MaterialData.h>
-#include <mars/interfaces/MotorData.h>
-#include <mars/interfaces/NodeData.h>
-#include <mars/interfaces/JointData.h>
-#include <mars/interfaces/ControllerData.h>
-#include <mars/interfaces/core_objects_exchange.h>
-#include <mars/interfaces/LightData.h>
-#include <mars/interfaces/GraphicData.h>
-#include <mars/interfaces/terrainStruct.h>
+#include <interfaces/sensor_bases.h>
+#include <interfaces/MaterialData.h>
+#include <interfaces/MotorData.h>
+#include <interfaces/NodeData.h>
+#include <interfaces/JointData.h>
+#include <interfaces/ControllerData.h>
+#include <interfaces/core_objects_exchange.h>
+#include <interfaces/LightData.h>
+#include <interfaces/GraphicData.h>
+#include <interfaces/terrainStruct.h>
 #include <map>
 #include <vector>
 #include <string>

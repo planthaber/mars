@@ -30,7 +30,7 @@
 
 #include "GraphicsWidget.h"
 
-#include <mars/utils/Vector.h>
+#include <utils/Vector.h>
 
 #include <string>
 #include <osg/Group>

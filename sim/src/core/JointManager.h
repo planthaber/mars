@@ -33,9 +33,9 @@
   #warning "JointManager.h"
 #endif
 
-#include <mars/interfaces/sim/ControlCenter.h>
-#include <mars/interfaces/sim/JointManagerInterface.h>
-#include <mars/utils/Mutex.h>
+#include <interfaces/ControlCenter.h>
+#include <interfaces/JointManagerInterface.h>
+#include <utils/Mutex.h>
 
 namespace mars {
   namespace sim {

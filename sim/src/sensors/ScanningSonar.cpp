@@ -22,16 +22,15 @@
 
 #include "ScanningSonar.h"
 
-#include <mars/interfaces/sim/NodeManagerInterface.h>
-#include <mars/interfaces/sim/SimulatorInterface.h>
-#include <mars/interfaces/sim/JointManagerInterface.h>
-#include <mars/interfaces/sim/MotorManagerInterface.h>
-#include <mars/interfaces/sim/SensorManagerInterface.h>
-#include <mars/utils/mathUtils.h>
-#include <mars/interfaces/graphics/GraphicsManagerInterface.h>
-#include <mars/interfaces/sim/LoadSceneInterface.h>
-
-#include <mars/data_broker/DataBrokerInterface.h>
+#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/SimulatorInterface.h>
+#include <interfaces/JointManagerInterface.h>
+#include <interfaces/MotorManagerInterface.h>
+#include <interfaces/SensorManagerInterface.h>
+#include <utils/mathUtils.h>
+#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/LoadSceneInterface.h>
+#include <interfaces/DataBrokerInterface.h>
 
 #include "SimMotor.h"
 #include "SimNode.h"

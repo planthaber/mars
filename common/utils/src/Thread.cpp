@@ -18,9 +18,9 @@
  *
  */
 
-#include "Thread.h"
+#include "utils/Thread.h"
 
-#include "misc.h"
+#include "utils/misc.h"
 
 #include <pthread.h>
 

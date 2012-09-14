@@ -34,13 +34,13 @@
 #include "ConsoleGUI.h"
 #include "ConsoleInterface.h"
 
-#include <mars/lib_manager/LibInterface.h>
-#include <mars/data_broker/ReceiverInterface.h>
-#include <mars/data_broker/DataBrokerInterface.h>
-#include <mars/cfg_manager/CFGManagerInterface.h>
-#include <mars/cfg_manager/CFGClient.h>
-#include <mars/main_gui/GuiInterface.h>
-#include <mars/main_gui/MenuInterface.h>
+#include <interfaces/LibInterface.h>
+#include <interfaces/ReceiverInterface.h>
+#include <interfaces/DataBrokerInterface.h>
+#include <interfaces/CFGManagerInterface.h>
+#include <cfg_manager/CFGClient.h>
+#include <interfaces/GuiInterface.h>
+#include <interfaces/MenuInterface.h>
 
 #include <string>
 

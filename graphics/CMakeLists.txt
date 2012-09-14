@@ -62,6 +62,8 @@ include_directories(${PKGCONFIG_INCLUDE_DIRS})
 link_directories(${PKGCONFIG_LIBRARY_DIRS})
 add_definitions(${PKGCONFIG_CFLAGS_OTHER})  #cflags without -I
 
+add_definitions(-DMARS_GRAPHICS_DEFAULT_RESOURCES_PATH="${CMAKE_CURRENT_SOURCE_DIR}/resources")
+
 set(HEADERS
            src/GraphicsCamera.h
            src/GraphicsManager.h
@@ -162,7 +164,7 @@ set(SOURCES
 qt4_wrap_cpp( QT_MOC_HEADER_SRC ${QT_MOC_HEADERS})
 
 #cmake variables
-configure_file(${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_BINARY_DIR}/config.h @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.in ${CMAKE_BINARY_DIR}/config.h @ONLY)
 include_directories("${CMAKE_BINARY_DIR}")
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${QT_MOC_HEADER_SRC} config.h)

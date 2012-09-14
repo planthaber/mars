@@ -30,8 +30,8 @@
 
 #include "../3d_objects/DrawObject.h"
 
-#include <mars/interfaces/NodeData.h>
-#include <mars/interfaces/LightData.h>
+#include <interfaces/NodeData.h>
+#include <interfaces/LightData.h>
 
 #include <osg/Group>
 

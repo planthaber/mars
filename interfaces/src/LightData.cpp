@@ -18,9 +18,9 @@
  *
  */
 
-#include "LightData.h"
-#include "MARSDefs.h"
-#include <mars/utils/mathUtils.h>
+#include "interfaces/LightData.h"
+#include "interfaces/MARSDefs.h"
+#include <utils/mathUtils.h>
 
 #define GET_VALUE(str, val, type)                    \
   if((it = config->find(str)) != config->end())      \

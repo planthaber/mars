@@ -31,11 +31,11 @@
 #warning "DataWidget.h"
 #endif
 
-#include <mars/main_gui/PropertyDialog.h>
-#include <mars/main_gui/BaseWidget.h>
-#include <mars/data_broker/ReceiverInterface.h>
-#include <mars/data_broker/DataInfo.h>
-#include <mars/data_broker/DataPackage.h>
+#include <main_gui/PropertyDialog.h>
+#include <main_gui/BaseWidget.h>
+#include <interfaces/ReceiverInterface.h>
+#include <data_broker/DataInfo.h>
+#include <data_broker/DataPackage.h>
 
 #include <vector>
 #include <set>

@@ -18,12 +18,12 @@
  *
  */
 
-#include "JointData.h"
-#include "utils.h"
+#include "interfaces/JointData.h"
+#include "interfaces/utils.h"
 #define FORWARD_DECL_ONLY
-#include "sim/ControlCenter.h"
-#include "sim/LoadSceneInterface.h"
-#include <mars/utils/mathUtils.h>
+#include "interfaces/ControlCenter.h"
+#include "interfaces/LoadSceneInterface.h"
+#include <utils/mathUtils.h>
 
 // should add some error handling for ConfigItem::get...()
 
