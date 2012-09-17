@@ -22,17 +22,17 @@
 #define MARS_PLUGIN_TEMPLATE_H
 
 #include "ControlCenter.h"
-#include "../MARSDefs.h"
+#include "MARSDefs.h"
 #include "PluginInterface.h"
 #include "SimulatorInterface.h"
 
-#include <mars/lib_manager/LibInterface.h>
-#include <mars/cfg_manager/CFGManagerInterface.h>
+#include <interfaces/LibInterface.h>
+#include <interfaces/CFGManagerInterface.h>
 
 #include <string>
 
 #ifdef PLUGIN_WITH_MARS_GUI
-#include <mars/main_gui/GuiInterface.h>
+#include <interfaces/GuiInterface.h>
 #endif
 
 namespace mars {

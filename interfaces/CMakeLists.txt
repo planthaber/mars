@@ -32,24 +32,54 @@ include_directories(include)
 
 
 set(HEADERS
-    include/interfaces/cameraStruct.h
-    include/interfaces/contact_params.h
-    include/interfaces/ControllerData.h
-    include/interfaces/core_objects_exchange.h
-    include/interfaces/GraphicData.h
-    include/interfaces/JointData.h
-    include/interfaces/LightData.h
-    include/interfaces/MARSDefs.h
-    include/interfaces/MaterialData.h
-    include/interfaces/MotorData.h
-    include/interfaces/nodeState.h
-    include/interfaces/NodeData.h
-    include/interfaces/sensor_bases.h
-    include/interfaces/sim_common.h
-    include/interfaces/snmesh.h
-    include/interfaces/terrainStruct.h
-    include/interfaces/utils.h
-    include/interfaces/SceneParseException.h
+	include/interfaces/camera_sensor_config.h
+	include/interfaces/cameraStruct.h
+	include/interfaces/contact_params.h
+	include/interfaces/ControlCenter.h
+	include/interfaces/ControllerData.h
+	include/interfaces/ControllerInterface.h
+	include/interfaces/ControllerManagerInterface.h
+	include/interfaces/core_objects_exchange.h
+	include/interfaces/DrawInterface.h
+	include/interfaces/draw_structs.h
+	include/interfaces/EntityManagerInterface.h
+	include/interfaces/GraphicData.h
+	include/interfaces/GraphicsCameraInterface.h
+	include/interfaces/GraphicsEventClient.h
+	include/interfaces/GraphicsEventInterface.h
+	include/interfaces/GraphicsGuiInterface.h
+	include/interfaces/GraphicsManagerInterface.h
+	include/interfaces/GraphicsUpdateInterface.h
+	include/interfaces/GraphicsWindowInterface.h
+	include/interfaces/GuiEventInterface.h
+	include/interfaces/JointData.h
+	include/interfaces/JointInterface.h
+	include/interfaces/JointManagerInterface.h
+	include/interfaces/jointStruct.h
+	include/interfaces/LightData.h
+	include/interfaces/LoadCenter.h
+	include/interfaces/LoadSceneInterface.h
+	include/interfaces/MARSDefs.h
+	include/interfaces/MarsGuiInterface.h
+	include/interfaces/MarsPluginTemplate.h
+	include/interfaces/MaterialData.h
+	include/interfaces/MotorData.h
+	include/interfaces/MotorManagerInterface.h
+	include/interfaces/NodeData.h
+	include/interfaces/NodeInterface.h
+	include/interfaces/NodeManagerInterface.h
+	include/interfaces/nodeState.h
+	include/interfaces/PhysicsInterface.h
+	include/interfaces/PluginInterface.h
+	include/interfaces/SceneParseException.h
+	include/interfaces/sensor_bases.h
+	include/interfaces/SensorInterface.h
+	include/interfaces/SensorManagerInterface.h
+	include/interfaces/sim_common.h
+	include/interfaces/SimulatorInterface.h
+	include/interfaces/snmesh.h
+	include/interfaces/terrainStruct.h
+	include/interfaces/utils.h
 )
 
 set(SOURCES 
