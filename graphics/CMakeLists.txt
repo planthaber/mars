@@ -51,12 +51,13 @@ set(QT_USE_QTOPENGL TRUE)
 include(${QT_USE_FILE})
 INCLUDE_DIRECTORIES( ${QT_INCLUDE_DIR} ${QT_QTXML_INCLUDE_DIR})
 
-pkg_check_modules(PKGCONFIG REQUIRED
+pkg_check_modules(PKGCONFIG 
 			    opencv
 			    lib_manager
 			    mars_interfaces
 			    cfg_manager
 )
+
 
 include_directories(${PKGCONFIG_INCLUDE_DIRS})
 link_directories(${PKGCONFIG_LIBRARY_DIRS})

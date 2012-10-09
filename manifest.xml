@@ -3,5 +3,9 @@
     </description>
     <depend package="external/minizip" />
     <depend package="external/ode" />
+    <depend package="external/ode" />
+    <depend package="osg" />
+    <depend package="opencv" />
+    <depend package="external/yaml-cpp" />
 </package>
 
