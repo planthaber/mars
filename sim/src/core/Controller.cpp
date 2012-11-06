@@ -103,7 +103,7 @@ namespace mars {
 #endif
       connected = 0;
       conn = 0;
-      //initServer(1500);
+      //initServer(1600);
       //getClient();
       LOG_ERROR("Controller: try to connect to port: %d", nport);
       openClient(hostname.data(), nport);
