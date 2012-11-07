@@ -89,7 +89,7 @@ namespace mars {
        * core_objects_exchange struct for every sensor. The vector is cleared
        * in the beginning of this function.
        */
-  virtual void getListSensors(std::vector<core_objects_exchange, Eigen::aligned_allocator<core_objects_exchange> > *sensorList)const=0;
+  virtual void getListSensors(MarsVector<core_objects_exchange> *sensorList)const=0;
 
       /**
        * \brief Gives information about core exchange data for camera sensors.

@@ -22,7 +22,7 @@
 
 #include <interfaces/GuiInterface.h>
 
-#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
 #include <interfaces/core_objects_exchange.h>
 
 namespace mars {
@@ -117,8 +117,8 @@ namespace mars {
       (void)id;
       (void)data;
       if(state == 3) {
-        std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > objectList;
-        std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> >::iterator iter;
+        MarsVector<interfaces::core_objects_exchange> objectList;
+        MarsVector<interfaces::core_objects_exchange>::iterator iter;
         interfaces::NodeData theNode;
         utils::Quaternion q;
         utils::Vector pos;

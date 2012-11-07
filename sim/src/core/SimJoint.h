@@ -25,7 +25,7 @@
 #warning "SimJoint.h"
 #endif
 
-#include <interfaces/JointInterface.h>
+#include <interfaces/sim/JointInterface.h>
 
 #include <interfaces/ProducerInterface.h>
 #include <data_broker/DataPackageMapping.h>

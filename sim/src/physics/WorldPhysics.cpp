@@ -41,9 +41,9 @@
 
 
 #include <utils/MutexLocker.h>
-#include <interfaces/draw_structs.h>
-#include <interfaces/GraphicsManagerInterface.h>
-#include <interfaces/SimulatorInterface.h>
+#include <interfaces/graphics/draw_structs.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
+#include <interfaces/sim/SimulatorInterface.h>
 
 namespace mars {
   namespace sim {

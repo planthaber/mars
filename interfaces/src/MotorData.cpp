@@ -19,7 +19,7 @@
  */
 
 #include "interfaces/MotorData.h"
-#include "interfaces/LoadSceneInterface.h"
+#include "interfaces/sim/LoadSceneInterface.h"
 
 #define GET_VALUE(str, val, type)                    \
   if((it = config->find(str)) != config->end())      \

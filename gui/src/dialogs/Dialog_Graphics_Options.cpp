@@ -22,8 +22,8 @@
 
 #include <interfaces/GuiInterface.h>
 
-#include <interfaces/GraphicsCameraInterface.h>
-#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/graphics/GraphicsCameraInterface.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
 
 using namespace std;
 

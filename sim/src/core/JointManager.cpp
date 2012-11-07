@@ -35,8 +35,8 @@
 
 #include <stdexcept>
 
-#include <interfaces/SimulatorInterface.h>
-#include <interfaces/MotorManagerInterface.h>
+#include <interfaces/sim/SimulatorInterface.h>
+#include <interfaces/sim/MotorManagerInterface.h>
 #include <utils/mathUtils.h>
 #include <utils/MutexLocker.h>
 #include <interfaces/DataBrokerInterface.h>
@@ -146,7 +146,7 @@ namespace mars {
       }
     }
 
-    void JointManager::getListJoints(vector<core_objects_exchange, Eigen::aligned_allocator<core_objects_exchange> >* jointList) {
+    void JointManager::getListJoints(MarsVector<core_objects_exchange>* jointList) {
       core_objects_exchange obj;
       std::map<unsigned long, SimJoint*>::iterator iter;
       MutexLocker locker(&iMutex);

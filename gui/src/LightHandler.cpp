@@ -20,7 +20,7 @@
 
 #include "LightHandler.h"
 
-#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
 
 using namespace std;
 

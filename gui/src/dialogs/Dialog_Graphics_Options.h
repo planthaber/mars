@@ -32,7 +32,7 @@
 
 #include <main_gui/BaseWidget.h>
 #include <main_gui/PropertyDialog.h>
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/ControlCenter.h>
 #include <interfaces/GraphicData.h>
 
 namespace mars {

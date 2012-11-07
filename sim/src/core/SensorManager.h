@@ -38,8 +38,8 @@
   #warning "SensorManager.h"
 #endif
 
-#include <interfaces/SensorManagerInterface.h>
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/SensorManagerInterface.h>
+#include <interfaces/sim/ControlCenter.h>
 #include <utils/Mutex.h>
 #include <utils/ConfigData.h>
 
@@ -101,7 +101,7 @@ namespace mars {
        * core_objects_exchange struct for every sensor. The vector is cleared
        * in the beginning of this function.
        */
-      virtual void getListSensors(std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > *sensorList) const;
+      virtual void getListSensors(MarsVector<interfaces::core_objects_exchange> *sensorList) const;
   
       /**
        * \brief Gives information about core exchange data for camera sensors.

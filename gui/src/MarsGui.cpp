@@ -21,8 +21,8 @@
 #include "config.h"
 #include "MarsGui.h"
 
-#include <interfaces/ControlCenter.h>
-#include <interfaces/SimulatorInterface.h>
+#include <interfaces/sim/ControlCenter.h>
+#include <interfaces/sim/SimulatorInterface.h>
 
 #include <interfaces/GuiInterface.h>
 #include <main_gui/MainGUI.h>

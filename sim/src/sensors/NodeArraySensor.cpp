@@ -28,8 +28,8 @@
 
 #include "NodeArraySensor.h"
 
-#include <interfaces/SimulatorInterface.h>
-#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/sim/SimulatorInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
 #include <interfaces/DataBrokerInterface.h>
 
 #include <cstdlib>

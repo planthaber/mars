@@ -24,9 +24,9 @@
 #include <utils/Color.h>
 #include <utils/MutexLocker.h>
 #include <interfaces/terrainStruct.h>
-#include <interfaces/ControlCenter.h>
-#include <interfaces/SimulatorInterface.h>
-#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/sim/ControlCenter.h>
+#include <interfaces/sim/SimulatorInterface.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
 
 #include <iostream>
 #include <cstdlib>

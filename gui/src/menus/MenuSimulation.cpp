@@ -22,9 +22,9 @@
 #include "MenuSimulation.h"
 
 #include <interfaces/GuiInterface.h>
-#include <interfaces/SimulatorInterface.h>
-#include <interfaces/NodeManagerInterface.h>
-#include <interfaces/MotorManagerInterface.h>
+#include <interfaces/sim/SimulatorInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
+#include <interfaces/sim/MotorManagerInterface.h>
 
 namespace mars {
   namespace gui {

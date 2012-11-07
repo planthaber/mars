@@ -21,7 +21,7 @@
 #include "CameraConfiguratorGUI.h"
 #include <iostream>
 
-#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
 
 using namespace std;
 
@@ -325,8 +325,8 @@ namespace mars {
 
     void CameraConfiguratorGUI::timerEvent(QTimerEvent* event) {
       (void) event;
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > objectList;
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> >::iterator iter;
+      MarsVector<interfaces::core_objects_exchange> objectList;
+      MarsVector<interfaces::core_objects_exchange>::iterator iter;
       std::vector<NodeElem*>::iterator jter;
       std::vector<NodeElem*> addList;
       std::vector<NodeElem*> deleteList;

@@ -21,8 +21,8 @@
 #include "DialogJoints.h"
 
 #include <interfaces/GuiInterface.h>
-#include <interfaces/JointManagerInterface.h>
-#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/sim/JointManagerInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
 
 using namespace std;
 

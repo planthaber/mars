@@ -53,7 +53,7 @@
 #include "JointTorqueSensor.h"
 #include "ScanningSonar.h"
 
-#include <interfaces/SimulatorInterface.h>
+#include <interfaces/sim/SimulatorInterface.h>
 #include <utils/MutexLocker.h>
 
 #include <cstdio>
@@ -123,7 +123,7 @@ namespace mars {
      * core_objects_exchange struct for every sensor. The vector is cleared
      * in the beginning of this function.
      */
-    void SensorManager::getListSensors(vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > *sensorList) const {
+    void SensorManager::getListSensors(MarsVector<interfaces::core_objects_exchange> *sensorList) const {
       core_objects_exchange obj;
       map<unsigned long, BaseSensor*>::const_iterator iter;
       sensorList->clear();

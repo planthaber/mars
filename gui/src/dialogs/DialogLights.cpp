@@ -21,7 +21,7 @@
 #include "DialogLights.h"
 #include <interfaces/GuiInterface.h>
 
-#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
 
 using namespace std;
 

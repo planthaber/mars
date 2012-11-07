@@ -21,8 +21,8 @@
 #include "interfaces/NodeData.h"
 #include "interfaces/terrainStruct.h"
 #define FORWARD_DECL_ONLY
-#include "interfaces/ControlCenter.h"
-#include "interfaces/LoadSceneInterface.h"
+#include "interfaces/sim/ControlCenter.h"
+#include "interfaces/sim/LoadSceneInterface.h"
 #include <utils/mathUtils.h>
 #include <utils/misc.h>
 

@@ -25,7 +25,7 @@
 #warning "Dialog_Import_Mesh.h"
 #endif
 
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/ControlCenter.h>
 #include <interfaces/NodeData.h>
 #include "Dialog_Create_Material.h"
 #include "Widget_Node_Options_ODE.h"

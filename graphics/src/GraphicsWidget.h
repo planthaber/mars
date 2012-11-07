@@ -31,8 +31,8 @@
 
 #include <interfaces/MARSDefs.h>
 #include <utils/Vector.h>
-#include <interfaces/GraphicsEventInterface.h>
-#include <interfaces/GraphicsGuiInterface.h>
+#include <interfaces/graphics/GraphicsEventInterface.h>
+#include <interfaces/graphics/GraphicsGuiInterface.h>
 
 #include <osgViewer/Viewer>
 #include <osgWidget/WindowManager>

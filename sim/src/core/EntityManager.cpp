@@ -20,7 +20,7 @@
 
 #include "EntityManager.h"
 #include "SimEntity.h"
-#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
 #include <utils/MutexLocker.h>
 
 #include <iostream>

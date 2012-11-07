@@ -22,7 +22,7 @@
 
 #include <interfaces/GuiInterface.h>
 
-#include <interfaces/ControllerManagerInterface.h>
+#include <interfaces/sim/ControllerManagerInterface.h>
 
 namespace mars {
   namespace gui {
@@ -144,8 +144,8 @@ namespace mars {
 
     void ControllerConfigGUI::timerEvent(QTimerEvent* event) {
       (void) event;
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > objectList;
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> >::iterator iter;
+      MarsVector<interfaces::core_objects_exchange> objectList;
+      MarsVector<interfaces::core_objects_exchange>::iterator iter;
       std::vector<ControllerElem*>::iterator jter;
       std::vector<ControllerElem*> addList;
       std::vector<ControllerElem*> deleteList;

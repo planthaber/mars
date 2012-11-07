@@ -40,8 +40,8 @@
 
 #include "Controller.h"
 
-#include <interfaces/ControlCenter.h>
-#include <interfaces/ControllerManagerInterface.h>
+#include <interfaces/sim/ControlCenter.h>
+#include <interfaces/sim/ControllerManagerInterface.h>
 #include <utils/Mutex.h>
 
 namespace mars {
@@ -79,7 +79,7 @@ namespace mars {
        * core_objects_exchange struct for every controller. The vector is cleared
        * in the beginning of this function.
        */
-      virtual void getListController(std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > *controllerList) const;
+      virtual void getListController(MarsVector<interfaces::core_objects_exchange> *controllerList) const;
   
       /**
        *\brief Returns the number of controllers that are currently present in the simulation.

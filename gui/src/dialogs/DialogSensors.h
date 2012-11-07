@@ -28,7 +28,7 @@
 
 #include <main_gui/BaseWidget.h>
 #include <main_gui/PropertyDialog.h>
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/ControlCenter.h>
 #include "SensorHandler.h"
 
 namespace mars {
@@ -67,7 +67,7 @@ namespace mars {
       std::vector<SensorHandler*> newDialogs;
       std::vector<QtProperty*> allSensors_p;
       std::vector<QtProperty*> newSensors_p;
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > allSensors;
+      MarsVector<interfaces::core_objects_exchange> allSensors;
       interfaces::ControlCenter* control;
       main_gui::GuiInterface *mainGui;
 

@@ -26,7 +26,7 @@
 #endif
 
 #include <main_gui/PropertyDialog.h>
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/ControlCenter.h>
 #include <interfaces/core_objects_exchange.h>
 #include <interfaces/sensor_bases.h>
 #include "SelectionDialog.h"
@@ -67,10 +67,10 @@ namespace mars {
 
  
     private:  
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > myMotors;
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > myNodes;
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > myJoints;
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > chosenOnes;
+      MarsVector<interfaces::core_objects_exchange> myMotors;
+      MarsVector<interfaces::core_objects_exchange> myNodes;
+      MarsVector<interfaces::core_objects_exchange> myJoints;
+      MarsVector<interfaces::core_objects_exchange> chosenOnes;
       interfaces::ControlCenter *control;
   
       interfaces::BaseSensor *mySensor;
@@ -80,7 +80,7 @@ namespace mars {
  
       QtVariantProperty *topLevelSensor;
 
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > allSensors;
+      MarsVector<interfaces::core_objects_exchange> allSensors;
       std::string sensorName;
       std::string actualName;
       int mySensorIndex;

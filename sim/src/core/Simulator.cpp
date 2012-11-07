@@ -31,10 +31,10 @@
 #include "Controller.h"
 
 #include <utils/misc.h>
-#include <interfaces/SceneParseException.h>
-#include <interfaces/GraphicsManagerInterface.h>
-#include <interfaces/LoadCenter.h>
-#include <interfaces/LoadSceneInterface.h>
+#include <interfaces/exceptions/SceneParseException.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
+#include <interfaces/sim/LoadCenter.h>
+#include <interfaces/sim/LoadSceneInterface.h>
 #include <interfaces/DataBrokerInterface.h>
 #include <interfaces/LibInterface.h>
 

@@ -34,8 +34,8 @@
 //#include <QtGui>
 #include <main_gui/BaseWidget.h>
 #include <main_gui/PropertyDialog.h>
-#include <interfaces/ControlCenter.h>
-#include <interfaces/GraphicsEventClient.h>
+#include <interfaces/sim/ControlCenter.h>
+#include <interfaces/graphics/GraphicsEventClient.h>
 #include <interfaces/core_objects_exchange.h>
 
 namespace mars {
@@ -62,7 +62,7 @@ namespace mars {
       bool filled, select_allowed;
       QtVariantProperty *node_view_mode, *node_selection_mode, *root ;
   
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > simNodes;
+      MarsVector<interfaces::core_objects_exchange> simNodes;
       std::vector<unsigned long> present;
 
       QTreeWidget *treeWidget;

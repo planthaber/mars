@@ -26,7 +26,7 @@
 
 #include "CameraConfigurator.h"
 #include <interfaces/GuiInterface.h>
-#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
 #include <cstdio>
 
 namespace mars {

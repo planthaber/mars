@@ -30,7 +30,7 @@
 
 #include <lib_manager/LibManager.h>
 #include <interfaces/LibInterface.h>
-#include <interfaces/SimulatorInterface.h>
+#include <interfaces/sim/SimulatorInterface.h>
 
 namespace mars {
   namespace scene_loader {

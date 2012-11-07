@@ -22,7 +22,7 @@
 
 #include <interfaces/GuiInterface.h>
 
-#include <interfaces/ControllerManagerInterface.h>
+#include <interfaces/sim/ControllerManagerInterface.h>
 
 namespace mars {
   namespace gui {

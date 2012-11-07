@@ -36,7 +36,7 @@
 
 #include "CaptureGUI.h"
 #include <interfaces/MenuInterface.h>
-#include <interfaces/GraphicsUpdateInterface.h>
+#include <interfaces/graphics/GraphicsUpdateInterface.h>
 
 namespace mars {
 

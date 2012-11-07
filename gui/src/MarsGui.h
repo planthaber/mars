@@ -27,7 +27,7 @@
 #ifndef MARS_GUI_H
 #define MARS_GUI_H
 
-#include <interfaces/MarsGuiInterface.h>
+#include <interfaces/gui/MarsGuiInterface.h>
 #include <interfaces/CFGManagerInterface.h>
 
 namespace mars {

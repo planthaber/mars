@@ -27,7 +27,7 @@
  */
 
 #include "NodeCOMSensor.h"
-#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
 
 #include <cstdio>
 #include <cstdlib>

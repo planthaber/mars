@@ -29,8 +29,8 @@
 
 #include <interfaces/GuiInterface.h>
 
-#include <interfaces/NodeManagerInterface.h>
-#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
 
 namespace mars {
   namespace gui {

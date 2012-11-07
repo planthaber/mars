@@ -21,8 +21,8 @@
 #include "interfaces/JointData.h"
 #include "interfaces/utils.h"
 #define FORWARD_DECL_ONLY
-#include "interfaces/ControlCenter.h"
-#include "interfaces/LoadSceneInterface.h"
+#include "interfaces/sim/ControlCenter.h"
+#include "interfaces/sim/LoadSceneInterface.h"
 #include <utils/mathUtils.h>
 
 // should add some error handling for ConfigItem::get...()

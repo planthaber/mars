@@ -27,12 +27,12 @@
 
 #include <interfaces/ReceiverInterface.h>
 
-#include <interfaces/SensorInterface.h>
+#include <interfaces/sim/SensorInterface.h>
 #include <utils/Vector.h>
 #include <utils/Quaternion.h>
-#include <interfaces/GraphicsWindowInterface.h>
-#include <interfaces/GraphicsUpdateInterface.h>
-#include <interfaces/GraphicsCameraInterface.h>
+#include <interfaces/graphics/GraphicsWindowInterface.h>
+#include <interfaces/graphics/GraphicsUpdateInterface.h>
+#include <interfaces/graphics/GraphicsCameraInterface.h>
 
 namespace mars {
 

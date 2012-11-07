@@ -27,7 +27,7 @@
 
 #include <map>
 
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/ControlCenter.h>
 #include <utils/ConfigData.h>
 #include <interfaces/sensor_bases.h>
 #include <interfaces/MaterialData.h>

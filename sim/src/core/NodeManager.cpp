@@ -31,9 +31,9 @@
 #include "JointManager.h"
 #include "PhysicsMapper.h"
 
-#include <interfaces/LoadCenter.h>
-#include <interfaces/SimulatorInterface.h>
-#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/sim/LoadCenter.h>
+#include <interfaces/sim/SimulatorInterface.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
 #include <interfaces/terrainStruct.h>
 
 #include <interfaces/utils.h>
@@ -472,7 +472,7 @@ namespace mars {
      * \brief Fills a list of core_object_exchange objects with node
      * iformations.
      */
-     void NodeManager::getListNodes(vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> >* nodeList) const {
+     void NodeManager::getListNodes(MarsVector<interfaces::core_objects_exchange>* nodeList) const {
       core_objects_exchange obj;
       NodeMap::const_iterator iter;
       MutexLocker locker(&iMutex);

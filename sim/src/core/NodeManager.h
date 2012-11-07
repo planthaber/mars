@@ -33,9 +33,9 @@
 #endif
 
 #include <utils/Mutex.h>
-#include <interfaces/GraphicsUpdateInterface.h>
-#include <interfaces/ControlCenter.h>
-#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/graphics/GraphicsUpdateInterface.h>
+#include <interfaces/sim/ControlCenter.h>
+#include <interfaces/sim/NodeManagerInterface.h>
 
 namespace mars {
   namespace sim {
@@ -69,7 +69,7 @@ namespace mars {
       virtual interfaces::NodeId addTerrain(interfaces::terrainStruct *terrainS);
       virtual std::vector<interfaces::NodeId> addNode(std::vector<interfaces::NodeData> v_NodeData);
       virtual interfaces::NodeId addPrimitive(interfaces::NodeData *snode);
-      virtual void getListNodes(std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > *nodeList) const;
+      virtual void getListNodes(MarsVector<interfaces::core_objects_exchange> *nodeList) const;
       virtual int getNodeCount() const;
       virtual interfaces::NodeId getNextNodeID() const;
       virtual void editNode(interfaces::NodeData *nodeS, int changes);

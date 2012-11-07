@@ -33,7 +33,7 @@
 
 #include "MainGUIDefs.h"
 #include <interfaces/MenuInterface.h>
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/ControlCenter.h>
 
 #include "DialogNodes.h"
 #include "DialogJoints.h"

@@ -28,8 +28,8 @@
 
 #include "JointArraySensor.h"
 
-#include <interfaces/JointManagerInterface.h>
-#include <interfaces/SimulatorInterface.h>
+#include <interfaces/sim/JointManagerInterface.h>
+#include <interfaces/sim/SimulatorInterface.h>
 #include <interfaces/DataBrokerInterface.h>
 
 #include <cstdlib>

@@ -37,9 +37,9 @@
 
 #include <interfaces/sim_common.h>
 #include <interfaces/terrainStruct.h>
-#include <interfaces/LoadCenter.h>
+#include <interfaces/sim/LoadCenter.h>
 
-#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
 
 
 namespace mars {

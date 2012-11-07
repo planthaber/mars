@@ -107,7 +107,7 @@ namespace mars {
        * core_objects_exchange struct for every motor and its index. The vector is cleared
        * in the beginning of this function.
        */
-  virtual void getListMotors(std::vector<core_objects_exchange, Eigen::aligned_allocator<core_objects_exchange> > *motorList) const = 0;
+  virtual void getListMotors(MarsVector<core_objects_exchange> *motorList) const = 0;
   
       /**
        * \brief Gives all information of a certain motor.

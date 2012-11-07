@@ -28,7 +28,7 @@
 
 #define FORWARD_DECL_ONLY
 #define ROCK
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/ControlCenter.h>
 
 namespace mars {
 

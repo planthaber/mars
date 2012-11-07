@@ -34,7 +34,7 @@
 #include <utils/Vector.h>
 #include <utils/Color.h>
 #include <utils/mathUtils.h>
-#include <interfaces/draw_structs.h>
+#include <interfaces/graphics/draw_structs.h>
 
 #include <string>
 #include <vector>

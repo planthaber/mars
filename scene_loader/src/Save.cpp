@@ -47,13 +47,13 @@
 
 #include "Save.h"
 
-#include <interfaces/NodeManagerInterface.h>
-#include <interfaces/JointManagerInterface.h>
-#include <interfaces/MotorManagerInterface.h>
-#include <interfaces/SensorManagerInterface.h>
-#include <interfaces/ControllerManagerInterface.h>
-#include <interfaces/GraphicsCameraInterface.h>
-#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
+#include <interfaces/sim/JointManagerInterface.h>
+#include <interfaces/sim/MotorManagerInterface.h>
+#include <interfaces/sim/SensorManagerInterface.h>
+#include <interfaces/sim/ControllerManagerInterface.h>
+#include <interfaces/graphics/GraphicsCameraInterface.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
 #include <interfaces/sensor_bases.h>
 #include <interfaces/utils.h>
 
@@ -235,8 +235,8 @@ namespace mars {
      * this method prepares the internal datastructs and fills them with values
      */
     unsigned int Save::prepare() {
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > objList;
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> >::iterator it;
+      MarsVector<interfaces::core_objects_exchange> objList;
+      MarsVector<interfaces::core_objects_exchange>::iterator it;
 
       //obtaining the number of elements and storing them in a vector
       control->nodes->getListNodes(&objList);

@@ -33,8 +33,8 @@
   #warning "JointManager.h"
 #endif
 
-#include <interfaces/ControlCenter.h>
-#include <interfaces/JointManagerInterface.h>
+#include <interfaces/sim/ControlCenter.h>
+#include <interfaces/sim/JointManagerInterface.h>
 #include <utils/Mutex.h>
 
 namespace mars {
@@ -54,7 +54,7 @@ namespace mars {
       virtual void editJoint(interfaces::JointData *jointS);
       virtual void getJointExchange(unsigned long id, interfaces::core_objects_exchange *obj);
       virtual const interfaces::JointData getFullJoint(unsigned long index);
-      virtual void getListJoints(std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > *jointList);
+      virtual void getListJoints(MarsVector<interfaces::core_objects_exchange> *jointList);
       virtual void removeJoint(unsigned long index);
       virtual void removeJointByIDs(unsigned long id1, unsigned long id2);
       virtual SimJoint* getSimJoint(unsigned long id);

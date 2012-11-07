@@ -23,8 +23,8 @@
 
 #include <interfaces/DataBrokerInterface.h>
 
-#include <interfaces/ControlCenter.h>
-#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/sim/ControlCenter.h>
+#include <interfaces/sim/NodeManagerInterface.h>
 #include <utils/mathUtils.h>
 
 #include <iostream>

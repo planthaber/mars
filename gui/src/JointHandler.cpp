@@ -22,9 +22,9 @@
 #include "JointHandler.h"
 #include "Widget_Joint_State.h"
 #include <iostream>
-#include <interfaces/NodeManagerInterface.h>
-#include <interfaces/JointManagerInterface.h>
-#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
+#include <interfaces/sim/JointManagerInterface.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
 
 namespace mars {
   namespace gui {

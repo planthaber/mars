@@ -29,8 +29,8 @@
 #include <utils/mathUtils.h>
 #include <cstdio>
 
-#include <interfaces/GraphicsManagerInterface.h>
-#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
 
 using namespace std;
 

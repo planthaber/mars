@@ -33,7 +33,7 @@
 #endif
 
 #include <interfaces/ReceiverInterface.h>
-#include <interfaces/SensorInterface.h>
+#include <interfaces/sim/SensorInterface.h>
 
 namespace mars {
   namespace sim {

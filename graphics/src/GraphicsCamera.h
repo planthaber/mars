@@ -34,7 +34,7 @@
 
 #include <osg/Camera>
 #include <osgGA/KeySwitchMatrixManipulator>
-#include <interfaces/GraphicsCameraInterface.h>
+#include <interfaces/graphics/GraphicsCameraInterface.h>
 
 #define MY_ZNEAR    0.01
 #define MY_ZFAR  1000.0

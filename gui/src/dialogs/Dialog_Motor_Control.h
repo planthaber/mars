@@ -25,7 +25,7 @@
 #warning "Dialog_Motor_Control.h"
 #endif
 
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/ControlCenter.h>
 #include <interfaces/core_objects_exchange.h>
 #include <main_gui/PropertyDialog.h>
 #include <main_gui/BaseWidget.h>
@@ -53,7 +53,7 @@ namespace mars {
       main_gui::PropertyDialog *pDialog;  
 
     private:
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > myMotors;
+      MarsVector<interfaces::core_objects_exchange> myMotors;
       std::vector<QtVariantProperty*> motorWidgets;
       std::vector<QSlider*> sliders;
     

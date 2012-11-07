@@ -58,7 +58,7 @@
 #include <interfaces/LightData.h>
 #include <interfaces/MaterialData.h>
 #include <interfaces/cameraStruct.h>
-#include <interfaces/GraphicsEventInterface.h>
+#include <interfaces/graphics/GraphicsEventInterface.h>
 #include <interfaces/CFGManagerInterface.h>
 #include <cfg_manager/CFGClient.h>
 
@@ -134,7 +134,7 @@ namespace mars {
       virtual void removeLight(unsigned int index);
       virtual void updateLight(unsigned int index);
       virtual void getLights(std::vector<mars::interfaces::LightData*> *lightList);
-      virtual void getLights(std::vector<mars::interfaces::LightData, Eigen::aligned_allocator<mars::interfaces::LightData> > *lightList) const;
+      virtual void getLights(MarsVector<mars::interfaces::LightData> *lightList) const;
       virtual int getLightCount(void) const;
 
       virtual unsigned long addDrawObject(const mars::interfaces::NodeData &snode,
@@ -290,7 +290,7 @@ namespace mars {
       GraphicsViewer *viewer;
 
       // includes osg::lights, osg::lightsource, lightstruct and flag to check if full
-  std::vector<lightmanager,Eigen::aligned_allocator<lightmanager> > myLights;
+      MarsVector<lightmanager> myLights;
 
       //static objects
       osg::ref_ptr<osg::Group> scene;

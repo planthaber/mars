@@ -22,7 +22,7 @@
 #include <utils/mathUtils.h>
 #include <interfaces/DataBrokerInterface.h>
 
-#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
 
 using namespace std;
 

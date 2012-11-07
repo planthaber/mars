@@ -33,7 +33,7 @@
 #endif
 
 #include <main_gui/PropertyDialog.h>
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/ControlCenter.h>
 #include <interfaces/terrainStruct.h>
 #include <interfaces/core_objects_exchange.h>
 #include <interfaces/NodeData.h>
@@ -138,7 +138,7 @@ namespace mars {
       int primitive_type;
 
       mars::interfaces::ControlCenter *control;
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > allNodes;
+      MarsVector<interfaces::core_objects_exchange> allNodes;
 
       // the structures representing the node
       interfaces::NodeData node;

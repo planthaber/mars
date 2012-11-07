@@ -29,6 +29,7 @@
 #  endif
 #endif
 #include <Eigen/Core>
+#include <vector>
 
 /* define M_PI if it is not defined (M_PI is *not* part of any standard) */
 #ifndef M_PI
@@ -36,7 +37,15 @@
 #endif
 
 #ifdef EIGEN_DONT_ALIGN
-#error "Mars base is cleaned up for EIGEN Align problems, if you get any additional errors in future, DON'T use EIGEN_DONT_ALIGN, adapt your code regarding to http://eigen.tuxfamily.org/dox-devel/TopicUnalignedArrayAssert.html and http://eigen.tuxfamily.org/dox/TopicStlContainers.html and http://eigen.tuxfamily.org/dox/TopicStructHavingEigenMembers.html. Please do not set the global flag"
+#warning "Mars base is cleaned up for EIGEN Align problems, if you get any additional errors in future, DON'T use EIGEN_DONT_ALIGN, adapt your code regarding to http://eigen.tuxfamily.org/dox-devel/TopicUnalignedArrayAssert.html and http://eigen.tuxfamily.org/dox/TopicStlContainers.html and http://eigen.tuxfamily.org/dox/TopicStructHavingEigenMembers.html. Please do not set the global flag. It's still valid but not recommended"
+#endif
+
+#ifdef EIGEN_DONT_ALIGN
+    typedef std::vector MarsVector;
+#else
+    template <class T>
+    class MarsVector : public std::vector<T, Eigen::aligned_allocator< T > >{
+    };
 #endif
 
 namespace mars {

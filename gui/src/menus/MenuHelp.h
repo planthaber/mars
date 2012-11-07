@@ -31,7 +31,7 @@
 #endif
 
 #include "MainGUIDefs.h"
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/ControlCenter.h>
 #include "AboutDialog.h"
 
 #include <interfaces/MenuInterface.h>

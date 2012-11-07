@@ -38,16 +38,8 @@ INCLUDE_DIRECTORIES(
     ${CMAKE_CURRENT_SOURCE_DIR}/common/cfg_manager/include/
     ${CMAKE_CURRENT_SOURCE_DIR}/common/data_broker/include/
     ${CMAKE_CURRENT_SOURCE_DIR}/interfaces/include/
-    #    ${PROJECT_BINARY_DIR}/include/mars
+    ${CMAKE_CURRENT_SOURCE_DIR}/interfaces/include/interfaces/
 )
-
-#export_includedir(${PROJECT_SOURCE_DIR}/common/lib_manager/src/ mars/lib_manager)
-#export_includedir(${PROJECT_SOURCE_DIR}/common/utils/src/ mars/utils)
-#export_includedir(${PROJECT_SOURCE_DIR}/common/cfg_manager/src/ mars/cfg_manager)
-#export_includedir(${PROJECT_SOURCE_DIR}/common/gui/main_gui/src/ mars/main_gui)
-#export_includedir(${PROJECT_SOURCE_DIR}/common/data_broker/src/ mars/data_broker)
-#export_includedir(${PROJECT_SOURCE_DIR}/common/gui/main_gui/src/qtpropertybrowser/qtpropertymanager.h mars/main_gui/)
-
 
 add_subdirectory(common)
 add_subdirectory(graphics)

@@ -30,7 +30,7 @@
 
 #include "../2d_objects/HUDElement.h"
 
-#include <interfaces/draw_structs.h>
+#include <interfaces/graphics/draw_structs.h>
 
 #include <string>
 

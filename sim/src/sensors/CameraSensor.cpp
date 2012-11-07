@@ -22,11 +22,11 @@
 
 #include <interfaces/DataBrokerInterface.h>
 #include <utils/mathUtils.h>
-#include <interfaces/LoadSceneInterface.h>
-#include <interfaces/NodeManagerInterface.h>
-#include <interfaces/SimulatorInterface.h>
-#include <interfaces/ControlCenter.h>
-#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/sim/LoadSceneInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
+#include <interfaces/sim/SimulatorInterface.h>
+#include <interfaces/sim/ControlCenter.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
 
 #include <stdint.h>
 #include <cstring>

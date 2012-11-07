@@ -32,7 +32,7 @@
 
 #include <main_gui/BaseWidget.h>
 #include <main_gui/PropertyDialog.h>
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/ControlCenter.h>
 #include "NodeSelectionTree.h"
 
 namespace mars {
@@ -57,8 +57,8 @@ namespace mars {
       main_gui::PropertyDialog *pDialog;  
   
     private:
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > simNodes;
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > simJoints;
+      MarsVector<interfaces::core_objects_exchange> simNodes;
+      MarsVector<interfaces::core_objects_exchange> simJoints;
 
       std::vector<unsigned long> selectedNodes;
       std::vector<unsigned long> selectedJoints;

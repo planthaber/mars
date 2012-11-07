@@ -33,10 +33,10 @@
 #warning "RayGridSensor.h"
 #endif
 
-#include <interfaces/SensorInterface.h>
+#include <interfaces/sim/SensorInterface.h>
 #include <interfaces/ReceiverInterface.h>
 #include <interfaces/sensor_bases.h>
-#include <interfaces/draw_structs.h>
+#include <interfaces/graphics/draw_structs.h>
 
 namespace mars {
   namespace sim {

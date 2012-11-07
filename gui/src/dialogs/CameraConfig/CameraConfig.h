@@ -31,7 +31,7 @@
 #warning "CameraConfig.h"
 #endif
 
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/ControlCenter.h>
 #include <interfaces/ReceiverInterface.h>
 #include <data_broker/DataPackageMapping.h>
 

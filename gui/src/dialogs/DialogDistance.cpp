@@ -22,8 +22,8 @@
 #include "DialogDistance.h"
 #include <iostream>
 
-#include <interfaces/NodeManagerInterface.h>
-#include <interfaces/JointManagerInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
+#include <interfaces/sim/JointManagerInterface.h>
 
 using namespace std;
 

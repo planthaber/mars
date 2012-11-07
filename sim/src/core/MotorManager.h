@@ -38,8 +38,8 @@
   #warning "MotorManager.h"
 #endif
 
-#include <interfaces/ControlCenter.h>
-#include <interfaces/MotorManagerInterface.h>
+#include <interfaces/sim/ControlCenter.h>
+#include <interfaces/sim/MotorManagerInterface.h>
 #include <utils/Mutex.h>
 
 namespace mars {
@@ -111,7 +111,7 @@ namespace mars {
        * core_objects_exchange struct for every motor and its index. The vector is cleared
        * in the beginning of this function.
        */
-      virtual void getListMotors(std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > *motorList) const;
+      virtual void getListMotors(MarsVector<interfaces::core_objects_exchange> *motorList) const;
  
 
       /**

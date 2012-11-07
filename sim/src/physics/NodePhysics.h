@@ -34,7 +34,7 @@
 
 #include "WorldPhysics.h"
 
-#include <interfaces/NodeInterface.h>
+#include <interfaces/sim/NodeInterface.h>
 
 #ifndef ODE11
   #define dTriIndex int

@@ -23,7 +23,7 @@
 
 #include <interfaces/GuiInterface.h>
 
-#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
 
 namespace mars {
   namespace gui {
@@ -99,7 +99,7 @@ namespace mars {
      * returns the pointer to the nodeList vector, so that the
      * vector can be filled by the MyMainWidnow
      */
-    std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> >* Dialog_Add_Torque::getNodeListPtr(void) {
+    MarsVector<interfaces::core_objects_exchange>* Dialog_Add_Torque::getNodeListPtr(void) {
       return &myNodes;
     }
 

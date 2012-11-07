@@ -34,7 +34,7 @@
 #endif
 
 #include <utils/ConfigData.h>
-#include <interfaces/SensorInterface.h>
+#include <interfaces/sim/SensorInterface.h>
 #include <interfaces/ReceiverInterface.h>
 
 #include "IDListConfig.h"

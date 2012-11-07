@@ -34,8 +34,8 @@
 
 #include <main_gui/BaseWidget.h>
 #include <main_gui/PropertyDialog.h>
-#include <interfaces/ControlCenter.h>
-#include <interfaces/GraphicsEventClient.h>
+#include <interfaces/sim/ControlCenter.h>
+#include <interfaces/graphics/GraphicsEventClient.h>
 #include "NodeHandler.h"
 
 namespace mars {
@@ -78,7 +78,7 @@ namespace mars {
       std::vector<NodeHandler*> newDialogs; // handler classes in previewmode
       std::vector<QtProperty*> allNodes_p; // all top level properties in edit mode
       std::vector<QtProperty*> newNodes_p; // top level properties for nodes in preview mode
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > allNodes; // all simulation nodes
+      MarsVector<interfaces::core_objects_exchange> allNodes; // all simulation nodes
       interfaces::ControlCenter* control;
       main_gui::GuiInterface *mainGui;
 

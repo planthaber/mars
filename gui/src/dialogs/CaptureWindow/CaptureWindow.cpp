@@ -28,7 +28,7 @@
 #include <interfaces/GuiInterface.h>
 #include<cstdio>
 
-#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
 
 namespace mars {
   namespace gui {

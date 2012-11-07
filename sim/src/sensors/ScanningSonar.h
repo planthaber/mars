@@ -30,9 +30,9 @@
 #include <utils/Vector.h>
 #include <utils/Quaternion.h>
 #include <utils/mathUtils.h>
-#include <interfaces/SensorInterface.h>
-#include <interfaces/GraphicsWindowInterface.h>
-#include <interfaces/GraphicsUpdateInterface.h>
+#include <interfaces/sim/SensorInterface.h>
+#include <interfaces/graphics/GraphicsWindowInterface.h>
+#include <interfaces/graphics/GraphicsUpdateInterface.h>
 
 namespace mars {
 

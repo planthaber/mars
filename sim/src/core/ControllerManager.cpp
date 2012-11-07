@@ -33,9 +33,9 @@
 
 #include "ControllerManager.h"
 
-#include <interfaces/SimulatorInterface.h>
-#include <interfaces/MotorManagerInterface.h>
-#include <interfaces/SensorManagerInterface.h>
+#include <interfaces/sim/SimulatorInterface.h>
+#include <interfaces/sim/MotorManagerInterface.h>
+#include <interfaces/sim/SensorManagerInterface.h>
 #include <utils/MutexLocker.h>
 
 #include <stdexcept>
@@ -67,7 +67,7 @@ namespace mars {
      * in the beginning of this function.
      */
   
-    void ControllerManager::getListController(vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > *controllerList) const {
+    void ControllerManager::getListController(MarsVector<interfaces::core_objects_exchange> *controllerList) const {
       core_objects_exchange obj;
       map<unsigned long, Controller*>::const_iterator iter;
       controllerList->clear();

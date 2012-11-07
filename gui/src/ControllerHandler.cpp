@@ -19,10 +19,10 @@
  */
 
 #include "ControllerHandler.h"
-#include <interfaces/ControllerManagerInterface.h>
-#include <interfaces/SensorManagerInterface.h>
-#include <interfaces/MotorManagerInterface.h>
-#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/sim/ControllerManagerInterface.h>
+#include <interfaces/sim/SensorManagerInterface.h>
+#include <interfaces/sim/MotorManagerInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
 
 namespace mars {
   namespace gui {

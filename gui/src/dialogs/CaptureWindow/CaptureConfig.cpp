@@ -31,7 +31,7 @@
 #include <QDateTime>
 #include <QDir>
 
-#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
 
 namespace mars {
   namespace gui {

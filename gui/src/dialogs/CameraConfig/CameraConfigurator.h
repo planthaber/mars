@@ -35,7 +35,7 @@
 #include <QMutex>
 
 #include "CameraConfiguratorGUI.h"
-#include <interfaces/GraphicsUpdateInterface.h>
+#include <interfaces/graphics/GraphicsUpdateInterface.h>
 
 
 #include <interfaces/MenuInterface.h>

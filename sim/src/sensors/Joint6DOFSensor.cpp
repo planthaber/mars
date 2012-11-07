@@ -31,11 +31,11 @@
 
 #include "Joint6DOFSensor.h"
 
-#include <interfaces/SimulatorInterface.h>
-#include <interfaces/NodeManagerInterface.h>
-#include <interfaces/JointManagerInterface.h>
-#include <interfaces/LoadCenter.h>
-#include <interfaces/LoadSceneInterface.h>
+#include <interfaces/sim/SimulatorInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
+#include <interfaces/sim/JointManagerInterface.h>
+#include <interfaces/sim/LoadCenter.h>
+#include <interfaces/sim/LoadSceneInterface.h>
 #include <interfaces/DataBrokerInterface.h>
 
 namespace mars {

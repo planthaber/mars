@@ -26,7 +26,7 @@
 #endif
 
 #include <main_gui/PropertyDialog.h>
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/ControlCenter.h>
 #include <interfaces/core_objects_exchange.h>
 #include <interfaces/MotorData.h>
 
@@ -60,7 +60,7 @@ namespace mars {
       MotorTree::Mode mode;
   
     private:  
-    std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > joints;
+    MarsVector<interfaces::core_objects_exchange> joints;
     mars::interfaces::ControlCenter *control;
   
       interfaces::MotorData myMotor;
@@ -72,7 +72,7 @@ namespace mars {
 
       QtVariantProperty *topLevelMotor;
 
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > allMotors;
+      MarsVector<interfaces::core_objects_exchange> allMotors;
       std::string motorName;
       std::string actualName;
       int myMotorIndex;

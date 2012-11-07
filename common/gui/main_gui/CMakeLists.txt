@@ -202,7 +202,7 @@ set(_INSTALL_DESTINATIONS
 install(TARGETS ${PROJECT_NAME} ${_INSTALL_DESTINATIONS})
 
 # Install headers into mars include directory
-install(FILES ${INTERFACE_HEADER} DESTINATION include/mars/interfaces)
+install(FILES ${INTERFACE_HEADER} DESTINATION include/mars/interfaces/main_gui/)
 install(FILES ${HEADERS} DESTINATION include/mars/${PROJECT_NAME})
 install(FILES ${PROP_HEADERS} DESTINATION include/mars/${PROJECT_NAME}/qtpropertybrowser)
 

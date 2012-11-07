@@ -31,7 +31,7 @@
 #endif
 
 #include "JoystickWidget.h"
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/ControlCenter.h>
 #include <main_gui/BaseWidget.h>
 #include <main_gui/PropertyDialog.h>
 #include "NodeSelectionTree.h"
@@ -62,7 +62,7 @@ namespace mars {
     private:
       void closeEvent(QCloseEvent *event);
 
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > simNodes;
+      MarsVector<interfaces::core_objects_exchange> simNodes;
       NodeSelectionTree *nodeList;
       JoystickWidget *joy;
       interfaces::ControlCenter* control;

@@ -30,11 +30,11 @@
 
 #include "Controller.h"
 
-#include <interfaces/NodeManagerInterface.h>
-#include <interfaces/SimulatorInterface.h>
-#include <interfaces/JointManagerInterface.h>
-#include <interfaces/MotorManagerInterface.h>
-#include <interfaces/SensorManagerInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
+#include <interfaces/sim/SimulatorInterface.h>
+#include <interfaces/sim/JointManagerInterface.h>
+#include <interfaces/sim/MotorManagerInterface.h>
+#include <interfaces/sim/SensorManagerInterface.h>
 #include <utils/misc.h>
 #include <utils/mathUtils.h>
 #include <interfaces/DataBrokerInterface.h>

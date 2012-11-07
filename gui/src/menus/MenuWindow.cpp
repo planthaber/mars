@@ -26,8 +26,8 @@
  */
 
 #include "config.h"
-#include <interfaces/ControlCenter.h>
-#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/sim/ControlCenter.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
 
 #include "MenuWindow.h"
 

@@ -31,9 +31,9 @@
 #include <lib_manager/LibManager.h>
 #include <interfaces/LibInterface.h>
 #include <main_gui/MainGUI.h>
-#include <interfaces/SimulatorInterface.h>
-#include <interfaces/MarsGuiInterface.h>
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/SimulatorInterface.h>
+#include <interfaces/gui/MarsGuiInterface.h>
+#include <interfaces/sim/ControlCenter.h>
 #include <utils/Thread.h>
 #include <interfaces/CFGManagerInterface.h>
 

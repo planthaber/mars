@@ -35,11 +35,11 @@
 #endif
 
 #include <interfaces/MARSDefs.h>
-#include <interfaces/SimulatorInterface.h>
-#include <interfaces/ControlCenter.h>
-#include <interfaces/LoadCenter.h>
-#include <interfaces/LoadSceneInterface.h>
-#include <interfaces/SensorInterface.h>
+#include <interfaces/sim/SimulatorInterface.h>
+#include <interfaces/sim/ControlCenter.h>
+#include <interfaces/sim/LoadCenter.h>
+#include <interfaces/sim/LoadSceneInterface.h>
+#include <interfaces/sim/SensorInterface.h>
 
 namespace mars {
   namespace sim {

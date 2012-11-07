@@ -38,9 +38,9 @@
 #include <utils/Mutex.h>
 #include <utils/Vector.h>
 #include <interfaces/sim_common.h>
-#include <interfaces/ControlCenter.h>
-#include <interfaces/PhysicsInterface.h>
-#include <interfaces/draw_structs.h>
+#include <interfaces/sim/ControlCenter.h>
+#include <interfaces/sim/PhysicsInterface.h>
+#include <interfaces/graphics/draw_structs.h>
 
 #include <vector>
 

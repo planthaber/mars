@@ -35,7 +35,7 @@
 #include <interfaces/GraphicData.h>
 #include <interfaces/LightData.h>
 #include <interfaces/MaterialData.h>
-#include <interfaces/LoadCenter.h>
+#include <interfaces/sim/LoadCenter.h>
 
 #include <interfaces/LibInterface.h>
 #include <utils/Vector.h>
@@ -162,7 +162,7 @@ namespace mars {
       virtual void hideGrid(void) = 0;
       virtual void updateLight(unsigned int index) = 0;
       virtual void getLights(std::vector<LightData*> *lightList) = 0;
-      virtual void getLights(std::vector<LightData,Eigen::aligned_allocator<LightData> > *lightList) const = 0;
+      virtual void getLights(MarsVector<LightData> *lightList) const = 0;
       
       virtual int getLightCount(void) const = 0;
       virtual void exportScene(const std::string &filename) const = 0;

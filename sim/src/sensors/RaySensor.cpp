@@ -28,12 +28,12 @@
 
 #include "RaySensor.h"
 
-#include <interfaces/NodeManagerInterface.h>
-#include <interfaces/SimulatorInterface.h>
-#include <interfaces/LoadSceneInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
+#include <interfaces/sim/SimulatorInterface.h>
+#include <interfaces/sim/LoadSceneInterface.h>
 
 #include <interfaces/DataBrokerInterface.h>
-#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
 
 #include <cmath>
 #include <cstdio>

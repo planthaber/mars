@@ -27,7 +27,7 @@
 #endif
 
 #include <main_gui/PropertyDialog.h>
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/ControlCenter.h>
 #include <interfaces/core_objects_exchange.h>
 #include <interfaces/JointData.h>
 
@@ -73,8 +73,8 @@ namespace mars {
     private:  
       bool state_on;
       mars::interfaces::ControlCenter *control;
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > allJoints;
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > allNodes;
+      MarsVector<interfaces::core_objects_exchange> allJoints;
+      MarsVector<interfaces::core_objects_exchange> allNodes;
       std::string imagePath;
       interfaces::JointData myJoint;
       bool userEdited, filled;

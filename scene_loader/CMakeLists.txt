@@ -48,7 +48,7 @@ pkg_check_modules(MINIZIP REQUIRED
 			    minizip
 )
 
-include_directories(${MINIZIP_INCLUDE_DIRS})
+include_directories(${MINIZIP_INCLUDE_DIRS} ${INTERFACES_INCLUDE_DIRS})
 link_directories(${MINIZIP_LIBRARY_DIRS})
 add_definitions(${MINIZIP_CFLAGS_OTHER})  #flags excluding the ones with -I
 

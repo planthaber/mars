@@ -28,8 +28,8 @@
 
 #include "PhysicsInterface.h"
 #include "PluginInterface.h"
-#include "sim_common.h"
-#include "draw_structs.h"
+#include <sim_common.h>
+#include "graphics/draw_structs.h"
 #include "LightData.h"
 
 namespace mars {

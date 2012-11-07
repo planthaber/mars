@@ -38,11 +38,11 @@
 #include <utils/Thread.h>
 #include <utils/Mutex.h>
 #include <utils/ReadWriteLock.h>
-#include <interfaces/SimulatorInterface.h>
-#include <interfaces/PhysicsInterface.h>
-#include <interfaces/PluginInterface.h>
-#include <interfaces/ControlCenter.h>
-#include <interfaces/GraphicsUpdateInterface.h>
+#include <interfaces/sim/SimulatorInterface.h>
+#include <interfaces/sim/PhysicsInterface.h>
+#include <interfaces/sim/PluginInterface.h>
+#include <interfaces/sim/ControlCenter.h>
+#include <interfaces/graphics/GraphicsUpdateInterface.h>
 
 #include <iostream>
 

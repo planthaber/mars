@@ -20,8 +20,8 @@
 
 #include "Dialog_Rescale_Environment.h"
 #include <interfaces/GuiInterface.h>
-#include <interfaces/SimulatorInterface.h>
-#include <interfaces/GraphicsManagerInterface.h>
+#include <interfaces/sim/SimulatorInterface.h>
+#include <interfaces/graphics/GraphicsManagerInterface.h>
 
 using namespace std;
 

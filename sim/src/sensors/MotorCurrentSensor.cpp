@@ -27,7 +27,7 @@
  */
 
 #include "MotorCurrentSensor.h"
-#include <interfaces/MotorManagerInterface.h>
+#include <interfaces/sim/MotorManagerInterface.h>
 #include <interfaces/DataBrokerInterface.h>
 
 #include <cstdio>

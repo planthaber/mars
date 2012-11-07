@@ -26,7 +26,7 @@
  */
 
 #include "NodeContactSensor.h"
-#include <interfaces/NodeManagerInterface.h>
+#include <interfaces/sim/NodeManagerInterface.h>
 #include <interfaces/DataBrokerInterface.h>
 
 #include <cstdio>

@@ -21,7 +21,7 @@
 #include "zipit.h"
 
 #include <utils/misc.h>
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/ControlCenter.h>
 
 #include <cstdlib>
 #include <cassert>

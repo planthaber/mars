@@ -26,7 +26,7 @@
 #endif
 
 #include <main_gui/PropertyDialog.h>
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/ControlCenter.h>
 #include <utils/Vector.h>
 #include <interfaces/MARSDefs.h>
 #include <interfaces/ReceiverInterface.h>

@@ -33,8 +33,8 @@
 
 #include <main_gui/BaseWidget.h>
 #include <main_gui/PropertyDialog.h>
-#include <interfaces/ControlCenter.h>
-#include <interfaces/GraphicsEventClient.h>
+#include <interfaces/sim/ControlCenter.h>
+#include <interfaces/graphics/GraphicsEventClient.h>
 #include "ControllerHandler.h"
 
 namespace mars {
@@ -74,7 +74,7 @@ namespace mars {
       std::vector<ControllerHandler*> newDialogs;
       std::vector<QtProperty*> allControllers_p;
       std::vector<QtProperty*> newControllers_p;
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > allControllers;
+      MarsVector<interfaces::core_objects_exchange> allControllers;
       interfaces::ControlCenter* control;
       main_gui::GuiInterface *mainGui;
 

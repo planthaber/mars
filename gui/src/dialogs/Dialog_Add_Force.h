@@ -27,7 +27,7 @@
 
 #include <main_gui/BaseWidget.h>
 #include <main_gui/PropertyDialog.h>
-#include <interfaces/ControlCenter.h>
+#include <interfaces/sim/ControlCenter.h>
 #include <interfaces/core_objects_exchange.h>
 
 namespace mars {
@@ -50,7 +50,7 @@ namespace mars {
       ~Dialog_Add_Force();
 
       /** \brief return the address of the NodeList vector  */
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> >* getNodeListPtr(void);	
+      MarsVector<interfaces::core_objects_exchange>* getNodeListPtr(void);	
 
       main_gui::PropertyDialog* pDialog;
       void show(void) {pDialog->show();}
@@ -67,7 +67,7 @@ namespace mars {
       void closeDialog();
 
     private:
-      std::vector<interfaces::core_objects_exchange, Eigen::aligned_allocator<interfaces::core_objects_exchange> > myNodes;
+      MarsVector<interfaces::core_objects_exchange> myNodes;
       interfaces::ControlCenter* control;
       main_gui::GuiInterface *mainGui;
 

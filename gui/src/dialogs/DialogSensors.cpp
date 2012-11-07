@@ -23,7 +23,7 @@
 
 #include <interfaces/GuiInterface.h>
 
-#include <interfaces/SensorManagerInterface.h>
+#include <interfaces/sim/SensorManagerInterface.h>
 
 namespace mars {
   namespace gui {

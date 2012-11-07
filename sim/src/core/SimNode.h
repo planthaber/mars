@@ -31,7 +31,7 @@
 #include <data_broker/DataPackageMapping.h>
 #include <interfaces/sensor_bases.h>
 #include <interfaces/nodeState.h>
-#include <interfaces/NodeInterface.h>
+#include <interfaces/sim/NodeInterface.h>
 
 namespace mars {
 
