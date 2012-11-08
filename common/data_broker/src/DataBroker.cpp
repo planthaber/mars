@@ -42,8 +42,8 @@
 
 
 #include "data_broker/DataBroker.h"
-#include "interfaces/ProducerInterface.h"
-#include "interfaces/ReceiverInterface.h"
+#include "data_broker/ProducerInterface.h"
+#include "data_broker/ReceiverInterface.h"
 
 #include <cerrno>
 #include <cstdio>

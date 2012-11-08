@@ -27,7 +27,7 @@
 
 #include "SimJoint.h"
 
-#include <interfaces/ProducerInterface.h>
+#include <data_broker/ProducerInterface.h>
 #include <data_broker/DataPackage.h>
 #include <interfaces/MotorData.h>
 

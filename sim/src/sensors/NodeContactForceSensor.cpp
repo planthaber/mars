@@ -27,7 +27,7 @@
  */
 
 #include "NodeContactForceSensor.h"
-#include <interfaces/DataBrokerInterface.h>
+#include <data_broker/DataBrokerInterface.h>
 
 #include <cstdio>
 #include <cstdlib>

@@ -30,7 +30,7 @@
   #warning "BaseWidget.h"
 #endif
 
-#include <interfaces/CFGManagerInterface.h>
+#include <cfg_manager/CFGManagerInterface.h>
 #include <QWidget>
 
 namespace mars {

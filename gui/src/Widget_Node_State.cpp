@@ -20,7 +20,7 @@
 
 #include "Widget_Node_State.h"
 #include <utils/mathUtils.h>
-#include <interfaces/DataBrokerInterface.h>
+#include <data_broker/DataBrokerInterface.h>
 
 #include <interfaces/sim/NodeManagerInterface.h>
 

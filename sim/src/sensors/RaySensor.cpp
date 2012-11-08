@@ -32,7 +32,7 @@
 #include <interfaces/sim/SimulatorInterface.h>
 #include <interfaces/sim/LoadSceneInterface.h>
 
-#include <interfaces/DataBrokerInterface.h>
+#include <data_broker/DataBrokerInterface.h>
 #include <interfaces/graphics/GraphicsManagerInterface.h>
 
 #include <cmath>

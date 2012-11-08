@@ -20,7 +20,7 @@
 
 #include "SimNode.h"
 
-#include <interfaces/DataBrokerInterface.h>
+#include <data_broker/DataBrokerInterface.h>
 #include <utils/Color.h>
 #include <utils/MutexLocker.h>
 #include <interfaces/terrainStruct.h>

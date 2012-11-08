@@ -35,7 +35,7 @@
 #include <interfaces/gui/MarsGuiInterface.h>
 #include <interfaces/sim/ControlCenter.h>
 #include <utils/Thread.h>
-#include <interfaces/CFGManagerInterface.h>
+#include <cfg_manager/CFGManagerInterface.h>
 
 #include <QDir>
 

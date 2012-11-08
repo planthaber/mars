@@ -33,7 +33,7 @@
 
 #include "DataWidget.h"
 #include <interfaces/LibInterface.h>
-#include <interfaces/CFGManagerInterface.h>
+#include <cfg_manager/CFGManagerInterface.h>
 #include <cfg_manager/CFGClient.h>
 #include <interfaces/GuiInterface.h>
 #include <interfaces/MenuInterface.h>

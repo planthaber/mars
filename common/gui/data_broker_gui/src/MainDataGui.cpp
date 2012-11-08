@@ -26,7 +26,7 @@
 
 #include "MainDataGui.h"
 
-#include <interfaces/DataBrokerInterface.h>
+#include <data_broker/DataBrokerInterface.h>
 
 #include <cstdio>
 #include <iostream>

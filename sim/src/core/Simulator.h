@@ -33,8 +33,8 @@
 #endif
 
 #include <data_broker/DataPackage.h>
-#include <interfaces/ReceiverInterface.h>
-#include <interfaces/CFGManagerInterface.h>
+#include <data_broker/ReceiverInterface.h>
+#include <cfg_manager/CFGManagerInterface.h>
 #include <utils/Thread.h>
 #include <utils/Mutex.h>
 #include <utils/ReadWriteLock.h>

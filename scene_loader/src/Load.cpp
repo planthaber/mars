@@ -25,7 +25,7 @@
 #include <QtXml>
 #include <QDomNodeList>
 
-#include <interfaces/DataBrokerInterface.h>
+#include <data_broker/DataBrokerInterface.h>
 
 #include <interfaces/sim/SimulatorInterface.h>
 #include <interfaces/sim/NodeManagerInterface.h>

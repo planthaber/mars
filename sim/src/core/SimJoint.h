@@ -27,7 +27,7 @@
 
 #include <interfaces/sim/JointInterface.h>
 
-#include <interfaces/ProducerInterface.h>
+#include <data_broker/ProducerInterface.h>
 #include <data_broker/DataPackageMapping.h>
 
 namespace mars {

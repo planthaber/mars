@@ -32,7 +32,7 @@
 #warning "Joint6DOFSensor.h"
 #endif
 
-#include <interfaces/ReceiverInterface.h>
+#include <data_broker/ReceiverInterface.h>
 #include <interfaces/sim/SensorInterface.h>
 
 namespace mars {

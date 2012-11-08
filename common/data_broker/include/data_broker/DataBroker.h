@@ -25,7 +25,7 @@
   #warning "DataBroker.h"
 #endif
 
-#include "interfaces/DataBrokerInterface.h"
+#include "data_broker/DataBrokerInterface.h"
 #include "DataPackage.h"
 #include "DataItem.h"
 #include "DataInfo.h"

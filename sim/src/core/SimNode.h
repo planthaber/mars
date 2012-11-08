@@ -27,7 +27,7 @@
 
 #include <utils/Mutex.h>
 #include <utils/Vector.h>
-#include <interfaces/ProducerInterface.h>
+#include <data_broker/ProducerInterface.h>
 #include <data_broker/DataPackageMapping.h>
 #include <interfaces/sensor_bases.h>
 #include <interfaces/nodeState.h>

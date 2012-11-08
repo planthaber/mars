@@ -25,7 +25,7 @@
 #warning "CameraSensor.h"
 #endif
 
-#include <interfaces/ReceiverInterface.h>
+#include <data_broker/ReceiverInterface.h>
 
 #include <interfaces/sim/SensorInterface.h>
 #include <utils/Vector.h>

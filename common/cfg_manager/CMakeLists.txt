@@ -58,7 +58,7 @@ set(HEADERS
 )
 
 set(INTERFACE_HEADERS
-	include/interfaces/CFGManagerInterface.h
+	include/cfg_manager/CFGManagerInterface.h
 )
 
 
@@ -93,7 +93,7 @@ install(TARGETS ${PROJECT_NAME} ${_INSTALL_DESTINATIONS})
 
 # Install headers into mars include directory
 install(FILES ${HEADERS} DESTINATION include/mars/${PROJECT_NAME})
-install(FILES ${INTERFACE_HEADERS} DESTINATION include/mars/interfaces/)
+install(FILES ${INTERFACE_HEADERS} DESTINATION include/mars/${PROJECT_NAME})
 
 # Prepare and install necessary files to support finding of the library 
 # using pkg-config

@@ -33,7 +33,7 @@
 
 #include <main_gui/PropertyDialog.h>
 #include <main_gui/BaseWidget.h>
-#include <interfaces/ReceiverInterface.h>
+#include <data_broker/ReceiverInterface.h>
 #include <data_broker/DataInfo.h>
 #include <data_broker/DataPackage.h>
 

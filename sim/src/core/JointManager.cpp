@@ -39,7 +39,7 @@
 #include <interfaces/sim/MotorManagerInterface.h>
 #include <utils/mathUtils.h>
 #include <utils/MutexLocker.h>
-#include <interfaces/DataBrokerInterface.h>
+#include <data_broker/DataBrokerInterface.h>
 
 namespace mars {
   namespace sim {

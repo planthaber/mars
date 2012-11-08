@@ -35,7 +35,7 @@
 #include <interfaces/graphics/GraphicsManagerInterface.h>
 #include <interfaces/sim/LoadCenter.h>
 #include <interfaces/sim/LoadSceneInterface.h>
-#include <interfaces/DataBrokerInterface.h>
+#include <data_broker/DataBrokerInterface.h>
 #include <interfaces/LibInterface.h>
 
 #include <signal.h>

@@ -27,7 +27,7 @@
  */
 
 #include "NodeRotationSensor.h"
-#include <interfaces/DataBrokerInterface.h>
+#include <data_broker/DataBrokerInterface.h>
 #include <utils/mathUtils.h>
 
 #include <cstdio>

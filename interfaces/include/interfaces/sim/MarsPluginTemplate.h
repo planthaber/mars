@@ -27,7 +27,7 @@
 #include "SimulatorInterface.h"
 
 #include <interfaces/LibInterface.h>
-#include <interfaces/CFGManagerInterface.h>
+#include <cfg_manager/CFGManagerInterface.h>
 
 #include <string>
 

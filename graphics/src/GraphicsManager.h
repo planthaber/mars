@@ -59,7 +59,7 @@
 #include <interfaces/MaterialData.h>
 #include <interfaces/cameraStruct.h>
 #include <interfaces/graphics/GraphicsEventInterface.h>
-#include <interfaces/CFGManagerInterface.h>
+#include <cfg_manager/CFGManagerInterface.h>
 #include <cfg_manager/CFGClient.h>
 
 #include "gui_helper_functions.h"

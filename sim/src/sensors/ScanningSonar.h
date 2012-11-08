@@ -25,7 +25,7 @@
 #warning "ScanningSonar.h"
 #endif
 
-#include <interfaces/ReceiverInterface.h>
+#include <data_broker/ReceiverInterface.h>
 
 #include <utils/Vector.h>
 #include <utils/Quaternion.h>

@@ -35,7 +35,7 @@
 #include <QCloseEvent>
 #include <QMutex>
 
-#include <interfaces/CFGManagerInterface.h>
+#include <cfg_manager/CFGManagerInterface.h>
 #include <main_gui/PropertyDialog.h>
 #include <vector>
 

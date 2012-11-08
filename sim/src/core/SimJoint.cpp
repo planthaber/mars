@@ -21,7 +21,7 @@
 #include "SimJoint.h"
 #include "SimNode.h"
 
-#include <interfaces/DataBrokerInterface.h>
+#include <data_broker/DataBrokerInterface.h>
 
 #include <interfaces/sim/ControlCenter.h>
 #include <interfaces/sim/NodeManagerInterface.h>

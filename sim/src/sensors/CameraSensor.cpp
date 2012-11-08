@@ -20,7 +20,7 @@
 
 #include "CameraSensor.h"
 
-#include <interfaces/DataBrokerInterface.h>
+#include <data_broker/DataBrokerInterface.h>
 #include <utils/mathUtils.h>
 #include <interfaces/sim/LoadSceneInterface.h>
 #include <interfaces/sim/NodeManagerInterface.h>

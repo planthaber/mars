@@ -29,7 +29,7 @@
 #include <interfaces/sim/ControlCenter.h>
 #include <utils/Vector.h>
 #include <interfaces/MARSDefs.h>
-#include <interfaces/ReceiverInterface.h>
+#include <data_broker/ReceiverInterface.h>
 #include <data_broker/DataPackageMapping.h>
 
 namespace mars {

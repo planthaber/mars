@@ -36,7 +36,7 @@
 #endif
 
 #ifndef ROCK
-#include <interfaces/DataBrokerInterface.h>
+#include <data_broker/DataBrokerInterface.h>
 #define LOG_FATAL(...) (mars::interfaces::ControlCenter::theDataBroker->pushFatal(__VA_ARGS__))
 #define LOG_ERROR(...) (mars::interfaces::ControlCenter::theDataBroker->pushError(__VA_ARGS__))
 #define LOG_WARN(...) (mars::interfaces::ControlCenter::theDataBroker->pushWarning(__VA_ARGS__))

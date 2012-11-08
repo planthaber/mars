@@ -34,7 +34,7 @@
 #endif
 
 #include <interfaces/sim/SensorInterface.h>
-#include <interfaces/ReceiverInterface.h>
+#include <data_broker/ReceiverInterface.h>
 #include <utils/Vector.h>
 #include <utils/Quaternion.h>
 #include <interfaces/graphics/draw_structs.h>

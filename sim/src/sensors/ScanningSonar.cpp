@@ -30,7 +30,7 @@
 #include <utils/mathUtils.h>
 #include <interfaces/graphics/GraphicsManagerInterface.h>
 #include <interfaces/sim/LoadSceneInterface.h>
-#include <interfaces/DataBrokerInterface.h>
+#include <data_broker/DataBrokerInterface.h>
 
 #include "SimMotor.h"
 #include "SimNode.h"

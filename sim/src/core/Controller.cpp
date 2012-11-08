@@ -37,8 +37,8 @@
 #include <interfaces/sim/SensorManagerInterface.h>
 #include <utils/misc.h>
 #include <utils/mathUtils.h>
-#include <interfaces/DataBrokerInterface.h>
-#include <interfaces/CFGManagerInterface.h>
+#include <data_broker/DataBrokerInterface.h>
+#include <cfg_manager/CFGManagerInterface.h>
 
 #include <cmath>
 #include <cstring>

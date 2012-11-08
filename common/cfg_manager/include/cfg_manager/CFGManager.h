@@ -33,7 +33,7 @@
 #warning "CFGManager.h"
 #endif
 
-#include <interfaces/CFGManagerInterface.h>
+#include <cfg_manager/CFGManagerInterface.h>
 
 #include <istream>
 #include <string>

@@ -30,7 +30,7 @@
 
 #include <interfaces/sim/JointManagerInterface.h>
 #include <interfaces/sim/SimulatorInterface.h>
-#include <interfaces/DataBrokerInterface.h>
+#include <data_broker/DataBrokerInterface.h>
 
 #include <cstdlib>
 #include <cstdio>

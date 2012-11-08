@@ -36,7 +36,7 @@
 #include <interfaces/sim/JointManagerInterface.h>
 #include <interfaces/sim/LoadCenter.h>
 #include <interfaces/sim/LoadSceneInterface.h>
-#include <interfaces/DataBrokerInterface.h>
+#include <data_broker/DataBrokerInterface.h>
 
 namespace mars {
   namespace sim {
