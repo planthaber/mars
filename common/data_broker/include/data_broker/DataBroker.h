@@ -29,7 +29,7 @@
 #include "DataPackage.h"
 #include "DataItem.h"
 #include "DataInfo.h"
-#include "LockableContainer.h"
+#include "data_broker/LockableContainer.h"
 
 #include <lib_manager/LibManager.h>
 #include <utils/Thread.h>

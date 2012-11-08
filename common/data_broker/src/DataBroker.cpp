@@ -45,8 +45,8 @@
 #include "data_broker/ProducerInterface.h"
 #include "data_broker/ReceiverInterface.h"
 
-#include <mars/utils/MutexLocker.h>
-#include <mars/utils/misc.h>
+#include <utils/MutexLocker.h>
+#include <utils/misc.h>
 
 #include <cstdio>
 #include <cerrno>

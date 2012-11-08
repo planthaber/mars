@@ -2,8 +2,8 @@
 #define DATA_BROKER_LOCKABLE_CONTAINER_H
 
 #include <vector>
-#include <mars/utils/Mutex.h>
-#include <mars/utils/MutexLocker.h>
+#include <utils/Mutex.h>
+#include <utils/MutexLocker.h>
 #include <cassert>
 
 namespace mars {

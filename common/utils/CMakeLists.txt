@@ -14,13 +14,14 @@ else(WIN32)
         SET(CMAKE_CXX_FLAGS "-fPIC -Wall")
 endif(WIN32)
 
-pkg_check_modules(PKGCONFIG REQUIRED
+pkg_check_modules(DEPS REQUIRED
         eigen3
         yaml-cpp
 )
-include_directories(${PKGCONFIG_INCLUDE_DIRS})
-link_directories(${PKGCONFIG_LIBRARY_DIRS})
-add_definitions(${PKGCONFIG_CLFAGS_OTHER})  #flags excluding the ones with -I
+
+include_directories(${DEPS_INCLUDE_DIRS})
+link_directories(${DEPS_LIBRARY_DIRS})
+add_definitions(${DEPS_CLFAGS_OTHER})  #flags excluding the ones with -I
 
 set(SOURCES 
     src/Color.cpp
@@ -56,9 +57,12 @@ cmake_minimum_required(VERSION 2.6)
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
+MESSAGE("HALLO ${DEPS_LIBRARIES}"
+    )
+
 target_link_libraries(
         ${PROJECT_NAME}
-        ${PKGCONFIG_LIBRARIES} 
+        ${DEPS_LIBRARIES} 
         -lpthread
 )
 

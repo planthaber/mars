@@ -33,6 +33,7 @@
 #endif
 
 #include "GraphicsCameraInterface.h"
+#include <graphics/GraphicsEventInterface.h>
 #include <utils/Color.h>
 
 namespace osg{
