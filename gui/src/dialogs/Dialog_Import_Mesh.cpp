@@ -27,7 +27,7 @@
 #include <osgDB/ReadFile>
 #include <osg/PositionAttitudeTransform>
 
-#include <interfaces/GuiInterface.h>
+#include <main_gui/GuiInterface.h>
 
 #include <interfaces/sim/NodeManagerInterface.h>
 #include <interfaces/graphics/GraphicsManagerInterface.h>

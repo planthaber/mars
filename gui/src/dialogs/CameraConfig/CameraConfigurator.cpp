@@ -25,7 +25,7 @@
  **/
 
 #include "CameraConfigurator.h"
-#include <interfaces/GuiInterface.h>
+#include <main_gui/GuiInterface.h>
 #include <interfaces/graphics/GraphicsManagerInterface.h>
 #include <cstdio>
 

@@ -29,7 +29,7 @@
 #include "GraphicsTimer.h"
 
 #include <lib_manager/LibManager.h>
-#include <interfaces/LibInterface.h>
+#include <lib_manager/LibInterface.h>
 #include <main_gui/MainGUI.h>
 #include <interfaces/sim/SimulatorInterface.h>
 #include <interfaces/gui/MarsGuiInterface.h>

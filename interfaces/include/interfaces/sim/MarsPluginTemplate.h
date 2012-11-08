@@ -26,13 +26,13 @@
 #include "PluginInterface.h"
 #include "SimulatorInterface.h"
 
-#include <interfaces/LibInterface.h>
+#include <lib_manager/LibInterface.h>
 #include <cfg_manager/CFGManagerInterface.h>
 
 #include <string>
 
 #ifdef PLUGIN_WITH_MARS_GUI
-#include <interfaces/GuiInterface.h>
+#include <main_gui/GuiInterface.h>
 #endif
 
 namespace mars {

@@ -32,9 +32,9 @@
 #endif
 
 #include "CfgWidget.h"
-#include <interfaces/GuiInterface.h>
-#include <interfaces/MenuInterface.h>
-#include <interfaces/LibInterface.h>
+#include <main_gui/GuiInterface.h>
+#include <main_gui/MenuInterface.h>
+#include <lib_manager/LibInterface.h>
 #include <cfg_manager/CFGManagerInterface.h>
 #include <cfg_manager/CFGClient.h>
 #include <string>

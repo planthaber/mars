@@ -34,7 +34,7 @@
 #include <osgDB/WriteFile>
 #include <vector>
 
-#include <interfaces/GuiInterface.h>
+#include <main_gui/GuiInterface.h>
 
 #include <QKeySequence>
 #include <QWidget>

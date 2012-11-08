@@ -82,8 +82,8 @@ set(HEADERS
 )
 
 set(INTERFACE_HEADER
-    include/interfaces/GuiInterface.h
-    include/interfaces/MenuInterface.h
+    include/main_gui/GuiInterface.h
+    include/main_gui/MenuInterface.h
 )
 
 set(PROP_HEADERS

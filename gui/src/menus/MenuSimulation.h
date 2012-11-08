@@ -32,7 +32,7 @@
 
 
 #include "MainGUIDefs.h"
-#include <interfaces/MenuInterface.h>
+#include <main_gui/MenuInterface.h>
 #include <interfaces/sim/ControlCenter.h>
 
 #include "DialogNodes.h"

@@ -26,7 +26,7 @@
 #ifndef MARS_GUI_INTERFACE_H
 #define MARS_GUI_INTERFACE_H
 
-#include <interfaces/LibInterface.h>
+#include <lib_manager/LibInterface.h>
 
 namespace mars {
   namespace interfaces {

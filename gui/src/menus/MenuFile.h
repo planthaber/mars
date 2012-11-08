@@ -33,7 +33,7 @@
 
 #include "MainGUIDefs.h"
 
-#include <interfaces/MenuInterface.h>
+#include <main_gui/MenuInterface.h>
 
 #include <string>
 

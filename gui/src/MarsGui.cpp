@@ -24,7 +24,7 @@
 #include <interfaces/sim/ControlCenter.h>
 #include <interfaces/sim/SimulatorInterface.h>
 
-#include <interfaces/GuiInterface.h>
+#include <main_gui/GuiInterface.h>
 #include <main_gui/MainGUI.h>
 #include <main_gui/MyQMainWindow.h>
 

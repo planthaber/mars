@@ -20,7 +20,7 @@
 
 #include "Dialog_Graphics_Options.h"
 
-#include <interfaces/GuiInterface.h>
+#include <main_gui/GuiInterface.h>
 
 #include <interfaces/graphics/GraphicsCameraInterface.h>
 #include <interfaces/graphics/GraphicsManagerInterface.h>

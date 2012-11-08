@@ -38,7 +38,7 @@
 #include <interfaces/graphics/GraphicsUpdateInterface.h>
 
 
-#include <interfaces/MenuInterface.h>
+#include <main_gui/MenuInterface.h>
 
 namespace mars {
 

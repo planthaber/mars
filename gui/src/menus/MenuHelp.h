@@ -34,8 +34,8 @@
 #include <interfaces/sim/ControlCenter.h>
 #include "AboutDialog.h"
 
-#include <interfaces/MenuInterface.h>
-#include <interfaces/GuiInterface.h>
+#include <main_gui/MenuInterface.h>
+#include <main_gui/GuiInterface.h>
 
 #include <QtGui>
 

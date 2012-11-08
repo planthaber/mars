@@ -33,7 +33,7 @@
 
 #include <string>
 
-#include <interfaces/LibInterface.h>
+#include <lib_manager/LibInterface.h>
 
 
 namespace mars {

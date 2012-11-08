@@ -48,7 +48,7 @@ set(_INSTALL_DESTINATIONS
 install(TARGETS ${PROJECT_NAME} ${_INSTALL_DESTINATIONS})
 
 # Install headers into mars include directory
-install(FILES include/interfaces/LibInterface.h DESTINATION include/mars/interfaces)
+install(FILES include/lib_manager/LibInterface.h DESTINATION include/mars/${PROJECT_NAME})
 install(FILES ${HEADERS} DESTINATION include/mars/${PROJECT_NAME})
 
 # Prepare and install necessary files to support finding of the library 

@@ -25,7 +25,7 @@
  **/
 
 #include "CaptureWindow.h"
-#include <interfaces/GuiInterface.h>
+#include <main_gui/GuiInterface.h>
 #include<cstdio>
 
 #include <interfaces/graphics/GraphicsManagerInterface.h>

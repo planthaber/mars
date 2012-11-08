@@ -21,7 +21,7 @@
 
 #include "Dialog_Add_Torque.h"
 
-#include <interfaces/GuiInterface.h>
+#include <main_gui/GuiInterface.h>
 
 #include <interfaces/sim/NodeManagerInterface.h>
 

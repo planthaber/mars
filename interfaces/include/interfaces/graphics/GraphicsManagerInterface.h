@@ -37,7 +37,7 @@
 #include <interfaces/MaterialData.h>
 #include <interfaces/sim/LoadCenter.h>
 
-#include <interfaces/LibInterface.h>
+#include <lib_manager/LibInterface.h>
 #include <utils/Vector.h>
 #include <utils/Quaternion.h>
 

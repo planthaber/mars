@@ -21,7 +21,7 @@
 
 #include "MenuSimulation.h"
 
-#include <interfaces/GuiInterface.h>
+#include <main_gui/GuiInterface.h>
 #include <interfaces/sim/SimulatorInterface.h>
 #include <interfaces/sim/NodeManagerInterface.h>
 #include <interfaces/sim/MotorManagerInterface.h>

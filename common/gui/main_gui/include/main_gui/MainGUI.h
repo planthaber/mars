@@ -31,8 +31,8 @@
   #warning "MainGUI.h"
 #endif
 
-#include "interfaces/MenuInterface.h"
-#include "interfaces/GuiInterface.h"
+#include "main_gui/MenuInterface.h"
+#include "main_gui/GuiInterface.h"
 #include "MyQMdiArea.h"
 #include "MyQMainWindow.h"
 

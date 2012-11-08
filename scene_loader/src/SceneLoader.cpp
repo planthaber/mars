@@ -29,7 +29,7 @@
 #include "Save.h"
 
 #include <lib_manager/LibManager.h>
-#include <interfaces/LibInterface.h>
+#include <lib_manager/LibInterface.h>
 #include <interfaces/sim/SimulatorInterface.h>
 
 namespace mars {

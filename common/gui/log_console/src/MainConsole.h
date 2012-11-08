@@ -34,13 +34,13 @@
 #include "ConsoleGUI.h"
 #include "ConsoleInterface.h"
 
-#include <interfaces/LibInterface.h>
+#include <lib_manager/LibInterface.h>
 #include <data_broker/ReceiverInterface.h>
 #include <data_broker/DataBrokerInterface.h>
 #include <cfg_manager/CFGManagerInterface.h>
 #include <cfg_manager/CFGClient.h>
-#include <interfaces/GuiInterface.h>
-#include <interfaces/MenuInterface.h>
+#include <main_gui/GuiInterface.h>
+#include <main_gui/MenuInterface.h>
 
 #include <string>
 
