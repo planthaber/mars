@@ -31,7 +31,7 @@
 #include <cassert>
 #include <cmath>
 #include <cstring>
-
+#include <stdio.h>
 
 namespace mars {
 
@@ -69,9 +69,9 @@ namespace mars {
 
     dirty = true;
     wireframe = false;
-    highWireframe = true;
+    highWireframe = false;
     solid = true;
-    highSolid = false;
+    highSolid = true;
   }
 
   MultiResHeightMapRenderer::~MultiResHeightMapRenderer() {
@@ -607,10 +607,8 @@ namespace mars {
         it = subTiles.find(iy*(getLowResCellCntX())+ix);
         if(it != subTiles.end()) {
           toProcess.push_back(it->second);
-          //fprintf(stderr, "have Subtile\n");
         } else {
           if(numSubTiles >= maxNumSubTiles) {
-            //fprintf(stderr, "remove Subtile\n");
             SubTile *toRemove = listSubTiles.front();
             listSubTiles.pop_front();
             numSubTiles--;
@@ -669,7 +667,6 @@ namespace mars {
           break;
         }
       }
-      //fprintf(stderr, "adapt Subtile\n");
       if(found)
         adaptSubTile(*iter, xPos, yPos, zPos, radius);
     }

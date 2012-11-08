@@ -136,7 +136,6 @@ namespace mars {
       osg::ComputeBoundsVisitor cbbv;
       group_->accept(cbbv);
       osg::BoundingBox bb = cbbv.getBoundingBox();
-      //fprintf(stderr, "x: %g %g\n", bb.xMax(), bb.xMin());
       if(fabs(bb.xMax()) > fabs(bb.xMin())) {
         geometrySize_.x() = fabs(bb.xMax() - bb.xMin());
       } else {
@@ -167,8 +166,8 @@ namespace mars {
     void DrawObject::exportState(void) {
       if (id_) {
         FILE* stateFile = fopen(stateFilename_.data(), "a");
-        fprintf(stateFile,"\n%lu\t%11.6f\t%11.6f\t%11.6f", id_, position_.x(), position_.y(), position_.z());
-        fprintf(stateFile,"\t%11.6f\t%11.6f\t%11.6f\t%11.6f", quaternion_.x(), quaternion_.y(), quaternion_.z(), quaternion_.w());
+        fprintf(stateFile,"%lu\t%11.6f\t%11.6f\t%11.6f", id_, position_.x(), position_.y(), position_.z());
+        fprintf(stateFile,"\t%11.6f\t%11.6f\t%11.6f\t%11.6f\n", quaternion_.x(), quaternion_.y(), quaternion_.z(), quaternion_.w());
         fclose(stateFile);
       }
     }
@@ -177,9 +176,11 @@ namespace mars {
     }
 
     // the material struct can also contain a static texture (texture file)
-    void DrawObject::setMaterial(const MaterialData &mStruct, bool _useFog) {
+    void DrawObject::setMaterial(const MaterialData &mStruct, bool _useFog,
+                                 bool _useNoise) {
       //return;
       useFog = _useFog;
+      useNoise = _useNoise;
       getLight = mStruct.getLight;
 
       if(mStruct.brightness != 0.0) {
@@ -198,7 +199,6 @@ namespace mars {
       // set the material
       state->setAttributeAndModes(material_.get(), osg::StateAttribute::ON);
     
-      //fprintf(stderr, "DrawObject: getLight %d\n", getLight);
       if(!getLight) {
         osg::ref_ptr<osg::CullFace> cull = new osg::CullFace();
         cull->setMode(osg::CullFace::BACK);
@@ -499,7 +499,8 @@ namespace mars {
         args.push_back("col");
         args.push_back("n");
         args.push_back("col");
-        PixelLightFrag *plightFrag = new PixelLightFrag(args, useFog, lightList);
+        PixelLightFrag *plightFrag = new PixelLightFrag(args, useFog,
+                                                        useNoise, lightList);
         // invert the normal if gl_FrontFacing=true to handle back faces
         // correctly.
         // TODO: check not needed if backfaces not processed.
@@ -603,6 +604,11 @@ namespace mars {
 
     void DrawObject::setUseFog(bool val) {
       useFog = val;
+      if(lastProgram) updateShader(lastLights, true);
+    }
+
+    void DrawObject::setUseNoise(bool val) {
+      useNoise = val;
       if(lastProgram) updateShader(lastLights, true);
     }
 

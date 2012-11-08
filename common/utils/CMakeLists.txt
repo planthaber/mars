@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 2.6)
+
 project(mars_utils)
 set(PROJECT_VERSION 1.0)
 set(PROJECT_DESCRIPTION "This Library contains several useful utilities like a Mutex and Thread class.")
@@ -12,12 +14,17 @@ else(WIN32)
         SET(CMAKE_CXX_FLAGS "-fPIC -Wall")
 endif(WIN32)
 
-pkg_check_modules(EIGEN REQUIRED "eigen3")
-include_directories(${EIGEN_INCLUDE_DIRS})
-link_directories(${EIGEN_LIBRARY_DIRS})
+pkg_check_modules(PKGCONFIG REQUIRED
+        eigen3
+        yaml-cpp
+)
+include_directories(${PKGCONFIG_INCLUDE_DIRS})
+link_directories(${PKGCONFIG_LIBRARY_DIRS})
+add_definitions(${PKGCONFIG_CLFAGS_OTHER})  #flags excluding the ones with -I
 
 set(SOURCES 
     src/Color.cpp
+    src/ConfigData.cpp
     src/Mutex.cpp
     src/MutexLocker.cpp
     src/ReadWriteLock.cpp
@@ -51,6 +58,7 @@ add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
 target_link_libraries(
         ${PROJECT_NAME}
+        ${PKGCONFIG_LIBRARIES} 
         -lpthread
 )
 

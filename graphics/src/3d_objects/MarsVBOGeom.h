@@ -21,6 +21,8 @@
 #ifndef MarsVBOGeom_H
 #define MarsVBOGeom_H
 
+#ifdef USE_MARS_VBO
+
 // prohibit MSVC to create the "min" and "max" macros
 #define NOMINMAX
 
@@ -39,7 +41,7 @@ GLEW_FUN_EXPORT PFNGLUNMAPBUFFERPROC glUnmapBuffer;
 #include <GL/glext.h>
 #include <map>
 #include <list>
-
+#include <stdio.h>
 #include <osg/Drawable>
 
 namespace mars {
@@ -111,6 +113,7 @@ namespace mars {
   } // namespace graphics
 } // namespace mars
 
+#endif // USE_MARS_VBO
 
 #endif /* MarsVBOGeom_H */
 

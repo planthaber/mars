@@ -107,7 +107,6 @@ namespace mars {
         sensor_list.erase(iter);
       }
       if(myTriMeshData) dGeomTriMeshDataDestroy(myTriMeshData);
-      // fprintf(stderr, "\n node destroyed in physics");
     }
 
     dReal heightfield_callback(void* pUserData, int x, int z ) {
@@ -130,7 +129,7 @@ namespace mars {
     bool NodePhysics::createNode(NodeData* node) {
 #ifdef _VERIFY_WORLD_
       sRotation euler = node->rot.toEuler();
-      fprintf(stderr, "\nnode %d  ;  %.4f, %.4f, %.4f  ;  %.4f, %.4f, %.4f  ;  %.4f  ;  %.4f",
+      fprintf(stderr, "node %d  ;  %.4f, %.4f, %.4f  ;  %.4f, %.4f, %.4f  ;  %.4f  ;  %.4f\n",
               node->index, node->pos.x(), node->pos.y(),
               node->pos.z, euler.alpha, euler.beta, euler.gamma,
               node->mass, node->density);
@@ -522,13 +521,12 @@ namespace mars {
         tmp4[2] = brot[2];
         tmp4[3] = brot[3];
         if(composite && !move_group) {
-          dGeomGetOffsetQuaternion(nGeom, tmp3);
-          dQMultiply0(tmp2, brot, tmp3);
+          dGeomGetQuaternion(nGeom, tmp2);
           dGeomSetOffsetWorldQuaternion(nGeom, tmp);
         }
         else if (composite) {
+          dGeomGetQuaternion(nGeom, tmp2);
           dGeomGetOffsetQuaternion(nGeom, tmp3);
-          dQMultiply0(tmp2, brot, tmp3);
           tmp3[1] *= -1;
           tmp3[2] *= -1;
           tmp3[3] *= -1;
@@ -857,10 +855,10 @@ namespace mars {
         dBodySetMass(nBody, &bodyMass);
       }
 #ifdef _DEBUG_MASS_
-      fprintf(stderr, "\n%mass id: %d %g", node->index, nMass.mass);
-      fprintf(stderr, "\n\t%g\t%g\t%g", nMass.I[0], nMass.I[1], nMass.I[2]);
-      fprintf(stderr, "\n\t%g\t%g\t%g", nMass.I[4], nMass.I[5], nMass.I[6]);
-      fprintf(stderr, "\n\t%g\t%g\t%g", nMass.I[8], nMass.I[9], nMass.I[10]);
+      fprintf(stderr, "%mass id: %d %g\n", node->index, nMass.mass);
+      fprintf(stderr, "\t%g\t%g\t%g\n", nMass.I[0], nMass.I[1], nMass.I[2]);
+      fprintf(stderr, "\t%g\t%g\t%g\n", nMass.I[4], nMass.I[5], nMass.I[6]);
+      fprintf(stderr, "\t%g\t%g\t%g\n", nMass.I[8], nMass.I[9], nMass.I[10]);
 #endif
     }
 
@@ -905,20 +903,30 @@ namespace mars {
       
           gpos = dGeomGetOffsetPosition(nGeom);
           npos.x() += (sReal)(gpos[0]);
-          npos.x() += (sReal)(gpos[1]);
-          npos.x() += (sReal)(gpos[2]);
+          npos.y() += (sReal)(gpos[1]);
+          npos.z() += (sReal)(gpos[2]);
           return npos;
         }
         else {
-          dGeomGetOffsetQuaternion(nGeom, tmp3);
-          dQMultiply0(tmp2, tmp2, tmp3);
+          dGeomGetQuaternion(nGeom, tmp3);
+          dQMultiply0(tmp2, tmp, tmp3);
+          dNormalize4(tmp2);
           dGeomSetOffsetWorldQuaternion(nGeom, tmp2);
-          bpos = dBodyGetPosition(nBody);
+
           gpos = dGeomGetPosition(nGeom);
-          npos.x() = (sReal)(bpos[0] + gpos[0]);
-          npos.y() = (sReal)(bpos[1] + gpos[1]);
-          npos.z() = (sReal)(bpos[2] + gpos[2]);
-          return npos;
+          npos.x() = (sReal)(gpos[0]);
+          npos.y() = (sReal)(gpos[1]);
+          npos.z() = (sReal)(gpos[2]);
+          pos[0] = gpos[0] - (dReal)rotation_point.x();
+          pos[1] = gpos[1] - (dReal)rotation_point.y();
+          pos[2] = gpos[2] - (dReal)rotation_point.z();
+          dQtoR(tmp, R);
+          dMULTIPLY0_331(new_pos, R, pos);
+          pos[0] = new_pos[0] + (dReal)rotation_point.x();
+          pos[1] = new_pos[1] + (dReal)rotation_point.y();
+          pos[2] = new_pos[2] + (dReal)rotation_point.z();
+          dGeomSetOffsetWorldPosition(nGeom, pos[0], pos[1], pos[2]);
+         return npos;
         }
       }
       // the last two cases do in principle the same
@@ -965,38 +973,46 @@ namespace mars {
 
       if(nGeom && theWorld && theWorld->existsWorld()) {
         if(composite) {
-          dGeomGetOffsetQuaternion(nGeom, rotation);
-          tpos = dGeomGetOffsetPosition(nGeom);
+          dGeomGetQuaternion(nGeom, rotation);
+          tpos = dGeomGetPosition(nGeom);
           pos[0] = tpos[0];
           pos[1] = tpos[1];
           pos[2] = tpos[2];
         }
-        dGeomDestroy(nGeom);
+        // deferre destruction of geom until after the successful creation of 
+        // a new geom
+        dGeomID tmpGeomId = nGeom;
         // first we create a ode geometry for the node
+        bool success = false;
         switch(node->physicMode) {
         case NODE_TYPE_MESH:
-          createMesh(node);
+          success = createMesh(node);
           break;
         case NODE_TYPE_BOX:
-          createBox(node);
+          success = createBox(node);
           break;
         case NODE_TYPE_SPHERE:
-          createSphere(node);
+          success = createSphere(node);
           break;
         case NODE_TYPE_CAPSULE:
-          createCapsule(node);
+          success = createCapsule(node);
           break;
         case NODE_TYPE_CYLINDER:
-          createCylinder(node);
+          success = createCylinder(node);
           break;
         case NODE_TYPE_PLANE:
-          createPlane(node);
+          success = createPlane(node);
           break;
         default:
           // no correct type is spezified, so no physically node will be created
-          return 0;
+          success = false;
           break;
         }
+        if(!success) {
+          fprintf(stderr, "creation of body geometry failed.\n");
+          return 0;
+        }
+        dGeomDestroy(tmpGeomId);
         // now the geom is rebuild and we have to reconnect it to the body
         // and reset the mass of the body
         if(nBody) {
@@ -1007,8 +1023,8 @@ namespace mars {
           else {
             // if the geom is part of a composite object
             // we have to translate and rotate the geom mass
-            dGeomSetOffsetQuaternion(nGeom, rotation);
-            dGeomSetOffsetPosition(nGeom, pos[0], pos[1], pos[2]);
+            dGeomSetOffsetWorldQuaternion(nGeom, rotation);
+            dGeomSetOffsetWorldPosition(nGeom, pos[0], pos[1], pos[2]);
             theWorld->resetCompositeMass(nBody);
           }
         }
@@ -1162,10 +1178,8 @@ namespace mars {
       dReal force[3] = {0,0,0};
 
       if(nGeom) {
-        //fprintf(stderr, "\n geom: %d", (int)nGeom);
         for(iter = node_data.ground_feedbacks.begin();
             iter != node_data.ground_feedbacks.end(); iter++) {
-          //fprintf(stderr, "istwas");
           if(node_data.node1) {
             force[0] += (*iter)->f1[0];
             force[1] += (*iter)->f1[1];
@@ -1176,7 +1190,6 @@ namespace mars {
             force[1] += (*iter)->f2[1];
             force[2] += (*iter)->f2[2];
           }
-          //fprintf(stderr, "force: %g %g %g\n", force[0], force[1], force[2]);
         }
       }
       return dLENGTH(force);
@@ -1187,10 +1200,8 @@ namespace mars {
       dReal force[3] = {0,0,0};
 
       if(nGeom) {
-        //fprintf(stderr, "\n geom: %d", (int)nGeom);
         for(iter = node_data.ground_feedbacks.begin();
             iter != node_data.ground_feedbacks.end(); iter++) {
-          //fprintf(stderr, "istwas");
           if(node_data.node1) {
             force[0] += (*iter)->f1[0];
             force[1] += (*iter)->f1[1];
@@ -1201,7 +1212,6 @@ namespace mars {
             force[1] += (*iter)->f2[1];
             force[2] += (*iter)->f2[2];
           }
-          //fprintf(stderr, "force: %g %g %g\n", force[0], force[1], force[2]);
         }
       }
       return Vector(force[0], force[1], force[2]);
@@ -1260,7 +1270,6 @@ namespace mars {
       MutexLocker locker(&(theWorld->iMutex));
       node_data.c_params = c_params;
       if(nGeom) {
-        //fprintf(stderr, "\n collide bitmask: %d", c_params.coll_bitmask);
         dGeomSetCollideBits(nGeom, c_params.coll_bitmask);
         dGeomSetCategoryBits(nGeom, c_params.coll_bitmask);
       }
@@ -1482,7 +1491,6 @@ namespace mars {
               if(theWorld->handleCollision(elem.geom)) {
                 elem.gd->value += length;
                 done = true;
-                //fprintf(stderr, "\nhave collision");
               }
               if(!done) length = steps_size*steps;
             }

@@ -42,6 +42,9 @@ namespace mars {
 
     using namespace std;
     using namespace interfaces;
+    using std::cout;
+    using std::cerr;
+    using std::endl;
 
     template<class T>
     class map_data_compare : public std::binary_function<typename T::value_type, 
@@ -75,7 +78,6 @@ namespace mars {
       myHUD = 0;
       hudCamera = 0;
       graphicsCamera = 0;
-      graphicsEventHandler = NULL;
 
       cameraEyeSeparation = 0.1;
       mouseX = mouseY = 0;
@@ -95,11 +97,11 @@ namespace mars {
   
       osg::ref_ptr<osgWidget::Window> w = getWindowById(id);
       if(w.valid()){
-        std::cout<<"id is already in MAP !! error!!\n";
+        cout << "id is already in MAP !! error!!" << endl;
         return -1;
       }else {
         _osgWindowIdMap.insert(WindowIdMapType::value_type(id,wnd )); 
-        std::cout<<"added window to the map:"<<id<<"\n";
+        cout << "added window to the map: " << id << endl;
       }
   
       return id;
@@ -146,7 +148,7 @@ namespace mars {
   
       osg::ref_ptr<osgWidget::WindowManager> wm = getOrCreateWindowManager();
       if(wm.valid()){
-        std::cout<<"GraphicsWidget::createStyle:"<<style<<"\n";
+        cout << "GraphicsWidget::createStyle: " << style << endl;
         return  wm->getStyleManager()->addStyle(new osgWidget::Style(name, style));
       }
   
@@ -171,17 +173,17 @@ namespace mars {
 
   
     bool GraphicsWidget::setStyle(int id,const std::string &styleName){
-      std::cerr<<" GraphicsWidget::setStyle"<<styleName<<"\n";
+      cerr << " GraphicsWidget::setStyle " << styleName << endl;
       osg::ref_ptr<osgWidget::Window> wnd = getWindowById(id);
       if(!wnd.valid()){
         osg::ref_ptr<osgWidget::Widget> wd = getWidgetById(id);
         if(wd.valid()){
-          std::cerr<<" GraphicsWidget::setStyle SET IT !"<<"\n";
+          cerr << " GraphicsWidget::setStyle SET IT !" << endl;
           wd->setStyle(styleName);
           return true;
         }
       }else{
-        std::cerr<<" GraphicsWidget::setStyle SET IT !"<<"\n";
+        cerr << " GraphicsWidget::setStyle SET IT !" << endl;
         wnd->setStyle(styleName);
         return true;
       }
@@ -227,7 +229,7 @@ namespace mars {
 
           if ( it != _osgWidgetIdMap.end() ){
             _osgWidgetIdMap.erase(it);
-            std::cerr<<"erasing widget\n";
+            cerr << "erasing widget" << endl;
           }
       
         }
@@ -332,13 +334,13 @@ namespace mars {
       if(wnd.valid() && wd.valid()){
         osgWidget::Table* table = dynamic_cast<osgWidget::Table*>(wnd.get());
         if(table){
-          std::cout<<"added WIDGET TO TABLE.."<<x<<" "<<y<<"\n";
+          cout << "added WIDGET TO TABLE.. " << x << " " << y << endl;
           table->addWidget(wd,x,y);
           return true;
         }else{
           osgWidget::Canvas* can = dynamic_cast<osgWidget::Canvas*>(wnd.get());
           if(can){
-            std::cout<<"added WIDGET TO CANVAS..\n";
+            cout << "added WIDGET TO CANVAS.." << endl;
             can->addWidget(wd,x,y);
             return true;
           }else{
@@ -348,21 +350,21 @@ namespace mars {
               if(content.valid()){
                 frame->setWindow(content);
               }else{
-                std::cerr<<"You spezified a Frame as Window, ";
+                cerr << "You spezified a Frame as Window, ";
                 if(wd.valid()){
-                  std::cerr<<"and a widget as content, but a Frame takes an other Window as content\n";
+                  cerr << "and a widget as content, but a Frame takes an other Window as content" << endl;
                 }else{
-                  std::cerr<<"but other Window as content is not valid\n";
+                  cerr << "but other Window as content is not valid" << endl;
                 }
                 
               }
            
             }else{
-              std::cerr<<"UNKNOWN WINODW TYPE\n";
+              cerr << "UNKNOWN WINODW TYPE" << endl;
             }
           }
         }
-        std::cout<<"wnd is not type canvas or !."<<std::endl;
+        cout << "wnd is not type canvas or !." << endl;
       }
       return false;
     }
@@ -377,7 +379,7 @@ namespace mars {
           can->addWidget(wd,x,y);
           return true;
         }
-        std::cout<<"wnd is not type canvas!."<<std::endl;
+        cout << "wnd is not type canvas!." << endl;
       }
       return false;
     }
@@ -389,11 +391,11 @@ namespace mars {
  
       if(wnd.valid() && wd.valid()){
         wnd->addWidget(wd);
-        std::cout<<"added widget to window."<<std::endl;
+        cout << "added widget to window." << endl;
         return true;
       }
  
-      std::cout<<"window or widget does not exist!\n";
+      cout << "window or widget does not exist!" << endl;
       return false;
     }
 
@@ -402,11 +404,11 @@ namespace mars {
       int id= _osgWidgetWindowCnt;
       osg::ref_ptr<osgWidget::Widget> wnd = getWidgetById(id);
       if(wnd.valid()){
-        std::cout<<"id is already in MAP !! error!!\n";
+        cout << "id is already in MAP !! error!!" << endl;
         return -1;
       }else{
         _osgWidgetIdMap.insert(WidgetIdMapType::value_type(id,wid ));   
-        std::cout<<"widget created."<<id<<std::endl;
+        cout << "widget created." << id << endl;
       }
       return id;
     }
@@ -467,7 +469,7 @@ namespace mars {
           wm->addChild(wnd);
         }
       }else{
-        std::cout<<"window not known!\n";
+        cout << "window not known!" << endl;
         return false;
       }
   
@@ -504,14 +506,14 @@ namespace mars {
     }
 
     bool GraphicsWidget::addColor(int id,float r,float g,float b,float a){
-      std::cerr<<"in add color\n";
+      cerr << "in add color" << endl;
         
       osg::ref_ptr<osgWidget::Window> wnd = getWindowById(id);
       if(!wnd.valid()){
         osg::ref_ptr<osgWidget::Widget> wd = getWidgetById(id);
         if(wd.valid()){
           wd->addColor(r,g,b,a);
-          std::cerr<<"add color:r"<<r << " g:" << g<<" b:"<< b <<"\n";
+          cerr << "add color:r" << r << " g:" << g <<" b:" << b << endl;
           return true;
         }
       }else{
@@ -537,7 +539,7 @@ namespace mars {
     bool GraphicsWidget::manageClickEvent(osgWidget::Event& event)
     {
   
-      std::cerr<<"\nseaching 4 callback!\n";
+      cerr << "seaching 4 callback!" << endl;
   
       WidgetCallBackPairType *ip =(WidgetCallBackPairType*) event.getData();
           
@@ -550,7 +552,7 @@ namespace mars {
           if(ip->second.get()) {
             (*(ip->second.get()))(event.x ,event.y);
           }
-          std::cerr<<"base set\n"; 
+          cerr << "base set" << endl; 
         }
       }
    
@@ -587,7 +589,7 @@ namespace mars {
       
   
       if(wnd.valid() || wd.valid()){
-        std::cout<<"found somethink to add callback \n";
+        cout << "found somethink to add callback" << endl;
         WidgetCallBackList *wcb;
         WidgetCallBackMapType::iterator it =  _widgetCallBackMap.find(id);
         if(it != _widgetCallBackMap.end()){
@@ -602,7 +604,7 @@ namespace mars {
           wnd->addCallback( new osgWidget::Callback(&GraphicsWidget::manageClickEvent,this, type,(void*)&wcb->back()));
 
         }else{
-          std::cout<<"addCallback to Widget !! \n";
+          cout << "addCallback to Widget !!" << endl;
           wd->setEventMask(osgWidget::EVENT_ALL);      
           wd->addCallback( new osgWidget::Callback(&GraphicsWidget::manageClickEvent,this, type,(void*)&wcb->back()));
 
@@ -630,7 +632,7 @@ namespace mars {
  
     int GraphicsWidget::createCanvas(const std::string& name)
     {
-      std::cout<<"createCanvas"<<std::endl;
+      cout << "createCanvas" << endl;
       osg::ref_ptr<osgWidget::Window>  wnd = new osgWidget::Canvas(name);
       return addOsgWindow(wnd);
     }
@@ -656,7 +658,7 @@ namespace mars {
 
     int GraphicsWidget::createBox(const std::string& name,int type){
   
-      std::cout<<"createBox"<<std::endl;
+      cout << "createBox" << endl;
       osg::ref_ptr<osgWidget::Window>  wnd = new osgWidget::Box(name,type);
       return addOsgWindow(wnd);
     }
@@ -675,7 +677,7 @@ namespace mars {
                                                                   view,
                                                                   w,
                                                                   h,
-                                                                  MASK_2D,
+                                                                  CULL_LAYER,
                                                                   osgWidget::WindowManager::WM_PICK_DEBUG| osgWidget::WindowManager::WM_USE_PYTHON
                                                                   );
 
@@ -766,8 +768,6 @@ namespace mars {
         } else {
           traits->sharedContext = 0;
         }
-
-        //fprintf(stderr, "\nsamples: %d\n", traits->sampleBuffers);
 
         osg::ref_ptr<osg::GraphicsContext> gc = createWidgetContext(parent, traits);
 
@@ -920,7 +920,11 @@ namespace mars {
     }
 
     void GraphicsWidget::setGraphicsEventHandler(GraphicsEventInterface* graphicsEventHandler) {
-      this->graphicsEventHandler = graphicsEventHandler;
+      this->graphicsEventHandler.push_back(graphicsEventHandler);
+    }
+
+    void GraphicsWidget::addGraphicsEventHandler(GraphicsEventInterface* graphicsEventHandler) {
+      this->graphicsEventHandler.push_back(graphicsEventHandler);
     }
 
     GraphicsCameraInterface* GraphicsWidget::getCameraInterface(void) const {
@@ -1025,8 +1029,8 @@ namespace mars {
       case osgGA::GUIEventAdapter::KEYDOWN :
         return handleKeyDownEvent(ea);
       case osgGA::GUIEventAdapter::KEYUP :
-        if (graphicsEventHandler) {
-          graphicsEventHandler->emitSetAppActive(widgetID);
+        if (graphicsEventHandler.size() > 0) {
+          graphicsEventHandler[0]->emitSetAppActive(widgetID);
         }
         sendKeyUpEvent(ea);
         return handleKeyUpEvent(ea);
@@ -1046,7 +1050,8 @@ namespace mars {
       case osgGA::GUIEventAdapter::FRAME :
         return false;
       case osgGA::GUIEventAdapter::QUIT_APPLICATION:
-        if (graphicsEventHandler) graphicsEventHandler->emitQuitEvent(widgetID);
+        if (graphicsEventHandler.size() > 0)
+	  graphicsEventHandler[0]->emitQuitEvent(widgetID);
         return true;
       case osgGA::GUIEventAdapter::CLOSE_WINDOW:
         return false;
@@ -1065,9 +1070,9 @@ namespace mars {
       if (hudCamera) hudCamera->setViewport(0, 0, widgetWidth, widgetHeight);
       if (myHUD) myHUD->resize(widgetWidth, widgetHeight);
 
-      if(graphicsEventHandler) {
-        graphicsEventHandler->emitGeometryChange(widgetID,
-                                                 ea.getWindowX(), ea.getWindowY(), widgetWidth, widgetHeight);
+      if(graphicsEventHandler.size() > 0) {
+        graphicsEventHandler[0]->emitGeometryChange(widgetID,
+						    ea.getWindowX(), ea.getWindowY(), widgetWidth, widgetHeight);
       }
 
       return true;
@@ -1077,8 +1082,15 @@ namespace mars {
                                             osgGA::GUIActionAdapter& aa) {
       // *** Picking ***
 
+      if(!isMouseMoving) {
+	for(unsigned int i=0; i<graphicsEventHandler.size(); ++i) {
+	  graphicsEventHandler[i]->emitPickEvent(ea.getX(), ea.getY());
+	}
+      }
+
       isMouseButtonDown = false;
       isMouseMoving = false;
+
 
       if(pickmode == DISABLED) return false;
 
@@ -1091,11 +1103,11 @@ namespace mars {
       // Mouse didn't move
       if(mouseX==ea.getX() || mouseY==ea.getY()) {
         if(pick(mouseX, mouseY)) {
-          if(graphicsEventHandler) {
-            graphicsEventHandler->emitNodeSelectionChange(widgetID, (int)this->pickmode);
-            return true;
+          if(graphicsEventHandler.size() > 0) {
+            graphicsEventHandler[0]->emitNodeSelectionChange(widgetID, (int)this->pickmode);
+            return false;
           }
-          else if(!graphicsEventHandler) {
+          else if(graphicsEventHandler.size() == 0) {
             cerr << "Error: object pick processing not possible : ";
             cerr << "no event handler found." << endl;
             return false;
@@ -1242,7 +1254,7 @@ namespace mars {
     }
 
     void GraphicsWidget::sendKeyUpEvent(const osgGA::GUIEventAdapter &ea) {
-      if (graphicsEventHandler) {
+      if (graphicsEventHandler.size() > 0) {
         int key = ea.getKey();
         unsigned int modKey = ea.getModKeyMask();
         unsigned int mod = 0;
@@ -1267,7 +1279,7 @@ namespace mars {
         if (modKey & osgGA::GUIEventAdapter::MODKEY_META) {
           mod |= GuiEventInterface::MetaModifier;
         }
-        graphicsEventHandler->emitKeyUpEvent(key, mod, widgetID);
+        graphicsEventHandler[0]->emitKeyUpEvent(key, mod, widgetID);
       }
     }
 

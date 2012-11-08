@@ -137,8 +137,7 @@ namespace mars {
         libManager->unloadLibrary("main_gui");
       }
   
-  
-      fprintf(stderr, "\nDelete mars_gui");
+      fprintf(stderr, "Delete mars_gui\n");
     }
 
 
@@ -156,7 +155,7 @@ namespace mars {
       lib = libManager->getLibrary("main_gui");
       if(lib) {
         if(!(gui = dynamic_cast<main_gui::GuiInterface*>(lib))) {
-          fprintf(stderr, "No main_gui lib found!");
+          fprintf(stderr, "No main_gui lib found!\n");
         }
       }
   
@@ -207,7 +206,6 @@ namespace mars {
             if (pos == string::npos) break;
             dockNames.push_back(tmp.substr(0, pos));
             tmp.erase(0, pos+2);
-            fprintf(stderr, "found %s\n", dockNames.back().c_str());
           }
       
        

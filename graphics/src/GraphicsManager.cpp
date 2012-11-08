@@ -97,6 +97,7 @@ namespace mars {
         showClouds_(false),
         show_coords(true),
         useFog(true),
+        useNoise(false),
         cfg(0),
         ignore_next_resize(0),
         set_window_prop(0)
@@ -108,9 +109,26 @@ namespace mars {
 
       if(libManager == NULL) return;
 
+    }
+
+    GraphicsManager::~GraphicsManager() {
+      if(cfg) {
+        string saveFile = configPath.sValue;
+        saveFile.append("/mars_Graphics.yaml");
+        cfg->writeConfig(saveFile.c_str(), "Graphics");
+        libManager->unloadLibrary("cfg_manager");
+      }
+      fprintf(stderr, "Delete mars_graphics\n");
+    }
+
+#if USE_SM_SHADOW==1
+    // TODO: not use global! but until shadows handled nicely...
+    //osg::ref_ptr<osg::Camera> debugCam;
+#endif
+    void GraphicsManager::initializeOSG(void *data) {
       cfg = libManager->getLibraryAs<cfg_manager::CFGManagerInterface>("cfg_manager");
       if(!cfg) {
-        fprintf(stderr, "\n******* mars_graphics: couldn't find cfg_manager");
+        fprintf(stderr, "******* mars_graphics: couldn't find cfg_manager\n");
         return;
       }
 
@@ -148,6 +166,9 @@ namespace mars {
                                                   string(MARS_GRAPHICS_DEFAULT_RESOURCES_PATH),
                                                   dynamic_cast<cfg_manager::CFGClient*>(this));
 
+        noiseProp = cfg->getOrCreateProperty("Graphics", "useNoise",
+                                             true, this);
+        useNoise = noiseProp.bValue;
       }
 
       globalStateset->setGlobalDefaults();
@@ -270,23 +291,6 @@ namespace mars {
       grid = new GridPrimitive(osgWidget);
       showCoords();
 
-    }
-
-    GraphicsManager::~GraphicsManager() {
-      if(cfg) {
-        string saveFile = configPath.sValue;
-        saveFile.append("/mars_Graphics.yaml");
-        cfg->writeConfig(saveFile.c_str(), "Graphics");
-        libManager->unloadLibrary("cfg_manager");
-      }
-      fprintf(stderr, "\nDelete mars_graphics\n");
-    }
-
-#if USE_SM_SHADOW==1
-    // TODO: not use global! but until shadows handled nicely...
-    //osg::ref_ptr<osg::Camera> debugCam;
-#endif
-    void GraphicsManager::initializeOSG(void *data) {
       viewer = new GraphicsViewer((GuiEventInterface*)this);
       viewer->setKeyEventSetsDone(0);
 #ifdef SINGLE_THREADED
@@ -539,7 +543,6 @@ namespace mars {
       std::vector<GraphicsWidget*>::const_iterator iter;
 
       for(iter=graphicsWindows.begin(); iter!=graphicsWindows.end(); iter++) {
-        printf("Name: %s, name2: %s\n",name.c_str(),(*iter)->getName().c_str());
         if((*iter)->getName().compare(name) == 0) {
           return (GraphicsWindowInterface*)(*iter);
         }
@@ -670,7 +673,7 @@ namespace mars {
 
       getLights(&lightList);
       if(lightList.size() == 0) lightList.push_back(&defaultLight.lStruct);
-      osg::ref_ptr<OSGNodeStruct> drawObject = new OSGNodeStruct(lightList, snode, false, id, marsShader.bValue, useFog);
+      osg::ref_ptr<OSGNodeStruct> drawObject = new OSGNodeStruct(lightList, snode, false, id, marsShader.bValue, useFog, useNoise);
       osg::PositionAttitudeTransform *transform = drawObject->object()->getPosTransform();
 
       DrawCoreIds.insert(pair<unsigned long int, unsigned long int>(id, snode.index));
@@ -765,7 +768,7 @@ namespace mars {
     void GraphicsManager::setDrawObjectMaterial(unsigned long id,
                                                 const mars::interfaces::MaterialData &material) {
       OSGNodeStruct *ns = findDrawObject(id);
-      if(ns != NULL) ns->object()->setMaterial(material, useFog);
+      if(ns != NULL) ns->object()->setMaterial(material, useFog, useNoise);
     }
     void GraphicsManager::setDrawObjectNodeMask(unsigned long id, unsigned int bits) {
       OSGNodeStruct *ns = findDrawObject(id);
@@ -917,7 +920,8 @@ namespace mars {
       OSGLightStruct *osgLight = dynamic_cast<OSGLightStruct*>(myLights[i].lightSource.get());
       if(osgLight != NULL)
         osgLight->update(myLights[i].lStruct);
-      else fprintf(stderr, "GraphicsManager:: updateLight -> no Light %d", i);
+      else
+        fprintf(stderr, "GraphicsManager::updateLight -> no Light %u\n", i);
     }
 
     void GraphicsManager::getLights(vector<mars::interfaces::LightData*> *lightList) {
@@ -1061,7 +1065,7 @@ namespace mars {
 
       if (allNodes[0].filename=="PRIMITIVE") {
         osg::ref_ptr<OSGNodeStruct> drawObject = new OSGNodeStruct(lightList,
-                                                                   allNodes[0], true, nextPreviewID, marsShader.bValue, useFog);
+                                                                   allNodes[0], true, nextPreviewID, marsShader.bValue, useFog, useNoise);
         previewNodes_[nextPreviewID] = drawObject;
         scene->addChild(drawObject->object()->getPosTransform());
       } else {
@@ -1069,7 +1073,7 @@ namespace mars {
         for(DrawObjects::iterator it = previewNodes_.begin();
             it != previewNodes_.end(); ++it) {
           osg::ref_ptr<OSGNodeStruct> drawObject = new OSGNodeStruct(lightList,
-                                                                     allNodes[++i], true, nextPreviewID, marsShader.bValue, useFog);
+                                                                     allNodes[++i], true, nextPreviewID, marsShader.bValue, useFog, useNoise);
           previewNodes_[nextPreviewID] = drawObject;
           scene->addChild(drawObject->object()->getPosTransform());
         }
@@ -1518,6 +1522,11 @@ namespace mars {
 
       if(_property.paramId == multisamples.paramId) {
         setMultisampling(_property.iValue);
+        return;
+      }
+
+      if(_property.paramId == noiseProp.paramId) {
+        useNoise = noiseProp.bValue = _property.bValue;
         return;
       }
 

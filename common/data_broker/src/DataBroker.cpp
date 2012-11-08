@@ -45,22 +45,18 @@
 #include "data_broker/ProducerInterface.h"
 #include "data_broker/ReceiverInterface.h"
 
-#include <cerrno>
-#include <cstdio>
-#include <cstdarg>
+#include <mars/utils/MutexLocker.h>
+#include <mars/utils/misc.h>
 
-#ifdef WIN32
-  #include <sys/timeb.h>
-  #include <windows.h>
-#else
-  #include <sys/time.h>
-  #include <unistd.h>
-#endif
+#include <cstdio>
+#include <cerrno>
+
 
 
 namespace mars {
-
   namespace data_broker {
+
+    using namespace mars::utils;
 
     // Helper struct
     /// \cond HIDDEN_SYMBOLS
@@ -71,31 +67,6 @@ namespace mars {
       const ReceiverInterface *producer;
     };
     /// \endcond
-
-    static inline long getTime() {
-#ifdef WIN32
-      struct timeb timer;
-      ftime(&timer);
-      return (long)(timer.time*1000 + timer.millitm);
-#else
-      struct timeval timer;
-      gettimeofday(&timer, NULL);
-      return ((long)(timer.tv_sec))*1000 + ((long)(timer.tv_usec))/1000;
-#endif
-    }
-
-    static inline long getTimeDiff(long start) {
-      return getTime() - start;
-    }
-
-    static inline void msleep(unsigned int milliseconds) {
-#ifdef _WIN32
-      ::Sleep(milliseconds);
-#else
-      static const unsigned int milliToMicro = 1000;
-      ::usleep(milliseconds * milliToMicro);
-#endif
-    }
 
 
     // C-function to be called by pthreads to start the thread
@@ -121,18 +92,9 @@ namespace mars {
     DataBroker::DataBroker(mars::lib_manager::LibManager *theManager) :
       mars::lib_manager::LibInterface(theManager),
       DataBrokerInterface(),
+      mars::utils::Thread(),
       next_id(1), thread_running(false), stop_thread(false),
       realtimeThreadRunning(false) {
-
-      pthread_rwlock_init(&elementsLock, NULL);
-      pthread_rwlock_init(&timersLock, NULL);
-      pthread_rwlock_init(&triggersLock, NULL);
-      pthread_mutex_init(&updatedElementsLock, NULL);
-      pthread_mutex_init(&idMutex, NULL);
-      pthread_mutex_init(&pendingRegistrationLock, NULL);
-      pthread_mutex_init(&wakeupMutex, NULL);
-      pthread_mutex_init(&realtimeMutex, NULL);
-      pthread_cond_init(&wakeupCondition, NULL);
 
       updatedElementsBackBuffer = new std::set<DataElement*>;
       updatedElementsFrontBuffer = new std::set<DataElement*>;
@@ -143,42 +105,43 @@ namespace mars {
 
       DataElement *fatalElement, *errorElement, *warningElement;
       DataElement *infoElement, *debugElement;
-      
-      fatalElement = createDataElement("_MESSAGES_", "fatal", 
+
+      fatalElement = createDataElement("_MESSAGES_", "fatal",
                                        DATA_PACKAGE_READ_FLAG);
       pushMessageIds[DB_MESSAGE_TYPE_FATAL] = fatalElement->info.dataId;
-      errorElement = createDataElement("_MESSAGES_", "error", 
+      errorElement = createDataElement("_MESSAGES_", "error",
                                        DATA_PACKAGE_READ_FLAG);
       pushMessageIds[DB_MESSAGE_TYPE_ERROR] = errorElement->info.dataId;
-      warningElement = createDataElement("_MESSAGES_", "warning", 
+      warningElement = createDataElement("_MESSAGES_", "warning",
                                          DATA_PACKAGE_READ_FLAG);
       pushMessageIds[DB_MESSAGE_TYPE_WARNING] = warningElement->info.dataId;
-      infoElement = createDataElement("_MESSAGES_", "info", 
+      infoElement = createDataElement("_MESSAGES_", "info",
                                       DATA_PACKAGE_READ_FLAG);
       pushMessageIds[DB_MESSAGE_TYPE_INFO] = infoElement->info.dataId;
-      debugElement = createDataElement("_MESSAGES_", "debug", 
+      debugElement = createDataElement("_MESSAGES_", "debug",
                                        DATA_PACKAGE_READ_FLAG);
       pushMessageIds[DB_MESSAGE_TYPE_DEBUG] = debugElement->info.dataId;
 
-      pthread_rwlock_wrlock(&elementsLock);
+      elementsLock.lockForWrite();
       publishDataElement(fatalElement);
       publishDataElement(errorElement);
       publishDataElement(warningElement);
       publishDataElement(infoElement);
       publishDataElement(debugElement);
-      pthread_rwlock_unlock(&elementsLock);
+      elementsLock.unlock();
 
       createTimer("_REALTIME_");
 
       pthread_create(&theThread, NULL, createDataBrokerThread, (void*)this);
+      //start();
     }
 
     DataBroker::~DataBroker() {
       stopRealtimeThread = true;
       stop_thread = true;
-      if(pthread_mutex_trylock(&wakeupMutex) == 0) {
-        pthread_cond_signal(&wakeupCondition);
-        pthread_mutex_unlock(&wakeupMutex);
+      if(wakeupMutex.tryLock() == MUTEX_ERROR_NO_ERROR) {
+        wakeupCondition.wakeOne();
+        wakeupMutex.unlock();
       }
       while(thread_running || realtimeThreadRunning) {
         msleep(10);
@@ -187,48 +150,46 @@ namespace mars {
       std::map<std::string, Timer>::iterator timerIt;
       std::map<std::string, Trigger>::iterator triggerIt;
       // TODO: This cleanup code is not really perfect threadingwise
-      pthread_rwlock_wrlock(&elementsLock);
-      pthread_rwlock_wrlock(&timersLock);
-      pthread_rwlock_wrlock(&triggersLock);
-      pthread_mutex_lock(&updatedElementsLock);
+      elementsLock.lockForWrite();
+      timersLock.lockForWrite();
+      triggersLock.lockForWrite();
+      updatedElementsLock.lock();
       updatedElementsBackBuffer->clear();
       updatedElementsFrontBuffer->clear();
       delete updatedElementsBackBuffer;
       delete updatedElementsFrontBuffer;
       for(timerIt = timers.begin(); timerIt != timers.end(); ++timerIt) {
-        destroyLock(&timerIt->second.lock);
+        //destroyLock(&timerIt->second.lock);
       }
       timers.clear();
       for(triggerIt = triggers.begin();
           triggerIt != triggers.end(); ++triggerIt) {
-        destroyLock(&triggerIt->second.lock);
+        //destroyLock(&triggerIt->second.lock);
       }
       triggers.clear();
       for(elementIt = elementsById.begin();
           elementIt != elementsById.end(); ++elementIt) {
         DataElement *element = elementIt->second;
-        destroyLock(&element->receiverLock);
-        destroyLock(&element->bufferLock);
+        //destroyLock(&element->receiverLock);
+        //destroyLock(&element->bufferLock);
         delete element->backBuffer;
         delete element->frontBuffer;
         delete element;
       }
       elementsById.clear();
       elementsByName.clear();
-      pthread_mutex_unlock(&updatedElementsLock);
-      pthread_rwlock_unlock(&triggersLock);
-      pthread_rwlock_unlock(&timersLock);
-      pthread_rwlock_unlock(&elementsLock);
-      destroyLock(&realtimeMutex);
-      destroyLock(&triggersLock);
-      destroyLock(&timersLock);
-      destroyLock(&elementsLock);
-      destroyLock(&idMutex);
-      destroyLock(&updatedElementsLock);
-      destroyLock(&pendingRegistrationLock);
-      destroyLock(&wakeupCondition);
-      destroyLock(&wakeupMutex);
-      fprintf(stderr, "\nDelete data_broker\n");
+      updatedElementsLock.unlock();
+      triggersLock.unlock();
+      timersLock.unlock();
+      elementsLock.unlock();
+      //      destroyLock(&realtimeMutex);
+      //      destroyLock(&triggersLock);
+      //      destroyLock(&timersLock);
+      //      destroyLock(&elementsLock);
+      //      destroyLock(&idMutex);
+      //      destroyLock(&updatedElementsLock);
+      //      destroyLock(&pendingRegistrationLock);
+      fprintf(stderr, "Delete data_broker\n");
     }
 
     void DataBroker::destroyLock(pthread_rwlock_t *rwlock) {
@@ -247,31 +208,31 @@ namespace mars {
       std::map<std::string, Timer>::iterator timerIt;
       bool ok = false;
       bool advanceIterator = true;
-      pthread_rwlock_wrlock(&timersLock);
+      timersLock.lockForWrite();
       timerIt = timers.find(timerName);
       if(timerIt == timers.end()) {
         timers[timerName] = Timer();
         timers[timerName].t = 0;
         timers[timerName].receivers.clear();
-        pthread_rwlock_init(&timers[timerName.c_str()].lock, NULL);
+        timers[timerName.c_str()].lock = new mars::utils::ReadWriteLock();
         ok = true;
         std::map<std::pair<std::string, std::string>, DataElement*>::iterator elementIt;
 
-        DataElement *e = createDataElement("data_broker", "timers/" + timerName, 
+        DataElement *e = createDataElement("data_broker", "timers/" + timerName,
                                            DATA_PACKAGE_READ_FLAG);
         timers[timerName].timerElementId = e->info.dataId;
-        pthread_rwlock_wrlock(&elementsLock);
+        elementsLock.lockForWrite();
         publishDataElement(e);
-        pthread_rwlock_unlock(&elementsLock);
+        elementsLock.unlock();
 
         // check for pending timer registrations
         std::list<PendingTimedRegistration>::iterator pendingIt;
-        pthread_mutex_lock(&pendingRegistrationLock);
+        pendingRegistrationLock.lock();
         for(pendingIt = pendingTimedRegistrations.begin();
             pendingIt != pendingTimedRegistrations.end(); /* do nothing */) {
           advanceIterator = true;
           if(pendingIt->timerName == timerName) {
-            pthread_rwlock_rdlock(&elementsLock);
+            elementsLock.lockForRead();
             elementIt = elementsByName.find(std::make_pair(pendingIt->groupName,
                                                            pendingIt->dataName));
             if(elementIt == elementsByName.end()) {
@@ -280,13 +241,11 @@ namespace mars {
                                              pendingIt->updatePeriod,
                                              timerIt->second.t,
                                              pendingIt->callbackParam};
-              pthread_rwlock_wrlock(&timerIt->second.lock);
-              timerIt->second.receivers.push_back(timedReceiver);
-              pthread_rwlock_unlock(&timerIt->second.lock);
+              timerIt->second.receivers.locked_push_back(timedReceiver);
               pendingIt = pendingTimedRegistrations.erase(pendingIt);
               advanceIterator = false;
             }
-            pthread_rwlock_unlock(&elementsLock);
+            elementsLock.unlock();
           }
           if(advanceIterator) {
             ++pendingIt;
@@ -298,7 +257,7 @@ namespace mars {
         for(pendingProducerIt = pendingTimedProducers.begin();
             pendingProducerIt != pendingTimedProducers.end(); /* do nothing */) {
           if(pendingProducerIt->timerName == timerName) {
-            pthread_rwlock_rdlock(&elementsLock); // ToDo: missing unlock
+            elementsLock.lockForRead(); // ToDo: missing unlock
             elementIt = elementsByName.find(std::make_pair(pendingProducerIt->groupName,
                                                            pendingProducerIt->dataName));
             DataElement *element;
@@ -313,22 +272,20 @@ namespace mars {
                                            pendingProducerIt->updatePeriod,
                                            timerIt->second.t,
                                            pendingProducerIt->callbackParam};
-            pthread_rwlock_wrlock(&timerIt->second.lock);
-            timerIt->second.producers.push_back(timedProducer);
-            pthread_rwlock_unlock(&timerIt->second.lock);
+            timerIt->second.producers.locked_push_back(timedProducer);
             pendingProducerIt = pendingTimedProducers.erase(pendingProducerIt);
           } else {
             ++pendingProducerIt;
           }
         }
 
-        pthread_mutex_unlock(&pendingRegistrationLock);
+        pendingRegistrationLock.unlock();
       }
-      
-      pthread_rwlock_unlock(&timersLock);
+
+      timersLock.unlock();
       return ok;
     }
-    
+
     bool DataBroker::stepTimer(const std::string &timerName, long step) {
       std::map<std::string, Timer>::iterator timerIt, endIt;
       std::list<DeferredCallback> deferredCallbacks;
@@ -337,26 +294,19 @@ namespace mars {
       DataItem currentItem;
 
       //bool ok = false;
-      //fprintf(stderr, "db::stepTimer\n");
-      pthread_rwlock_rdlock(&timersLock);
+      timersLock.lockForRead();
       timerIt = timers.find(timerName);
       // The use of an iterator should be thread-safe.
       // The timers.end() call might not be.
       endIt = timers.end();
-      pthread_rwlock_unlock(&timersLock);
+      timersLock.unlock();
       if(timerIt == endIt) {
         return false;
       }
       //ok = true;
-      pthread_rwlock_wrlock(&timerIt->second.lock);
+      timerIt->second.lock->lockForWrite();
       timerIt->second.t += step;
       // call all producers
-      /*
-        fprintf(stderr, "db::stepTimer: producerSize: %d\n",
-        timerIt->second.producers.size());
-        fprintf(stderr, "db::stepTimer: receiverSize: %d\n",
-        timerIt->second.receivers.size());
-      */
       DeferredCallback deferredCallback;
       std::list<TimedProducer>::iterator producerIt;
       for(producerIt = timerIt->second.producers.begin();
@@ -371,12 +321,12 @@ namespace mars {
 
           deferredCallback.receivers.clear();
 
-          pthread_rwlock_wrlock(&element->bufferLock);
+          element->bufferLock->lockForWrite();
           producerIt->producer->produceData(element->info,
                                             element->backBuffer,
                                             producerIt->callbackParam);
           std::swap(element->backBuffer, element->frontBuffer);
-          pthread_rwlock_rdlock(&element->receiverLock);
+          element->receiverLock->lockForRead();
           if(!element->syncReceivers.empty()) {
             deferredCallback.package = *element->frontBuffer;
             deferredCallback.info = element->info;
@@ -384,7 +334,7 @@ namespace mars {
             deferredCallback.receivers = element->syncReceivers;
           }
           std::list<DataItemConnection>::iterator connectionIt;
-          for(connectionIt = element->connections.begin(); 
+          for(connectionIt = element->connections.begin();
               connectionIt != element->connections.end(); ++connectionIt) {
             long fromIdx = connectionIt->fromDataItemIndex;
             long toIdx = connectionIt->toDataItemIndex;
@@ -393,12 +343,12 @@ namespace mars {
             (*connectionIt->toElement->frontBuffer)[toIdx] = currentItem;
             connectionActivatedElements.insert(connectionIt->toElement);
           }
-          pthread_rwlock_unlock(&element->receiverLock);
-          pthread_rwlock_unlock(&element->bufferLock);
+          element->receiverLock->unlock();
+          element->bufferLock->unlock();
 
-          pthread_mutex_lock(&updatedElementsLock);
+          updatedElementsLock.lock();
           updatedElementsBackBuffer->insert(element);
-          pthread_mutex_unlock(&updatedElementsLock);
+          updatedElementsLock.unlock();
 
           // defer synchronous callbacks until we do not hold any locks anymore
           if(!deferredCallback.receivers.empty())
@@ -428,24 +378,24 @@ namespace mars {
         }
       }
 
-      pthread_rwlock_unlock(&timerIt->second.lock);
+      timerIt->second.lock->unlock();
 
       // call all deferred receivers
       for(timedReceiverIt = deferredReceivers.begin();
           timedReceiverIt != deferredReceivers.end();
           ++timedReceiverIt) {
         DataElement *element = timedReceiverIt->element;
-        pthread_rwlock_rdlock(&element->bufferLock);
+        element->bufferLock->lockForRead();
         timedReceiverIt->receiver->receiveData(element->info,
                                                *element->frontBuffer,
                                                timedReceiverIt->callbackParam);
-        pthread_rwlock_unlock(&element->bufferLock);
+        element->bufferLock->unlock();
       }
 
       // connections
       std::set<DataElement*>::iterator toElementIt;
       fflush(stderr);
-      for(toElementIt = connectionActivatedElements.begin(); 
+      for(toElementIt = connectionActivatedElements.begin();
           toElementIt != connectionActivatedElements.end(); ++toElementIt) {
         DataElement *toElement = *toElementIt;
         //      std::swap(toElement->frontBuffer, toElement->backBuffer);
@@ -468,7 +418,7 @@ namespace mars {
 
       return true;
     }
-    
+
     bool DataBroker::registerTimedReceiver(ReceiverInterface *receiver,
                                            const std::string &groupName,
                                            const std::string &dataName,
@@ -478,21 +428,19 @@ namespace mars {
       std::map<std::string, Timer>::iterator timerIt, endIt;
       std::map<std::pair<std::string, std::string>, DataElement*>::iterator elementIt;
       bool ok = false;
-      
-      pthread_rwlock_rdlock(&timersLock);
+
+      timersLock.lockForRead();
       timerIt = timers.find(timerName);
       endIt = timers.end();
-      pthread_rwlock_unlock(&timersLock);
+      timersLock.unlock();
       if(timerIt != endIt) {
-        pthread_rwlock_rdlock(&elementsLock);
+        elementsLock.lockForRead();
         elementIt = elementsByName.find(std::make_pair(groupName, dataName));
         if(elementIt != elementsByName.end()) {
           DataElement *element = elementIt->second;
           TimedReceiver timedReceiver = {receiver, element, updatePeriod,
                                          timerIt->second.t, callbackParam};
-          pthread_rwlock_wrlock(&timerIt->second.lock);
-          timerIt->second.receivers.push_back(timedReceiver);
-          pthread_rwlock_unlock(&timerIt->second.lock);
+          timerIt->second.receivers.locked_push_back(timedReceiver);
           ok = true;
           if(timerName == "_REALTIME_") {
             lockRealtimeMutex();
@@ -507,7 +455,7 @@ namespace mars {
             unlockRealtimeMutex();
           }
         }
-        pthread_rwlock_unlock(&elementsLock);
+        elementsLock.unlock();
       }
       // if there was a problem add to pending receivers
       if(!ok) {
@@ -518,9 +466,7 @@ namespace mars {
         tmp.timerName = timerName.c_str();
         tmp.updatePeriod = updatePeriod;
         tmp.callbackParam = callbackParam;
-        pthread_mutex_lock(&pendingRegistrationLock);
-        pendingTimedRegistrations.push_back(tmp);
-        pthread_mutex_unlock(&pendingRegistrationLock);
+        pendingTimedRegistrations.locked_push_back(tmp);
       }
       return ok;
     }
@@ -532,12 +478,12 @@ namespace mars {
       std::map<std::string, Timer>::iterator timerIt, endIt;
       std::list<TimedReceiver>::iterator receiverIt;
       bool ok = false;
-      pthread_rwlock_rdlock(&timersLock);
+      timersLock.lockForRead();
       timerIt = timers.find(timerName);
       endIt = timers.end();
-      pthread_rwlock_unlock(&timersLock);
+      timersLock.unlock();
       if(timerIt != endIt) {
-        pthread_rwlock_wrlock(&timerIt->second.lock);
+        timerIt->second.lock->lockForWrite();
         for(receiverIt = timerIt->second.receivers.begin();
             receiverIt != timerIt->second.receivers.end(); /* do nothing */){
           if(receiverIt->receiver == receiver) {
@@ -552,22 +498,22 @@ namespace mars {
            timerIt->second.producers.empty()) {
           stopRealtimeThread = true;
         }
-        pthread_rwlock_unlock(&timerIt->second.lock);
+        timerIt->second.lock->unlock();
       }
       // remove receiver from pendingTimedRegistration list
       std::list<PendingTimedRegistration>::iterator pendingIt;
-      pthread_mutex_lock(&pendingRegistrationLock);
+      pendingRegistrationLock.lock();
       for(pendingIt = pendingTimedRegistrations.begin();
           pendingIt != pendingTimedRegistrations.end(); /* do nothing */) {
         if((pendingIt->timerName == timerName) &&
-           match(groupName, pendingIt->groupName) &&
-           match(dataName, pendingIt->dataName)) {
+           matchPattern(groupName, pendingIt->groupName) &&
+           matchPattern(dataName, pendingIt->dataName)) {
           pendingIt = pendingTimedRegistrations.erase(pendingIt);
         } else {
           ++pendingIt;
         }
       }
-      pthread_mutex_unlock(&pendingRegistrationLock);
+      pendingRegistrationLock.unlock();
       return ok;
     }
 
@@ -580,12 +526,12 @@ namespace mars {
       std::map<std::string, Timer>::iterator timerIt, endIt;
       std::map<std::pair<std::string, std::string>, DataElement*>::iterator elementIt;
       bool ok = false;
-      pthread_rwlock_rdlock(&timersLock);
+      timersLock.lockForRead();
       timerIt = timers.find(timerName);
       endIt = timers.end();
-      pthread_rwlock_unlock(&timersLock);
+      timersLock.unlock();
       if(timerIt != endIt) {
-        pthread_rwlock_rdlock(&elementsLock);
+        elementsLock.lockForRead();
         elementIt = elementsByName.find(std::make_pair(groupName, dataName));
         DataElement *element = NULL;
         if(elementIt == elementsByName.end()) {
@@ -595,16 +541,14 @@ namespace mars {
         }
         TimedProducer timedProducer = {producer, element, updatePeriod,
                                        timerIt->second.t, callbackParam};
-        pthread_rwlock_wrlock(&timerIt->second.lock);
-        timerIt->second.producers.push_back(timedProducer);
-        pthread_rwlock_unlock(&timerIt->second.lock);
-        pthread_rwlock_unlock(&elementsLock);
+        timerIt->second.producers.locked_push_back(timedProducer);
+        elementsLock.unlock();
         ok = true;
         if(timerName == "_REALTIME_") {
           stopRealtimeThread = false;
           startingRealtimeThread = true;
           if(!realtimeThreadRunning) {
-            pthread_create(&realtimeThread, NULL, createRealtimeThread, 
+            pthread_create(&realtimeThread, NULL, createRealtimeThread,
                            (void*)this);
           }
         }
@@ -618,13 +562,11 @@ namespace mars {
         tmp.timerName = timerName.c_str();
         tmp.updatePeriod = updatePeriod;
         tmp.callbackParam = callbackParam;
-        pthread_mutex_lock(&pendingRegistrationLock);
-        pendingTimedProducers.push_back(tmp);
-        pthread_mutex_unlock(&pendingRegistrationLock);
+        pendingTimedProducers.locked_push_back(tmp);
       }
       return ok;
     }
-    
+
     bool DataBroker::unregisterTimedProducer(ProducerInterface *producer,
                                              const std::string &groupName,
                                              const std::string &dataName,
@@ -632,12 +574,12 @@ namespace mars {
       std::map<std::string, Timer>::iterator timerIt, endIt;
       std::list<TimedProducer>::iterator producerIt;
       bool ok = false;
-      pthread_rwlock_rdlock(&timersLock);
+      timersLock.lockForRead();
       timerIt = timers.find(timerName);
       endIt = timers.end();
-      pthread_rwlock_unlock(&timersLock);
+      timersLock.unlock();
       if(timerIt != endIt) {
-        pthread_rwlock_wrlock(&timerIt->second.lock);
+        timerIt->second.lock->lockForWrite();
         for(producerIt = timerIt->second.producers.begin();
             producerIt != timerIt->second.producers.end(); /* do nothing */) {
           if(producerIt->producer == producer) {
@@ -652,22 +594,22 @@ namespace mars {
            timerIt->second.producers.empty()) {
           stopRealtimeThread = true;
         }
-        pthread_rwlock_unlock(&timerIt->second.lock);
+        timerIt->second.lock->unlock();
       }
       // remove producer from pendingTimedProducers list
       std::list<PendingTimedProducer>::iterator pendingIt;
-      pthread_mutex_lock(&pendingRegistrationLock);
+      pendingRegistrationLock.lock();
       for(pendingIt = pendingTimedProducers.begin();
           pendingIt != pendingTimedProducers.end(); /* do nothing */) {
         if((pendingIt->timerName == timerName) &&
-           match(groupName, pendingIt->groupName) &&
-           match(dataName, pendingIt->dataName)) {
+           matchPattern(groupName, pendingIt->groupName) &&
+           matchPattern(dataName, pendingIt->dataName)) {
           pendingIt = pendingTimedProducers.erase(pendingIt);
         } else {
           ++pendingIt;
         }
       }
-      pthread_mutex_unlock(&pendingRegistrationLock);
+      pendingRegistrationLock.unlock();
       return ok;
     }
 
@@ -675,40 +617,38 @@ namespace mars {
     bool DataBroker::createTrigger(const std::string &triggerName) {
       std::map<std::string, Trigger>::iterator triggerIt;
       bool ok = false;
-      pthread_rwlock_wrlock(&triggersLock);
+      triggersLock.lockForWrite();
       triggerIt = triggers.find(triggerName);
       if(triggerIt == triggers.end()) {
         triggers[triggerName] = Trigger();
         triggers[triggerName].receivers.clear();
-        pthread_rwlock_init(&triggers[triggerName].lock, NULL);
+        triggers[triggerName].lock = new ReadWriteLock;
         ok = true;
       }
       // check for pending timer registrations
       std::map<std::pair<std::string, std::string>, DataElement*>::iterator elementIt;
       std::list<PendingTriggeredRegistration>::iterator pendingIt;
-      pthread_mutex_lock(&pendingRegistrationLock);
+      pendingRegistrationLock.lock();
       for(pendingIt = pendingTriggeredRegistrations.begin();
           pendingIt != pendingTriggeredRegistrations.end(); /* do nothing */) {
         if(pendingIt->triggerName == triggerName){
-          pthread_rwlock_rdlock(&elementsLock);
+          elementsLock.lockForRead();
           elementIt = elementsByName.find(std::make_pair(pendingIt->groupName,
                                                          pendingIt->dataName));
           if(elementIt != elementsByName.end()) {
             TriggeredReceiver triggeredReceiver = { pendingIt->receiver,
                                                     elementIt->second,
                                                     pendingIt->callbackParam };
-            pthread_rwlock_wrlock(&triggerIt->second.lock);
-            triggerIt->second.receivers.push_back(triggeredReceiver);
-            pthread_rwlock_unlock(&triggerIt->second.lock);
+            triggerIt->second.receivers.locked_push_back(triggeredReceiver);
             pendingIt = pendingTriggeredRegistrations.erase(pendingIt);
           } else {
             ++pendingIt;
           }
-          pthread_rwlock_unlock(&elementsLock);
+          elementsLock.unlock();
         }
       }
-      pthread_mutex_unlock(&pendingRegistrationLock);
-      pthread_rwlock_unlock(&triggersLock);
+      pendingRegistrationLock.unlock();
+      triggersLock.unlock();
       return ok;
     }
 
@@ -716,23 +656,23 @@ namespace mars {
       std::map<std::string, Trigger>::iterator triggerIt, endIt;
       std::list<TriggeredReceiver>::iterator receiverIt;
       bool ok = false;
-      pthread_rwlock_rdlock(&triggersLock);
+      triggersLock.lockForRead();
       triggerIt = triggers.find(triggerName);
       endIt = triggers.end();
-      pthread_rwlock_unlock(&triggersLock);
+      triggersLock.unlock();
       if(triggerIt != endIt) {
-        pthread_rwlock_rdlock(&triggerIt->second.lock);
+        triggerIt->second.lock->lockForRead();
         for(receiverIt = triggerIt->second.receivers.begin();
             receiverIt != triggerIt->second.receivers.end();
             ++receiverIt) {
           DataElement *element = receiverIt->element;
-          pthread_rwlock_rdlock(&element->bufferLock);
+          element->bufferLock->lockForRead();
           receiverIt->receiver->receiveData(element->info,
                                             *element->frontBuffer,
                                             receiverIt->callbackParam);
-          pthread_rwlock_unlock(&element->bufferLock);
+          element->bufferLock->unlock();
         }
-        pthread_rwlock_unlock(&triggerIt->second.lock);
+        triggerIt->second.lock->unlock();
         ok = true;
       }
       return ok;
@@ -746,22 +686,20 @@ namespace mars {
       std::map<std::string, Trigger>::iterator triggerIt, endIt;
       std::map<std::pair<std::string, std::string>, DataElement*>::iterator elementIt;
       bool ok = false;
-      pthread_rwlock_rdlock(&triggersLock);
+      triggersLock.lockForRead();
       triggerIt = triggers.find(triggerName);
       endIt = triggers.end();
-      pthread_rwlock_unlock(&triggersLock);
+      triggersLock.unlock();
       if(triggerIt != endIt) {
-        pthread_rwlock_rdlock(&elementsLock);
+        elementsLock.lockForRead();
         elementIt = elementsByName.find(std::make_pair(groupName, dataName));
         if(elementIt != elementsByName.end()) {
           TriggeredReceiver triggeredReceiver = { receiver, elementIt->second,
                                                   callbackParam };
-          pthread_rwlock_wrlock(&triggerIt->second.lock);
-          triggerIt->second.receivers.push_back(triggeredReceiver);
-          pthread_rwlock_unlock(&triggerIt->second.lock);
+          triggerIt->second.receivers.locked_push_back(triggeredReceiver);
           ok = true;
         }
-        pthread_rwlock_unlock(&elementsLock);
+        elementsLock.unlock();
       }
       return ok;
     }
@@ -774,15 +712,15 @@ namespace mars {
       std::map<std::pair<std::string, std::string>, DataElement*>::iterator elementIt;
       std::list<TriggeredReceiver>::iterator receiverIt;
       bool ok = false;
-      pthread_rwlock_rdlock(&triggersLock);
+      triggersLock.lockForRead();
       triggerIt = triggers.find(triggerName);
       endIt = triggers.end();
-      pthread_rwlock_unlock(&triggersLock);
+      triggersLock.unlock();
       if(triggerIt != endIt) {
-        pthread_rwlock_rdlock(&elementsLock);
+        elementsLock.lockForRead();
         elementIt = elementsByName.find(std::make_pair(groupName, dataName));
         if(elementIt != elementsByName.end()) {
-          pthread_rwlock_wrlock(&triggerIt->second.lock);
+          triggerIt->second.lock->lockForWrite();
           for(receiverIt = triggerIt->second.receivers.begin();
               receiverIt != triggerIt->second.receivers.end(); /* do nothing */) {
             if((receiverIt->receiver == receiver) &&
@@ -793,25 +731,25 @@ namespace mars {
               ++receiverIt;
             }
           }
-          pthread_rwlock_unlock(&triggerIt->second.lock);
+          triggerIt->second.lock->unlock();
         }
-        pthread_rwlock_unlock(&elementsLock);
+        elementsLock.unlock();
       }
 
       // remove receiver from PendingReceivers list
       std::list<PendingTriggeredRegistration>::iterator pendingIt;
-      pthread_mutex_lock(&pendingRegistrationLock);
+      pendingRegistrationLock.lock();
       for(pendingIt = pendingTriggeredRegistrations.begin();
           pendingIt != pendingTriggeredRegistrations.end(); /* do nothing */) {
         if((pendingIt->triggerName == triggerName) &&
-           match(groupName, pendingIt->groupName) &&
-           match(dataName, pendingIt->dataName)) {
+           matchPattern(groupName, pendingIt->groupName) &&
+           matchPattern(dataName, pendingIt->dataName)) {
           pendingIt = pendingTriggeredRegistrations.erase(pendingIt);
         } else {
           ++pendingIt;
         }
       }
-      pthread_mutex_unlock(&pendingRegistrationLock);
+      pendingRegistrationLock.unlock();
 
       return ok;
     }
@@ -822,24 +760,20 @@ namespace mars {
                                           int callbackParam) {
       std::vector<DataElement*> elements;
       bool wildcards = hasWildcards(groupName) || hasWildcards(dataName);
-      pthread_rwlock_rdlock(&elementsLock);
+      elementsLock.lockForRead();
       getElementsByName(groupName, dataName, &elements);
       for(std::vector<DataElement*>::iterator elementIt = elements.begin();
           elementIt != elements.end(); ++elementIt){
         DataElement *element = *elementIt;
         Receiver r = { receiver, callbackParam };
-        pthread_rwlock_wrlock(&element->receiverLock);
-        element->syncReceivers.push_back(r);
-        pthread_rwlock_unlock(&element->receiverLock);
+        element->syncReceivers.locked_push_back(r);
       }
       if(wildcards || elements.empty()) {
         PendingRegistration tmp = { receiver, groupName.c_str(),
                                     dataName.c_str(), callbackParam };
-        pthread_mutex_lock(&pendingRegistrationLock);
-        pendingSyncRegistrations.push_back(tmp);
-        pthread_mutex_unlock(&pendingRegistrationLock);
+        pendingSyncRegistrations.locked_push_back(tmp);
       }
-      pthread_rwlock_unlock(&elementsLock);
+      elementsLock.unlock();
       return (wildcards || !elements.empty());
     }
 
@@ -849,13 +783,13 @@ namespace mars {
       std::vector<DataElement*> elements;
       std::list<Receiver>::iterator receiverIt;
       std::list<PendingRegistration>::iterator pendingRegistrationIt;
-      pthread_rwlock_rdlock(&elementsLock);
+      elementsLock.lockForRead();
       getElementsByName(groupName, dataName, &elements);
       int cnt = 0;
       for(std::vector<DataElement*>::iterator elementIt = elements.begin();
           elementIt != elements.end(); ++elementIt) {
         DataElement *element = *elementIt;
-        pthread_rwlock_wrlock(&element->receiverLock);
+        element->receiverLock->lockForWrite();
         for(receiverIt = element->syncReceivers.begin();
             receiverIt != element->syncReceivers.end(); /* do nothing */) {
           if(receiverIt->receiver == receiver) {
@@ -865,22 +799,22 @@ namespace mars {
             ++receiverIt;
           }
         }
-        pthread_rwlock_unlock(&element->receiverLock);
+        element->receiverLock->unlock();
       }
       // remove from pending list
-      pthread_mutex_lock(&pendingRegistrationLock);
+      pendingRegistrationLock.lock();
       for(pendingRegistrationIt = pendingSyncRegistrations.begin();
           pendingRegistrationIt != pendingSyncRegistrations.end(); /*nothing*/) {
         if((pendingRegistrationIt->receiver == receiver) &&
-           (match(groupName, pendingRegistrationIt->groupName)) &&
-           (match(dataName, pendingRegistrationIt->dataName))) {
+           (matchPattern(groupName, pendingRegistrationIt->groupName)) &&
+           (matchPattern(dataName, pendingRegistrationIt->dataName))) {
           pendingRegistrationIt = pendingSyncRegistrations.erase(pendingRegistrationIt);
         } else {
           ++pendingRegistrationIt;
         }
       }
-      pthread_mutex_unlock(&pendingRegistrationLock);
-      pthread_rwlock_unlock(&elementsLock);
+      pendingRegistrationLock.unlock();
+      elementsLock.unlock();
       return cnt;
     }
 
@@ -890,24 +824,20 @@ namespace mars {
                                            int callbackParam) {
       std::vector<DataElement*> elements;
       bool wildcards = hasWildcards(groupName) || hasWildcards(dataName);
-      pthread_rwlock_rdlock(&elementsLock);
+      elementsLock.lockForRead();
       getElementsByName(groupName, dataName, &elements);
       for(std::vector<DataElement*>::iterator elementIt = elements.begin();
           elementIt != elements.end(); ++elementIt){
         DataElement *element = *elementIt;
         Receiver r = { receiver, callbackParam };
-        pthread_rwlock_wrlock(&element->receiverLock);
-        element->asyncReceivers.push_back(r);
-        pthread_rwlock_unlock(&element->receiverLock);
+        element->asyncReceivers.locked_push_back(r);
       }
       if(wildcards || elements.empty()) {
         PendingRegistration tmp = { receiver, groupName.c_str(),
                                     dataName.c_str(), callbackParam };
-        pthread_mutex_lock(&pendingRegistrationLock);
-        pendingAsyncRegistrations.push_back(tmp);
-        pthread_mutex_unlock(&pendingRegistrationLock);
+        pendingAsyncRegistrations.locked_push_back(tmp);
       }
-      pthread_rwlock_unlock(&elementsLock);
+      elementsLock.unlock();
       return (wildcards || !elements.empty());
     }
 
@@ -917,13 +847,13 @@ namespace mars {
       std::vector<DataElement*> elements;
       std::list<Receiver>::iterator receiverIt;
       std::list<PendingRegistration>::iterator pendingRegistrationIt;
-      pthread_rwlock_rdlock(&elementsLock);
+      elementsLock.lockForRead();
       getElementsByName(groupName, dataName, &elements);
       int cnt = 0;
       for(std::vector<DataElement*>::iterator elementIt = elements.begin();
           elementIt != elements.end(); ++elementIt) {
         DataElement *element = *elementIt;
-        pthread_rwlock_wrlock(&element->receiverLock);
+        element->receiverLock->lockForWrite();
         for(receiverIt = element->asyncReceivers.begin();
             receiverIt != element->asyncReceivers.end(); /* do nothing */) {
           if(receiverIt->receiver == receiver) {
@@ -933,22 +863,22 @@ namespace mars {
             ++receiverIt;
           }
         }
-        pthread_rwlock_unlock(&element->receiverLock);
+        element->receiverLock->unlock();
       }
       // remove from pending list
-      pthread_mutex_lock(&pendingRegistrationLock);
+      pendingAsyncRegistrations.lock();
       for(pendingRegistrationIt = pendingAsyncRegistrations.begin();
           pendingRegistrationIt != pendingAsyncRegistrations.end(); /*nothing*/) {
         if((pendingRegistrationIt->receiver == receiver) &&
-           (match(groupName, pendingRegistrationIt->groupName)) &&
-           (match(dataName, pendingRegistrationIt->dataName))) {
+           (matchPattern(groupName, pendingRegistrationIt->groupName)) &&
+           (matchPattern(dataName, pendingRegistrationIt->dataName))) {
           pendingRegistrationIt = pendingAsyncRegistrations.erase(pendingRegistrationIt);
         } else {
           ++pendingRegistrationIt;
         }
       }
-      pthread_mutex_unlock(&pendingRegistrationLock);
-      pthread_rwlock_unlock(&elementsLock);
+      pendingAsyncRegistrations.unlock();
+      elementsLock.unlock();
       return cnt;
     }
 
@@ -959,7 +889,7 @@ namespace mars {
                                        PackageFlag flags) {
       std::map<std::pair<std::string, std::string>, DataElement*>::iterator elementIt;
       DataElement *element = NULL;
-      pthread_rwlock_wrlock(&elementsLock);
+      elementsLock.lockForWrite();
       elementIt = elementsByName.find(std::make_pair(groupName, dataName));
       if(elementIt != elementsByName.end()) {
         element = elementIt->second;
@@ -967,7 +897,7 @@ namespace mars {
         element = createDataElement(groupName, dataName, flags);
         publishDataElement(element);
       }
-      pthread_rwlock_unlock(&elementsLock);
+      elementsLock.unlock();
 
       pushData(element->info.dataId, dataPackage, producer);
       // hack to solve empty backBuffer problem while using producerCallbacks
@@ -985,29 +915,29 @@ namespace mars {
       std::list<Receiver> syncReceivers;
       DataInfo info;
       DataElement *element = NULL;
-      pthread_rwlock_rdlock(&elementsLock);
+      elementsLock.lockForRead();
       elementIt = elementsById.find(id);
       if(elementIt == elementsById.end()) {
         // ERROR: id not found!
-        pthread_rwlock_unlock(&elementsLock);
+        elementsLock.unlock();
         return 0;
       } else {
         element = elementIt->second;
         *element->backBuffer = dataPackage;
-        pthread_rwlock_wrlock(&element->bufferLock);
+        element->bufferLock->lockForWrite();
         std::swap(element->backBuffer, element->frontBuffer);
         element->lastProducer = producer;
-        pthread_rwlock_unlock(&element->bufferLock);
+        element->bufferLock->unlock();
 
-        pthread_mutex_lock(&updatedElementsLock);
+        updatedElementsLock.lock();
         updatedElementsBackBuffer->insert(element);
-        pthread_mutex_unlock(&updatedElementsLock);
+        updatedElementsLock.unlock();
 
-        pthread_rwlock_rdlock(&element->receiverLock);
+        element->receiverLock->lockForRead();
         // defer synchronous callbacks until we do not hold any locks anymore
         syncReceivers = element->syncReceivers;
         info = element->info;
-        pthread_rwlock_unlock(&element->receiverLock);
+        element->receiverLock->unlock();
         for(std::list<DataItemConnection>::iterator connectionIt = element->connections.begin(); connectionIt != element->connections.end(); ++connectionIt) {
           long fromIdx = connectionIt->fromDataItemIndex;
           long toIdx = connectionIt->toDataItemIndex;
@@ -1018,7 +948,7 @@ namespace mars {
           connectionActivatedElements.insert(connectionIt->toElement);
         }
       }
-      pthread_rwlock_unlock(&elementsLock);
+      elementsLock.unlock();
 
       // do the synchronous callbacks
       for(syncReceiverIt = syncReceivers.begin();
@@ -1037,9 +967,9 @@ namespace mars {
       // The main thread only releases the wakeupMutex when it goes to sleep.
       // So if we can lock it, we wake up the main thread so it can process the
       // data we just pushed. Otherwise it is still running and will process it.
-      if(pthread_mutex_trylock(&wakeupMutex) == 0) {
-        pthread_cond_signal(&wakeupCondition);
-        pthread_mutex_unlock(&wakeupMutex);
+      if(wakeupMutex.tryLock() == MUTEX_ERROR_NO_ERROR) {
+        wakeupCondition.wakeOne();
+        wakeupMutex.unlock();
       }
       return id;
     }
@@ -1114,20 +1044,20 @@ namespace mars {
       std::list<DeferredCallback> deferredCallbacks;
       std::list<DeferredCallback>::iterator callbackIt;
 
-      pthread_mutex_lock(&wakeupMutex);
+      wakeupMutex.lock();
       while(!stop_thread) {
-        pthread_rwlock_rdlock(&elementsLock);
-        pthread_mutex_lock(&updatedElementsLock);
+        elementsLock.lockForRead();
+        updatedElementsLock.lock();
         std::swap(updatedElementsBackBuffer, updatedElementsFrontBuffer);
-        pthread_mutex_unlock(&updatedElementsLock);
+        updatedElementsLock.unlock();
 
         for(updatedElementsIt = updatedElementsFrontBuffer->begin();
             updatedElementsIt != updatedElementsFrontBuffer->end();
             ++updatedElementsIt) {
           DataElement *element = *updatedElementsIt;
 
-          pthread_rwlock_rdlock(&element->bufferLock);
-          pthread_rwlock_rdlock(&element->receiverLock);
+          element->bufferLock->lockForRead();
+          element->receiverLock->lockForRead();
           // defer callbacks until we do not hold any lock anymore
           if(!element->asyncReceivers.empty()) {
             DeferredCallback deferred;
@@ -1137,11 +1067,11 @@ namespace mars {
             deferred.producer = element->lastProducer;
             deferredCallbacks.push_back(deferred);
           }
-          pthread_rwlock_unlock(&element->receiverLock);
-          pthread_rwlock_unlock(&element->bufferLock);
+          element->receiverLock->unlock();
+          element->bufferLock->unlock();
         }
         updatedElementsFrontBuffer->clear();
-        pthread_rwlock_unlock(&elementsLock);
+        elementsLock.unlock();
 
         // make the callbacks
         //pushError("DataBroker::deferredCallbacks %d", deferredCallbacks.size());
@@ -1159,28 +1089,28 @@ namespace mars {
         deferredCallbacks.clear();
 
         // If there is no data to process go to sleep. pushData() will wake us up.
-        pthread_mutex_lock(&updatedElementsLock);
+        updatedElementsLock.lock();
         bool bufferIsEmpty = updatedElementsBackBuffer->empty();
-        pthread_mutex_unlock(&updatedElementsLock);
+        updatedElementsLock.unlock();
         if(bufferIsEmpty) {
-          pthread_cond_wait(&wakeupCondition, &wakeupMutex);
+          wakeupCondition.wait(&wakeupMutex);
         }
         msleep(10);
       }
-      pthread_mutex_unlock(&wakeupMutex);
+      wakeupMutex.unlock();
     }
 
 
     const std::vector<DataInfo> DataBroker::getDataList(PackageFlag flags) const {
       std::vector<DataInfo> dataList;
       std::map<unsigned long, DataElement*>::const_iterator it;
-      pthread_rwlock_rdlock(&elementsLock);
+      elementsLock.lockForRead();
       for(it = elementsById.begin(); it != elementsById.end(); ++it) {
         if(flags == DATA_PACKAGE_NO_FLAG || flags & it->second->info.flags) {
           dataList.push_back(it->second->info);
         }
       }
-      pthread_rwlock_unlock(&elementsLock);
+      elementsLock.unlock();
       return dataList;
     }
 
@@ -1188,15 +1118,15 @@ namespace mars {
     const DataPackage DataBroker::getDataPackage(unsigned long id) const {
       DataPackage dataPackage;
       std::map<unsigned long, DataElement*>::const_iterator elementIt;
-      pthread_rwlock_rdlock(&elementsLock);
+      elementsLock.lockForRead();
       elementIt = elementsById.find(id);
       if(elementIt != elementsById.end()) {
         DataElement *element = elementIt->second;
-        pthread_rwlock_rdlock(&element->bufferLock);
+        element->bufferLock->lockForRead();
         dataPackage = *elementIt->second->frontBuffer;
-        pthread_rwlock_unlock(&element->bufferLock);
+        element->bufferLock->unlock();
       }
-      pthread_rwlock_unlock(&elementsLock);
+      elementsLock.unlock();
       return dataPackage;
     }
 
@@ -1204,33 +1134,31 @@ namespace mars {
                                         const std::string &dataName) const {
       std::map<std::pair<std::string, std::string>, DataElement*>::const_iterator elementIt;
       unsigned long id = 0;
-      pthread_rwlock_rdlock(&elementsLock);
+      elementsLock.lockForRead();
       elementIt = elementsByName.find(std::make_pair(groupName, dataName));
       if(elementIt != elementsByName.end()) {
         id = elementIt->second->info.dataId;
       }
-      pthread_rwlock_unlock(&elementsLock);
+      elementsLock.unlock();
       return id;
     }
-    
+
     const DataInfo DataBroker::getDataInfo(const std::string &groupName,
                                            const std::string &dataName) const {
       std::map<std::pair<std::string, std::string>, DataElement*>::const_iterator elementIt;
       DataInfo info;
-      pthread_rwlock_rdlock(&elementsLock);
+      elementsLock.lockForRead();
       elementIt = elementsByName.find(std::make_pair(groupName, dataName));
       if(elementIt != elementsByName.end()) {
         info = elementIt->second->info;
       }
-      pthread_rwlock_unlock(&elementsLock);
+      elementsLock.unlock();
       return info;
     }
 
     unsigned long DataBroker::createId() {
-      pthread_mutex_lock(&idMutex);
-      unsigned long newId = next_id++;
-      pthread_mutex_unlock(&idMutex);
-      return newId;
+      MutexLocker locker(&idMutex);
+      return next_id++;
     }
 
 
@@ -1244,8 +1172,8 @@ namespace mars {
       element->info.flags = flags;
       element->backBuffer = new DataPackage;
       element->frontBuffer = new DataPackage;
-      pthread_rwlock_init(&element->bufferLock, NULL);
-      pthread_rwlock_init(&element->receiverLock, NULL);
+      element->bufferLock = new ReadWriteLock;
+      element->receiverLock = new ReadWriteLock;
       elementsByName[std::make_pair(groupName.c_str(),
                                     dataName.c_str())] = element;
       elementsById[element->info.dataId] = element;
@@ -1261,14 +1189,14 @@ namespace mars {
       package.add("dataName", element->info.dataName);
       package.add("dataId", (long)element->info.dataId);
       package.add("flags", element->info.flags);
-      pthread_rwlock_unlock(&elementsLock);
+      elementsLock.unlock();
       pushData(newStreamId, package);
       /*
         pushInfo("DataBroker: new Stream: groupName: \"%s\";"
         " dataName: \"%s\"",
         element->info.groupName.c_str(), element->info.dataName.c_str());
       */
-      pthread_rwlock_rdlock(&elementsLock);
+      elementsLock.lockForRead();
     }
 
     void DataBroker::updatePendingRegistrations(DataElement *newElement) {
@@ -1283,8 +1211,8 @@ namespace mars {
       // pending async receivers
       for(registrationIt = pendingAsyncRegistrations.begin();
           registrationIt != pendingAsyncRegistrations.end(); ) {
-        if(match(registrationIt->groupName, newGroupName) &&
-           match(registrationIt->dataName, newDataName)) {
+        if(matchPattern(registrationIt->groupName, newGroupName) &&
+           matchPattern(registrationIt->dataName, newDataName)) {
           Receiver r = {registrationIt->receiver, registrationIt->callbackParam};
           newElement->asyncReceivers.push_back(r);
           // if the registration has wildcards keep it in the pending list...
@@ -1303,8 +1231,8 @@ namespace mars {
       // pending sync receivers
       for(registrationIt = pendingSyncRegistrations.begin();
           registrationIt != pendingSyncRegistrations.end(); ) {
-        if(match(registrationIt->groupName, newGroupName) &&
-           match(registrationIt->dataName, newDataName)) {
+        if(matchPattern(registrationIt->groupName, newGroupName) &&
+           matchPattern(registrationIt->dataName, newDataName)) {
           Receiver r = {registrationIt->receiver, registrationIt->callbackParam};
           newElement->syncReceivers.push_back(r);
           // if the registration has wildcards keep it in the pending list...
@@ -1324,8 +1252,8 @@ namespace mars {
       for(timedRegistrationIt = pendingTimedRegistrations.begin();
           timedRegistrationIt != pendingTimedRegistrations.end();/*do nothing*/){
         bool removeItem = false;
-        if(match(timedRegistrationIt->groupName, newGroupName) &&
-           match(timedRegistrationIt->dataName, newDataName)) {
+        if(matchPattern(timedRegistrationIt->groupName, newGroupName) &&
+           matchPattern(timedRegistrationIt->dataName, newDataName)) {
           timerIt = timers.find(timedRegistrationIt->timerName);
           if(timerIt != timers.end()) {
             TimedReceiver r = { timedRegistrationIt->receiver,
@@ -1353,8 +1281,8 @@ namespace mars {
           triggeredRegistrationIt != pendingTriggeredRegistrations.end();
           /*do nothing*/) {
         bool removeItem = false;
-        if(match(triggeredRegistrationIt->groupName, newGroupName) &&
-           match(triggeredRegistrationIt->dataName, newDataName)) {
+        if(matchPattern(triggeredRegistrationIt->groupName, newGroupName) &&
+           matchPattern(triggeredRegistrationIt->dataName, newDataName)) {
           triggerIt = triggers.find(triggeredRegistrationIt->triggerName);
           if(triggerIt != triggers.end()) {
             TriggeredReceiver r = { triggeredRegistrationIt->receiver,
@@ -1392,8 +1320,8 @@ namespace mars {
         // do wildcard matching on all elements
         for(elementIt = elementsByName.begin();
             elementIt != elementsByName.end(); ++elementIt) {
-          if(match(groupName, elementIt->first.first) &&
-             match(dataName, elementIt->first.second)) {
+          if(matchPattern(groupName, elementIt->first.first) &&
+             matchPattern(dataName, elementIt->first.second)) {
             elements->push_back(elementIt->second);
           }
         }
@@ -1408,17 +1336,15 @@ namespace mars {
                                       const std::string &toItemName) {
       std::map<std::pair<std::string, std::string>, DataElement*>::iterator elementIt;
       DataItemConnection connection;
-      fprintf(stderr, "connect DataItems...");
-      fflush(stderr);
       // TODO: should we special case wildcards?
       DataElement *element;
 
       // from element handling
       {
-        elementIt = elementsByName.find(std::make_pair(fromGroupName, 
+        elementIt = elementsByName.find(std::make_pair(fromGroupName,
                                                        fromDataName));
         if(elementIt == elementsByName.end()) {
-          pushError("could not find from Element: %s, %s\n", 
+          pushError("could not find from Element: %s, %s\n",
                     fromGroupName.c_str(),
                     fromDataName.c_str());
           return;
@@ -1427,13 +1353,13 @@ namespace mars {
         connection.fromElement = element;
         connection.fromDataItemIndex = element->frontBuffer->getIndexByName(fromItemName);
       }
-    
+
       // to element handling
       {
-        elementIt = elementsByName.find(std::make_pair(toGroupName, 
+        elementIt = elementsByName.find(std::make_pair(toGroupName,
                                                        toDataName));
         if(elementIt == elementsByName.end()) {
-          pushError("could not find to Element: %s, %s\n", 
+          pushError("could not find to Element: %s, %s\n",
                     toGroupName.c_str(),
                     toDataName.c_str());
           return;
@@ -1443,15 +1369,7 @@ namespace mars {
         connection.toDataItemIndex = element->frontBuffer->getIndexByName(toItemName);
       }
 
-      fprintf(stderr, "attaching from %s %s\n", 
-              connection.fromElement->info.groupName.c_str(),
-              connection.fromElement->info.dataName.c_str());
-      fprintf(stderr, "attaching to %s %s\n", 
-              connection.toElement->info.groupName.c_str(),
-              connection.toElement->info.dataName.c_str());
-            
       connection.fromElement->connections.push_back(connection);
-      fprintf(stderr, "done\n");
     }
 
     void DataBroker::disconnectDataItems(const std::string &fromGroupName,
@@ -1469,20 +1387,11 @@ namespace mars {
       std::map<unsigned long, DataElement*>::iterator it;
       std::list<DataItemConnection>::iterator jt;
 
-      pthread_rwlock_wrlock(&elementsLock);
+      elementsLock.lockForWrite();
       for(it=elementsById.begin(); it!=elementsById.end(); ++it) {
         for(jt=it->second->connections.begin();
             jt!=it->second->connections.end(); ++jt) {
-          fprintf(stderr, "da da da \n");
-          fprintf(stderr, "searching: form %s %s %ld ---> %s %s %ld\n",
-                  jt->fromElement->info.groupName.c_str(),
-                  jt->fromElement->info.dataName.c_str(),
-                  jt->fromDataItemIndex,
-                  jt->toElement->info.groupName.c_str(),
-                  jt->toElement->info.dataName.c_str(),
-                  jt->toDataItemIndex);
-
-          pthread_rwlock_wrlock(&(jt->toElement->bufferLock));
+          jt->toElement->bufferLock->lockForWrite();
           if(jt->toDataItemIndex >= (int)jt->toElement->frontBuffer->size()) {
             pushError("DataBroker::disconnectDataItems : connection index does not match!");
           }
@@ -1490,60 +1399,20 @@ namespace mars {
             if(jt->toElement->info.groupName == toGroupName &&
                jt->toElement->info.dataName == toDataName &&
                (*jt->toElement->frontBuffer)[jt->toDataItemIndex].getName() == toItemName) {
-              pthread_rwlock_unlock(&jt->toElement->bufferLock);
+              jt->toElement->bufferLock->unlock();
               it->second->connections.erase(jt);
               //jt = it->second->connections.begin();
               break;
             }
           }
-          pthread_rwlock_unlock(&jt->toElement->bufferLock);
+          jt->toElement->bufferLock->unlock();
         }
       }
-      pthread_rwlock_unlock(&elementsLock);
-    }
-
-
-    bool match(const std::string &pattern, const std::string &str) {
-      size_t pos1 = 0, pos2 = 0;
-
-      // chop up pattern
-      std::vector<std::string> patternList;
-      while(1) {
-        pos2 = pattern.find("*", pos1);
-        if(pos2 == pattern.npos) {
-          if(pos1 != pattern.length())
-            patternList.push_back(pattern.substr(pos1));
-          break;
-        }
-        patternList.push_back(pattern.substr(pos1, pos2 - pos1));
-        pos1 = pos2 + 1;
-      }
-
-      // no wildcards. do direct test
-      if(patternList.empty())
-        return pattern == str;
-
-      // special case the first pattern because it must match at pos == 0
-      std::vector<std::string>::iterator patternListIt = patternList.begin();
-      int result = str.compare(0, patternListIt->length(), *patternListIt);
-      if(result != 0)
-        return false;
-      pos1 = patternListIt->length();
-      ++patternListIt;
-      // do the matching
-      for(/*nothing*/; patternListIt != patternList.end(); ++patternListIt) {
-        pos1 = str.find(*patternListIt, pos1);
-        if(pos1 == str.npos)
-          return false;
-        pos1 += patternListIt->length();
-      }
-      return true;
+      elementsLock.unlock();
     }
 
   } // end of namespace data_broker
-
 } // end of namespace mars
 
 DESTROY_LIB(mars::data_broker::DataBroker);
 CREATE_LIB(mars::data_broker::DataBroker);
-  

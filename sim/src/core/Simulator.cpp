@@ -88,7 +88,7 @@ namespace mars {
       // a bool to enable an output of the calculation time
       show_time = 0;
       // to synchronise drawing and pysics
-      sync_threads = 0;
+      sync_time = 40;
       sync_count = 0;
       load_option = OPEN_INITIAL;
       reloadSim = false;
@@ -128,29 +128,6 @@ namespace mars {
       lib = libManager->getLibrary(std::string("cfg_manager"));
       if(lib) {
         if((control->cfg = dynamic_cast<cfg_manager::CFGManagerInterface*>(lib))) {
-
-          configPath = control->cfg->getOrCreateProperty("Config", "config_path",
-                                                         string("."));
-
-          string loadFile = configPath.sValue;
-          loadFile.append("/mars_Preferences.yaml");
-          control->cfg->loadConfig(loadFile.c_str());
-          loadFile = configPath.sValue;
-          loadFile.append("/mars_Simulator.yaml");
-          control->cfg->loadConfig(loadFile.c_str());
-
-          loadFile = configPath.sValue;
-          loadFile.append("/mars_Physics.yaml");
-          control->cfg->loadConfig(loadFile.c_str());
-
-          bool loadLastSave = false;
-          control->cfg->getPropertyValue("Config", "loadLastSave", "value",
-                                         &loadLastSave);
-          if (loadLastSave) {
-            loadFile = configPath.sValue;
-            loadFile.append("/mars_saveOnClose.yaml");
-            control->cfg->loadConfig(loadFile.c_str());
-          }
         }
       }
     }
@@ -158,7 +135,7 @@ namespace mars {
     Simulator::~Simulator() {
       while(((Thread*)this)->isRunning())
         utils::msleep(1);
-      fprintf(stderr, "\nDelete mars_sim\n");
+      fprintf(stderr, "Delete mars_sim\n");
 
       if (control->controllers) delete control->controllers;
 
@@ -199,6 +176,32 @@ namespace mars {
       // handle correctly the libraries managment
 
       lib_manager::LibInterface *lib;
+
+      if(control->cfg) {
+        configPath = control->cfg->getOrCreateProperty("Config", "config_path",
+                                                         string("."));
+
+        string loadFile = configPath.sValue;
+        loadFile.append("/mars_Preferences.yaml");
+        control->cfg->loadConfig(loadFile.c_str());
+        loadFile = configPath.sValue;
+        loadFile.append("/mars_Simulator.yaml");
+        control->cfg->loadConfig(loadFile.c_str());
+
+        loadFile = configPath.sValue;
+        loadFile.append("/mars_Physics.yaml");
+        control->cfg->loadConfig(loadFile.c_str());
+
+        bool loadLastSave = false;
+        control->cfg->getPropertyValue("Config", "loadLastSave", "value",
+                                       &loadLastSave);
+        if (loadLastSave) {
+          loadFile = configPath.sValue;
+          loadFile.append("/mars_saveOnClose.yaml");
+          control->cfg->loadConfig(loadFile.c_str());
+        }
+      }
+
       lib = libManager->getLibrary(std::string("mars_graphics"));
       if(lib) {
         control->graphics = dynamic_cast<interfaces::GraphicsManagerInterface*>(lib);
@@ -209,7 +212,7 @@ namespace mars {
 
       lib = libManager->getLibrary(std::string("log_console"));
       if(!lib) {
-        fprintf(stderr, "\nSimulator: no console loaded. output to stdout!\n\n");
+        fprintf(stderr, "Simulator: no console loaded. output to stdout!\n\n");
         control->dataBroker->registerSyncReceiver(this, "_MESSAGES_", "fatal",
                                                   data_broker::DB_MESSAGE_TYPE_FATAL);
         control->dataBroker->registerSyncReceiver(this, "_MESSAGES_", "error",
@@ -248,7 +251,7 @@ namespace mars {
 
 #ifndef __linux__
       this->setStackSize(16777216);
-      fprintf(stderr, "\n set physics stack size to: %lu", getStackSize());
+      fprintf(stderr, "INFO: set physics stack size to: %lu\n", getStackSize());
 #endif
 
       this->start();
@@ -267,7 +270,7 @@ namespace mars {
         if (simulationStatus == STOPPING)
           simulationStatus = STOPPED;
         if (isSimRunning() || single_step) {
-          if (!sync_threads || (sync_threads && sync_count)) {
+          if (!sync_graphics || (sync_graphics && sync_count)) {
             if(my_real_time) {
               myRealTime();
             } else if(physics_mutex_count > 0) {
@@ -305,13 +308,12 @@ namespace mars {
               if(++count > 100) {
                 avg_log_time /= count;
                 count = 0;
-                fprintf(stderr, "\ndebug_log_time: %g", avg_log_time);
+                fprintf(stderr, "debug_log_time: %g\n", avg_log_time);
                 avg_log_time = 0.0;
               }
             }
 
             pluginLocker.lockForRead();
-            //fprintf(stderr, "\n update the plugins");
 
             // It is possible for plugins to call switchPluginUpdateMode during
             // the update call and get removed from the activePlugins list there.
@@ -322,7 +324,6 @@ namespace mars {
                 time = getTime();
 
               activePlugins[i].p_interface->update(calc_ms);
-              //fprintf(stderr, "Simulator: update plugin: %s\n", activePlugins[i].name.c_str());
 
               if(!erased_active) {
                 if(show_time) {
@@ -332,7 +333,7 @@ namespace mars {
                   if(activePlugins[i].t_count > 20) {
                     activePlugins[i].timer /= activePlugins[i].t_count;
                     activePlugins[i].t_count = 0;
-                    fprintf(stderr, "\ndebug_time: %s: %g",
+                    fprintf(stderr, "debug_time: %s: %g\n",
                             activePlugins[i].name.c_str(),
                             activePlugins[i].timer);
                     activePlugins[i].timer = 0.0;
@@ -342,9 +343,9 @@ namespace mars {
               }
             }
             pluginLocker.unlock();
-            if (sync_threads) {
+            if (sync_graphics) {
               calc_time += calc_ms;
-              if (calc_time >= sync_threads) {
+              if (calc_time >= sync_time) {
                 sync_count = 0;
                 if(control->graphics)
                   this->allowDraw();
@@ -352,7 +353,6 @@ namespace mars {
               }
             }
             physicsThreadUnlock();
-            //fprintf(stderr, "\n- unlocked from run()");
           } else msleep(2);
           single_step = 0;
         } else msleep(20);
@@ -360,11 +360,7 @@ namespace mars {
       simulationStatus = STOPPED;
       // here everthing of the physical simulation can be closed
 
-      //fprintf(stderr, "\n have to exit");
       //hard_exit(0);
-      //qApp->exit(0);
-      //qApp->processEvents();
-
     }
 
     bool Simulator::startStopTrigger() {
@@ -375,14 +371,17 @@ namespace mars {
       case RUNNING:
         // Allow update process to finish -> transition from 2 -> 0 in main loop
         simulationStatus = STOPPING;
-        fprintf(stderr, "Simulator will be stopped\t\t\t");
+        fprintf(stderr, "Simulator will be stopped\t");
+        fflush(stderr);
         break;
       case STOPPING:
         fprintf(stderr, "WARNING: Simulator is stopping. Start/Stop Trigger ignored.\t");
+        fflush(stderr);
         break;
       case STOPPED:
         simulationStatus = RUNNING;
-        fprintf(stderr, "Simulator has been started\t\t");
+        fprintf(stderr, "Simulator has been started\t");
+        fflush(stderr);
         break;
       default: // UNKNOWN
         fprintf(stderr, "Simulator has unknown status\n");
@@ -446,14 +445,14 @@ namespace mars {
       long timeDiff = getTimeDiff(myTime);
 
       if(show_time) {
-        fprintf(stderr, "\ntimeDiff: %ld", timeDiff);
+        fprintf(stderr, "timeDiff: %ld\n", timeDiff);
       }
       if(timeDiff < calc_ms) {
         long valSleep = calc_ms - timeDiff;
         msleep(valSleep);
         myTime = getTime();
         if(show_time) {
-          fprintf(stderr, "\tsleep time: %ld", valSleep);
+          fprintf(stderr, "sleep time: %ld\n", valSleep);
         }
       } else {
         myTime += timeDiff;
@@ -463,7 +462,7 @@ namespace mars {
 
 
     bool Simulator::isSimRunning() const {
-      return (simulationStatus != STOPPED);
+      return (simulationStatus != STOPPED || single_step);
     }
 
     bool Simulator::sceneChanged() const {
@@ -659,7 +658,7 @@ namespace mars {
           if(guiPlugins[i].t_count_gui > 20) {
             guiPlugins[i].timer_gui /= guiPlugins[i].t_count_gui;
             guiPlugins[i].t_count_gui = 0;
-            fprintf(stderr, "\ndebug_time_gui: %s: %g",
+            fprintf(stderr, "debug_time_gui: %s: %g\n",
                     guiPlugins[i].name.data(),
                     guiPlugins[i].timer_gui);
             guiPlugins[i].timer_gui = 0.0;
@@ -747,14 +746,14 @@ namespace mars {
         switch (c) {
         case 's':
           if(pathExists(optarg)) arg_scene_name = optarg;
-          else printf("\nThe given scene file does not exists: %s", optarg);
+          else printf("The given scene file does not exists: %s\n", optarg);
           break;
         case 'a':
           arg_actual = OPEN_ACTUAL;
           break;
         case 'C':
           if(pathExists(optarg)) config_dir = optarg;
-          else printf("\nThe given configuration Directory does not exists: %s", optarg);
+          else printf("The given configuration Directory does not exists: %s\n", optarg);
           break;
         case 'r':
           arg_run = 1;
@@ -916,9 +915,9 @@ namespace mars {
 
     void Simulator::setGravity(const Vector &gravity) {
 
-      control->cfg->setPropertyValue("Physics", "Gravity x", "value", gravity.x());
-      control->cfg->setPropertyValue("Physics", "Gravity y", "value", gravity.y());
-      control->cfg->setPropertyValue("Physics", "Gravity z", "value", gravity.z());
+      control->cfg->setPropertyValue("Simulator", "Gravity x", "value", gravity.x());
+      control->cfg->setPropertyValue("Simulator", "Gravity y", "value", gravity.y());
+      control->cfg->setPropertyValue("Simulator", "Gravity z", "value", gravity.z());
     }
 
 
@@ -1047,8 +1046,12 @@ namespace mars {
       }
 
       if(_property.paramId == cfgSyncGui.paramId) {
-        sync_threads = _property.bValue;
-        this->setSyncThreads(sync_threads);
+        this->setSyncThreads(_property.bValue);
+        return;
+      }
+
+      if(_property.paramId == cfgSyncTime.paramId) {
+        sync_time = _property.dValue;
         return;
       }
 
@@ -1107,6 +1110,9 @@ namespace mars {
 
       cfgSyncGui = control->cfg->getOrCreateProperty("Simulator", "sync gui",
                                                        false, this);
+
+      cfgSyncTime = control->cfg->getOrCreateProperty("Simulator", "sync time",
+                                                       40.0, this);
 
       cfgDrawContact = control->cfg->getOrCreateProperty("Simulator", "draw contacts",
                                                          false, this);

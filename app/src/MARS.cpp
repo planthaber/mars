@@ -59,14 +59,14 @@ namespace mars {
       }
 #endif
       if (signal) {
-        fprintf(stderr, "I think we exit with an error!");
+        fprintf(stderr, "\nI think we exit with an error!\n");
         MARS::control->sim->exitMars();
         //Convention: print the signal type
       } else {
         MARS::control->sim->exitMars();
-        fprintf(stderr, "\n\n################################");
-        fprintf(stderr, "\n## everything closed fine ^-^ ##");
-        fprintf(stderr, "\n################################\n\n");
+        fprintf(stderr, "\n################################\n");
+        fprintf(stderr, "## everything closed fine ^-^ ##\n");
+        fprintf(stderr, "################################\n\n");
       }
     }
 
@@ -82,13 +82,10 @@ namespace mars {
       // request a scheduler of 1ms
       timeBeginPeriod(1);
 #endif //WIN32
-      coreConfigFile = configDir+"/core_libs.txt";
     }
 
     MARS::~MARS() {
       //! close simulation
-      //fprintf(stderr, "\n want to exit\n");
-      //fprintf(stderr, "\n want to exit\n");
       exit_main(0);
 
       if(graphicsTimer) delete graphicsTimer;
@@ -97,6 +94,7 @@ namespace mars {
       if(marsGui) libManager->unloadLibrary("mars_gui");
       if(control->graphics) libManager->unloadLibrary("mars_graphics");
       libManager->unloadLibrary("main_gui");
+      libManager->unloadLibrary("cfg_manager");
 
       delete libManager;
 
@@ -110,6 +108,8 @@ namespace mars {
     void MARS::start(int argc, char **argv) {
       readArguments(argc, argv);
 
+      coreConfigFile = configDir+"/core_libs.txt";
+
       // then check locals
       setlocale(LC_ALL,"C");
 
@@ -117,12 +117,12 @@ namespace mars {
       struct lconv *locale = localeconv();
       fprintf(stderr, "Active locale (LC_ALL): ");
       if( *(locale->decimal_point) != '.') {
-        fprintf(stderr, " [FAIL] n");
-        fprintf(stderr, "Current locale conflicts with mars\n");
+        fprintf(stderr, " [FAIL] Current locale conflicts with mars\n");
         exit(1);
+      } else {
+        fprintf(stderr, " [OK]\n");
       }
-      //fprintf(stderr, " [OK]\n");
-    
+
       // load the simulation core_libs:
       libManager->loadConfigFile(coreConfigFile);
 
@@ -130,7 +130,8 @@ namespace mars {
       cfg = libManager->getLibraryAs<mars::cfg_manager::CFGManagerInterface>("cfg_manager");
       if(cfg) {
         cfg_manager::cfgPropertyStruct configPath;
-        cfg->getOrCreateProperty("Config", "config_path", configDir);
+        configPath = cfg->getOrCreateProperty("Config", "config_path",
+                                              configDir);
         configPath.sValue = configDir;
         cfg->setProperty(configPath);
       }
@@ -139,7 +140,7 @@ namespace mars {
       mars::interfaces::SimulatorInterface *marsSim;
       marsSim = libManager->getLibraryAs<mars::interfaces::SimulatorInterface>("mars_sim");
       if(!marsSim) {
-        fprintf(stderr, "\nmain: error while casting simulation lib\n\n");
+        fprintf(stderr, "main: error while casting simulation lib\n\n");
         exit(2);
       }
       control = marsSim->getControlCenter();
@@ -185,6 +186,10 @@ namespace mars {
       int c;
       int option_index = 0;
 
+      int i;
+      char** argv_copy = NULL;
+      unsigned int arg_len = 0;
+
       //remember how many arguments were already processed by getopt()
       const int old_opterr = opterr;
 
@@ -197,23 +202,49 @@ namespace mars {
         {0, 0, 0, 0}
       };
 
+      // copy the argument vector in order to prevent messing around with the order
+      // of the arguments by getopt
+      argv_copy = (char**) malloc(argc*sizeof(char*));
+      for (i = 0; i < argc; i++) {
+        arg_len = strlen(argv[i]);
+        argv_copy[i] = (char*) malloc((arg_len+1)*sizeof(char));
+        memcpy(argv_copy[i],argv[i],arg_len);
+        argv_copy[i][arg_len] = '\0';
+      }
+
+      // here just work with the copied argument vector ...
       while (1) {
+
+#ifdef __linux__
         c = getopt_long(argc, argv, "C:", long_options, &option_index);
+#else
+        c = getopt_long(argc, argv_copy, "C:", long_options, &option_index);
+#endif
         if (c == -1)
           break;
         switch (c) {
         case 'C':
-          if( QDir(QString(optarg)).exists() ) configDir = optarg;
-          else printf("\nThe given configuration Directory does not exists: %s", optarg);
+          if( QDir(QString(optarg)).exists() )
+            configDir = optarg;
+          else
+            printf("The given configuration Directory does not exists: %s\n",
+                   optarg);
           break;
         }
       }
+
+      // clean up the copied argument vector
+      for (i = 0; i < argc; i++) {
+        free(argv_copy[i]);
+      }
+      free(argv_copy);
 
       //reset error message printing to original setting
       opterr = old_opterr;
 
       //reset index to read arguments again in other libraries (mars_sim).
       optind = 1;
+      optarg = NULL;
 
       return;
     }
