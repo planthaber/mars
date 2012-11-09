@@ -14,14 +14,17 @@ else(WIN32)
         SET(CMAKE_CXX_FLAGS "-fPIC -Wall")
 endif(WIN32)
 
-pkg_check_modules(DEPS REQUIRED
-        eigen3
+pkg_check_modules(YAML REQUIRED
         yaml-cpp
 )
 
-include_directories(${DEPS_INCLUDE_DIRS})
-link_directories(${DEPS_LIBRARY_DIRS})
-add_definitions(${DEPS_CLFAGS_OTHER})  #flags excluding the ones with -I
+pkg_check_modules(EIGEN REQUIRED
+        eigen3
+)
+
+include_directories(${EIGEN_INCLUDE_DIRS} ${YAML_INCLUDE_DIRS})
+link_directories(${EIGEN_LIBRARY_DIRS} ${YAML_LIBRARY_DIRS})
+add_definitions(${EIGEN_CLFAGS_OTHER} ${YAML_CLFAGS_OTHER})  #flags excluding the ones with -I
 
 set(SOURCES 
     src/Color.cpp
@@ -57,12 +60,13 @@ cmake_minimum_required(VERSION 2.6)
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
-MESSAGE("HALLO ${DEPS_LIBRARIES}"
+MESSAGE("HALLO ${EIGEN_LIBRARIES}"
     )
 
 target_link_libraries(
         ${PROJECT_NAME}
-        ${DEPS_LIBRARIES} 
+        ${EIGEN_LIBRARIES} 
+        ${YAML_LIBRARIES} 
         -lpthread
 )
 

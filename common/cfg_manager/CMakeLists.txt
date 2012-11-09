@@ -20,7 +20,7 @@ endif()
 
 pkg_check_modules(YAML REQUIRED
 	yaml-cpp
-        )
+)
 
 if(NOT LOCAL_BUILD)
 pkg_check_modules(DEPS
@@ -30,7 +30,7 @@ pkg_check_modules(DEPS
 ENDIF()
 
 
-include_directories(${YAML_INCLUDE_DIRS}/../ ${DEPS_INCLUDE_DIRS}) #Yaml gives the subfolder but mars requires to include the yaml folder by it's own, this also prevents that the compiler takes the /usr/include/yaml.h version which is not compatible to the cpp version
+include_directories(${YAML_INCLUDE_DIRS} ${DEPS_INCLUDE_DIRS}) #Yaml gives the subfolder but mars requires to include the yaml folder by it's own, this also prevents that the compiler takes the /usr/include/yaml.h version which is not compatible to the cpp version
 link_directories(${YAML_LIBRARY_DIRS} ${DEPS_LIBRARY_DIRS})
 add_definitions(${YAML_CLFAGS_OTHER} ${DEPS_CLFAGS_OTHER} )  #flags excluding the ones with -I
 

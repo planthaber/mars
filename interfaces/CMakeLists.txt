@@ -19,16 +19,15 @@ endif()
 
 
 if(NOT LOCAL_BUILD)
-pkg_check_modules(UTILS REQUIRED "mars_utils")
-include_directories(${UTILS_INCLUDE_DIRS})
-link_directories(${UTILS_LIBRARY_DIRS})
-
-pkg_check_modules(DATA_BROKER REQUIRED "data_broker")
-include_directories(${DATA_BROKER_INCLUDE_DIRS})
-link_directories(${DATA_BROKER_LIBRARY_DIRS})
+    pkg_check_modules(UTILS REQUIRED "mars_utils")
+    pkg_check_modules(DATA_BROKER REQUIRED "data_broker")
 endif()
 
 include_directories(include)
+link_directories(${UTILS_LIBRARY_DIRS})
+include_directories(${UTILS_INCLUDE_DIRS})
+include_directories(${DATA_BROKER_INCLUDE_DIRS})
+link_directories(${DATA_BROKER_LIBRARY_DIRS})
 
 
 set(HEADERS
@@ -93,7 +92,6 @@ target_link_libraries(
         ${UTILS_LIBRARIES}
         ${DATA_BROKER_LIBRARIES}
 )
-
 
 if(WIN32)
   set(LIB_INSTALL_DIR bin) # .dll are in PATH, like executables

@@ -6,7 +6,7 @@ includedir=${prefix}/include
 Name: @PROJECT_NAME@
 Description: @PROJECT_DESCRIPTION@
 Version: @PROJECT_VERSION@
-Libs: -L${libdir} -l@PROJECT_NAME@
+Libs: -L${libdir} -L@YAML_LIBRARY_DIRS@ -l@PROJECT_NAME@
 Requires: eigen3
 Requires.private: yaml-cpp
 

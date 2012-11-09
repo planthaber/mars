@@ -25,9 +25,9 @@ if(NOT LOCAL_BUILD)
     pkg_check_modules(INTERFACES REQUIRED mars_interfaces)
 endif()
 
-include_directories(${PKGCONFIG_INCLUDE_DIRS})
-link_directories(${PKGCONFIG_LIBRARY_DIRS})
-add_definitions(${PKGCONFIG_CLFAGS_OTHER})  #flags excluding the ones with -I
+include_directories(${LIB_MANAGER_INCLUDE_DIRS})
+link_directories(${LIB_MANAGER_LIBRARY_DIRS})
+add_definitions(${LIB_MANAGER_CLFAGS_OTHER})  #flags excluding the ones with -I
 
 find_package(Qt4 REQUIRED)
 set(QT_USE_QTOPENGL TRUE)

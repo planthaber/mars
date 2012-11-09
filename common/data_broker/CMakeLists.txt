@@ -28,10 +28,13 @@ if(CMAKE_COMPILER_IS_GNUCXX)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 endif()
 
-pkg_check_modules(PKGCONFIG REQUIRED
-                  lib_manager
-                  mars_utils
-)
+if(NOT LOCAL_BUILD)
+    pkg_check_modules(PKGCONFIG REQUIRED
+                      lib_manager
+                      mars_utils
+    )
+endif()
+
 
 include_directories(${PKGCONFIG_INCLUDE_DIRS})
 link_directories(${PKGCONFIG_LIBRARY_DIRS})
