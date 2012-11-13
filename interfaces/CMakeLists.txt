@@ -89,7 +89,7 @@ add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
 target_link_libraries(
         ${PROJECT_NAME}
-        ${UTILS_LIBRARIES}
+        #        ${UTILS_LIBRARIES}
         ${DATA_BROKER_LIBRARIES}
 )
 

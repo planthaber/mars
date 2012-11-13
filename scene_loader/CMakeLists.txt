@@ -40,7 +40,7 @@ INCLUDE_DIRECTORIES( ${QT_INCLUDE_DIR} ${QT_QTXML_INCLUDE_DIR})
 
 #Get linker and compiler flags from pkg-config
 pkg_check_modules(LIB_MANAGER lib_manager)
-pkg_check_modules(UTILS mars_utils)
+pkg_check_modules(MU mars_utils)
 pkg_check_modules(INTERFACES mars_interfaces)
 
                         

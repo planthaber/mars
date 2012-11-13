@@ -170,7 +170,7 @@ set(_INSTALL_DESTINATIONS
 TARGET_LINK_LIBRARIES(${PROJECT_NAME}
             ${ODE_LIBRARIES}
             ${WIN_LIBS}
-            ${LIB_MANAGE_LIBRARIES}
+            ${LIB_MANAGER_LIBRARIES}
             ${DATA_BROKER_LIBRARIES}           
             ${CFG_MANAGER_LIBRARIES}            
             ${INTERFACES_LIBRARIES}

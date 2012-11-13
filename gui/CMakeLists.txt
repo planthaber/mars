@@ -41,7 +41,7 @@ pkg_check_modules(OPENCV REQUIRED
 
 include_directories(${LIB_MANAGER_INCLUDE_DIRS})
 link_directories(${LIB_MANAGER_LIBRARY_DIRS})
-add_definitions(${LIB_MANAGER_CLFAGS_OTHER})  #flags excluding the ones with -I
+#add_definitions(${LIB_MANAGER_CLFAGS_OTHER})  #flags excluding the ones with -I
 include_directories(${OPENCV_INCLUDE_DIRS})
 link_directories(${OPENCV_LIBRARY_DIRS})
 add_definitions(${OPENCV_CFLAGS_OTHER})  #not the ones starting with -I

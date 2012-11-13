@@ -27,7 +27,7 @@ endif()
 
 include_directories(${LIB_MANAGER_INCLUDE_DIRS})
 link_directories(${LIB_MANAGER_LIBRARY_DIRS})
-add_definitions(${LIB_MANAGER_CLFAGS_OTHER})  #flags excluding the ones with -I
+#add_definitions(${LIB_MANAGER_CLFAGS_OTHER})  #flags excluding the ones with -I
 
 find_package(Qt4 REQUIRED)
 set(QT_USE_QTOPENGL TRUE)

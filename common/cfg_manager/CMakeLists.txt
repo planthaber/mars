@@ -32,7 +32,7 @@ ENDIF()
 
 include_directories(${YAML_INCLUDE_DIRS} ${DEPS_INCLUDE_DIRS}) #Yaml gives the subfolder but mars requires to include the yaml folder by it's own, this also prevents that the compiler takes the /usr/include/yaml.h version which is not compatible to the cpp version
 link_directories(${YAML_LIBRARY_DIRS} ${DEPS_LIBRARY_DIRS})
-add_definitions(${YAML_CLFAGS_OTHER} ${DEPS_CLFAGS_OTHER} )  #flags excluding the ones with -I
+#add_definitions(${DEPS_CLFAGS_OTHER} )  #flags excluding the ones with -I
 
 include_directories(
 	include
@@ -70,8 +70,8 @@ if(LOCAL_BUILD)
 endif()
 
 target_link_libraries(${PROJECT_NAME}
-                      ${YAML_LIBRARIES}
                       ${DEPS_LIBRARIES}
+                        LINK_PRIVATE ${YAML_LIBRARIES}
 )
 
 if(WIN32)

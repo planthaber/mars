@@ -24,7 +24,7 @@ pkg_check_modules(EIGEN REQUIRED
 
 include_directories(${EIGEN_INCLUDE_DIRS} ${YAML_INCLUDE_DIRS})
 link_directories(${EIGEN_LIBRARY_DIRS} ${YAML_LIBRARY_DIRS})
-add_definitions(${EIGEN_CLFAGS_OTHER} ${YAML_CLFAGS_OTHER})  #flags excluding the ones with -I
+add_definitions(${EIGEN_CLFAGS_OTHER})  #flags excluding the ones with -I
 
 set(SOURCES 
     src/Color.cpp
@@ -60,13 +60,10 @@ cmake_minimum_required(VERSION 2.6)
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
-MESSAGE("HALLO ${EIGEN_LIBRARIES}"
-    )
-
 target_link_libraries(
         ${PROJECT_NAME}
         ${EIGEN_LIBRARIES} 
-        ${YAML_LIBRARIES} 
+        LINK_PRIVATE ${YAML_LIBRARIES} 
         -lpthread
 )
 

@@ -61,7 +61,7 @@ pkg_check_modules(PKGCONFIG
 
 include_directories(${PKGCONFIG_INCLUDE_DIRS})
 link_directories(${PKGCONFIG_LIBRARY_DIRS})
-add_definitions(${PKGCONFIG_CFLAGS_OTHER})  #cflags without -I
+#add_definitions(${PKGCONFIG_CFLAGS_OTHER})  #cflags without -I
 
 add_definitions(-DMARS_GRAPHICS_DEFAULT_RESOURCES_PATH="${CMAKE_CURRENT_SOURCE_DIR}/resources")
 
@@ -191,6 +191,8 @@ target_link_libraries(${PROJECT_NAME}
             ${PKGCONFIG_LIBRARIES}
             ${APPLE_LIBS}
             ${WIN_LIBS}
+            ${INTERFACES_LIBRARIES}
+            ${LIB_MANAGER_LIBRARIES}
             pthread
 )
 

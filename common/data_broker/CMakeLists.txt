@@ -38,7 +38,7 @@ endif()
 
 include_directories(${PKGCONFIG_INCLUDE_DIRS})
 link_directories(${PKGCONFIG_LIBRARY_DIRS})
-add_definitions(${PKGCONFIG_CFLAGS_OTHER})  # flags without -I
+#add_definitions(${PKGCONFIG_CFLAGS_OTHER})  # flags without -I
 
 include_directories(
  include/
@@ -69,8 +69,16 @@ set(INTERFACE_HEADERS
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
+MESSAGE("FUSEL DUSEL:
+                      ${PKGCONFIG_LIBRARIES}
+                      ${UTILS_LIBRARIES}
+")
+
+
 target_link_libraries(${PROJECT_NAME}
                       ${PKGCONFIG_LIBRARIES}
+                      #mars_utils
+                      ${UTILS_LIBRARIES}
                       -lpthread
 )
 
