@@ -20,14 +20,11 @@ endif()
 
 if(NOT LOCAL_BUILD)
     pkg_check_modules(UTILS REQUIRED "mars_utils")
-    pkg_check_modules(DATA_BROKER REQUIRED "data_broker")
 endif()
 
 include_directories(include)
 link_directories(${UTILS_LIBRARY_DIRS})
 include_directories(${UTILS_INCLUDE_DIRS})
-include_directories(${DATA_BROKER_INCLUDE_DIRS})
-link_directories(${DATA_BROKER_LIBRARY_DIRS})
 
 
 set(HEADERS
@@ -86,11 +83,9 @@ set(SOURCES
 )
 
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
-
 target_link_libraries(
         ${PROJECT_NAME}
-        #        ${UTILS_LIBRARIES}
-        ${DATA_BROKER_LIBRARIES}
+        ${UTILS_LIBRARIES}
 )
 
 if(WIN32)

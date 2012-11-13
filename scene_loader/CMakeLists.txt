@@ -87,6 +87,9 @@ TARGET_LINK_LIBRARIES(${PROJECT_NAME}
             ${MINIZIP_LIBRARIES}
             ${MARS_DEPS}
             ${WIN_LIBS}
+            ${INTERFACES_LIBRARIES}
+            ${UTILS_LIBRARIES}
+            ${LIB_MANAGER_LIBRARIES}
             z
 )
 
