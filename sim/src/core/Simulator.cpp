@@ -81,7 +81,6 @@ namespace mars {
       calc_time = 0;
       avg_log_time = 0;
       count = 0;
-      config_dir = ".";
 
       std_port = 1600;
 
@@ -122,7 +121,7 @@ namespace mars {
 
       if(control->cfg) {
         configPath = control->cfg->getOrCreateProperty("Config", "config_path",
-                                                         string("."));
+                                                       config_dir);
 
         string loadFile = configPath.sValue;
         loadFile.append("/mars_Preferences.yaml");

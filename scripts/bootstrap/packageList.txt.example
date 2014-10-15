@@ -23,6 +23,10 @@ mars/common/gui/lib_manager_gui
 mars/common/gui/cfg_manager_gui
 mars/common/gui/data_broker_gui
 mars/common/gui/log_console
+mars/common/graphics/osg_lines
+mars/common/graphics/osg_plot
+mars/common/graphics/osg_text
+mars/common/graphics/osg_text_factory
 
 mars/interfaces
 mars/gui
@@ -33,3 +37,5 @@ mars/scene_loader
 
 #mars/plugins/connexion_plugin
 mars/plugins/constraint_plugin
+mars/plugins/Plot3D
+mars/plugins/Text3D

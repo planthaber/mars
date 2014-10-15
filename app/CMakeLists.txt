@@ -11,7 +11,7 @@ define_module_info()
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR} "${PROJECT_SOURCE_DIR}/cmake")
 
-set(DEFAULT_CONFIG_DIR "." CACHE STRING "The Default config dir to load")
+set(DEFAULT_CONFIG_DIR "${CMAKE_INSTALL_PREFIX}/configuration/mars" CACHE STRING "The Default config dir to load")
 add_definitions(-DDEFAULT_CONFIG_DIR=\"${DEFAULT_CONFIG_DIR}\")
 
 MACRO(CMAKE_USE_FULL_RPATH install_rpath)
@@ -134,10 +134,12 @@ function(add_plugin_if_availible LIBNAME)
 endfunction()
 
 
+add_plugin_if_availible("log_console")
 add_plugin_if_availible("connexion_plugin")
 add_plugin_if_availible("data_broker_gui")
 add_plugin_if_availible("cfg_manager_gui")
 add_plugin_if_availible("lib_manager_gui")
+add_plugin_if_availible("osg_text_factory")
 
 
 if(ADDITIONAL_LIBS)
@@ -148,7 +150,7 @@ endif()
 configure_file(configuration/core_libs.in ${CMAKE_BINARY_DIR}/core_libs.txt @ONLY)
 configure_file(configuration/other_libs.in ${CMAKE_BINARY_DIR}/other_libs.txt @ONLY)
 configure_file(configuration/core_libs-nogui.in ${CMAKE_BINARY_DIR}/core_libs-nogui.txt @ONLY)
-install(FILES ${CMAKE_BINARY_DIR}/core_libs.txt ${CMAKE_BINARY_DIR}/other_libs.txt ${CMAKE_BINARY_DIR}/core_libs-nogui.txt DESTINATION configuration/mars_default/)
+install(FILES ${CMAKE_BINARY_DIR}/core_libs.txt ${CMAKE_BINARY_DIR}/other_libs.txt ${CMAKE_BINARY_DIR}/core_libs-nogui.txt DESTINATION configuration/mars/)
 
 configure_file(mars_app.pc.in ${CMAKE_BINARY_DIR}/mars_app.pc @ONLY)
 install(FILES ${CMAKE_BINARY_DIR}/mars_app.pc DESTINATION lib/pkgconfig/)

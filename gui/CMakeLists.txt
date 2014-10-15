@@ -310,6 +310,6 @@ ENDIF (WIN32)
 #CONFIGURE_FILE(configuration/dialog_config.in ${CMAKE_BINARY_DIR}/dialog_config.txt @ONLY)
 #INSTALL(FILES ${CMAKE_BINARY_DIR}/dialog_config.txt DESTINATION configuration/mars-default/)
 configure_file(configuration/mars_Gui.in ${CMAKE_BINARY_DIR}/mars_Gui.yaml @ONLY)
-install(FILES ${CMAKE_BINARY_DIR}/mars_Gui.yaml DESTINATION configuration/mars_default/)
+install(FILES ${CMAKE_BINARY_DIR}/mars_Gui.yaml DESTINATION configuration/mars/)
 
 INSTALL(DIRECTORY resources DESTINATION share/mars/gui)
