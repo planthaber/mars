@@ -71,6 +71,10 @@ int main(int argc, char *argv[]) {
   mars::app::MARS *simulation = new mars::app::MARS();
   simulation->readArguments(argc, argv);
 
+  delete simulation;
+  simulation = new mars::app::MARS();
+  simulation->readArguments(argc, argv);
+
   // first setup qapp
   //QApplication *app = new QApplication(argc, argv);
   mars::app::MyApp *app=NULL;
