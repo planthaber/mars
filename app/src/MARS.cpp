@@ -115,7 +115,9 @@ namespace mars {
 
       libManager->releaseLibrary("mars_sim");
       if(marsGui) libManager->releaseLibrary("mars_gui");
-      if(control->graphics) libManager->releaseLibrary("mars_graphics");
+      if(control)
+        if(control->graphics)
+          libManager->releaseLibrary("mars_graphics");
       libManager->releaseLibrary("main_gui");
       libManager->releaseLibrary("cfg_manager");
 
