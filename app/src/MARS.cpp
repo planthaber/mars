@@ -72,7 +72,9 @@ namespace mars {
         //MARS::control->sim->exitMars();
         //Convention: print the signal type
       } else {
-        MARS::control->sim->exitMars();
+        if(MARS::control){
+            MARS::control->sim->exitMars();
+        }
         fprintf(stderr, "\n################################\n");
         fprintf(stderr, "## everything closed fine ^-^ ##\n");
         fprintf(stderr, "################################\n\n");
